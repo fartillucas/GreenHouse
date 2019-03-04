@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 
-package GreenhouseAPI;
-
+import GreenhouseAPI.Greenhouse;
 import PLCCommunication.*;
 
 /**

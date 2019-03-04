@@ -1,5 +1,3 @@
-package GreenhouseAPI;
-
 import java.util.BitSet;
 
 /*
