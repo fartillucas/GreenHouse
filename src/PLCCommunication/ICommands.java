@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package GreenhouseAPI.src.PLCCommunication;
+package PLCCommunication;
 
 /**
  * List of PLC commands

@@ -1,4 +1,4 @@
-package GreenhouseAPI.src.RS485Com;
+package RS485Com;
 
 import java.io.IOException;
 import java.io.InputStream;

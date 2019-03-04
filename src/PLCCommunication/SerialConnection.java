@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 
-package GreenhouseAPI.src.PLCCommunication;
+package PLCCommunication;
 
-import static PLCCommunication.IMessage.DIRECTION;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

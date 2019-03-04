@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 
-package GreenhouseAPI.src.GreenhouseAPI;
+package GreenhouseAPI;
 
 import PLCCommunication.*;
-import java.util.BitSet;
 
 /**
  * API tester

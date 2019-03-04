@@ -1,4 +1,4 @@
-package GreenhouseAPI.src.GreenhouseAPI;
+package GreenhouseAPI;
 
 import java.util.BitSet;
 
@@ -9,7 +9,7 @@ import java.util.BitSet;
  */
 
 /**
- * GreenhouseAPI.src.Greenhouse Java API
+ * Greenhouse Java API
  * Synchronous mode
  * @author Steffen Skov
  */
@@ -22,7 +22,7 @@ public interface IGreenhouse
     final byte HIGH = 2;
     
     /**
-     * Setpoint for temperature inside GreenhouseAPI.src.Greenhouse
+     * Setpoint for temperature inside Greenhouse
      * CMD: 1
      * @param kelvin :temperature in kelvin
      * @return true if processed
@@ -30,7 +30,7 @@ public interface IGreenhouse
     boolean SetTemperature( int kelvin);
     
     /**
-     * Setpoint for moisture inside GreenhouseAPI.src.Greenhouse
+     * Setpoint for moisture inside Greenhouse
      * CMD:2
      * @param moist
      * @return true if processed
@@ -38,7 +38,7 @@ public interface IGreenhouse
     boolean SetMoisture(int moist);
     
     /**
-     * Setpoint for red light inside GreenhouseAPI.src.Greenhouse
+     * Setpoint for red light inside Greenhouse
      * CMD:3
      * @param level in percent
      * @return true if processed
@@ -46,7 +46,7 @@ public interface IGreenhouse
     boolean SetRedLight(int level);
     
     /**
-     * Setpoint for red light inside GreenhouseAPI.src.Greenhouse
+     * Setpoint for red light inside Greenhouse
      * CMD: 4
      * @param level in percent
      * @return true if processed
@@ -82,7 +82,7 @@ public interface IGreenhouse
     
     /**
      * NOT IMPLEMENTED
-     * Read tempature inside the GreenhouseAPI.src.Greenhouse
+     * Read tempature inside the Greenhouse
      * CMD:8 
      * @return Temperature in kelvin
      */
@@ -90,21 +90,21 @@ public interface IGreenhouse
     
     /**
      * NOT IMPLEMENTED
-     * Read tempature outside the GreenhouseAPI.src.Greenhouse
+     * Read tempature outside the Greenhouse
      * CMD: 9
      * @return Temperature in kelvin
      */
     double ReadTemp2();
     
     /**
-     * Read relative moisture inside the GreenhouseAPI.src.Greenhouse
+     * Read relative moisture inside the Greenhouse
      * CMD: 10
      * @return Moisture in %
      */
     double ReadMoist();
     
     /**
-     * Read level of water in the GreenhouseAPI.src.Greenhouse
+     * Read level of water in the Greenhouse
      * CMD: 11
      * @return Level in millimeter
      */

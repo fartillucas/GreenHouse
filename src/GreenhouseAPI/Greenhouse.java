@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package GreenhouseAPI.src.GreenhouseAPI;
+package GreenhouseAPI;
 
 import PLCCommunication.*;
 import java.util.BitSet;
@@ -38,7 +38,7 @@ public class Greenhouse implements IGreenhouse, ICommands
     
          
     /**
-     * Setpoint for temperature inside GreenhouseAPI.src.Greenhouse
+     * Setpoint for temperature inside Greenhouse
      * CMD: 1
      * @param kelvin : temperature in kelvin (273 > T > 303)
      * @return true if processed
@@ -58,7 +58,7 @@ public class Greenhouse implements IGreenhouse, ICommands
     }
     
     /**
-     * Setpoint for moisture inside GreenhouseAPI.src.Greenhouse
+     * Setpoint for moisture inside Greenhouse
      * CMD:2
      * @param moist in % ( 10 > M > 90 )
      * @return true if processed
@@ -76,7 +76,7 @@ public class Greenhouse implements IGreenhouse, ICommands
     }
     
     /**
-     * Setpoint for red light inside GreenhouseAPI.src.Greenhouse
+     * Setpoint for red light inside Greenhouse
      * CMD:3
      * @param level in percent
      * @return true if processed
@@ -96,7 +96,7 @@ public class Greenhouse implements IGreenhouse, ICommands
     }
     
     /**
-     * Setpoint for red light inside GreenhouseAPI.src.Greenhouse
+     * Setpoint for red light inside Greenhouse
      * CMD: 4
      * @param level in percent
      * @return true if processed
@@ -159,7 +159,7 @@ public class Greenhouse implements IGreenhouse, ICommands
     }
     
     /**
-     * Read tempature inside the GreenhouseAPI.src.Greenhouse
+     * Read tempature inside the Greenhouse
      * CMD:8 
      * @return Temperature in kelvin
      */
@@ -182,7 +182,7 @@ public class Greenhouse implements IGreenhouse, ICommands
     }
     
     /**
-     * Read tempature outside the GreenhouseAPI.src.Greenhouse
+     * Read tempature outside the Greenhouse
      * CMD: 9
      * @return Temperature in kelvin
      */
@@ -206,7 +206,7 @@ public class Greenhouse implements IGreenhouse, ICommands
     }
     
     /**
-     * Read relative moisture inside the GreenhouseAPI.src.Greenhouse
+     * Read relative moisture inside the Greenhouse
      * CMD: 10
      * @return Moisture in %
      */
@@ -230,7 +230,7 @@ public class Greenhouse implements IGreenhouse, ICommands
     }  
     
     /**
-     * Read level of water in the GreenhouseAPI.src.Greenhouse
+     * Read level of water in the Greenhouse
      * CMD: 11
      * @return Level in millimeter [0 < level < 250]
      */

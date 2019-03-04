@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 
-package GreenhouseAPI.src.PLCCommunication;
-
-import static PLCCommunication.Message.serialNo;
+package PLCCommunication;
 
 /**
  * Protocol structure
