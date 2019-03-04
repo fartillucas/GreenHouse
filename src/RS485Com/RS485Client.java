@@ -1,10 +1,12 @@
 package RS485Com;
 
+import gnu.io.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.*;
-import gnu.io.*;
+import java.util.Enumeration;
+import java.util.TooManyListenersException;
 
 public class RS485Client {
 	public static void main(String[] args) {
