@@ -1,8 +1,12 @@
-import PLCCommunication.*;
+package main;
+
+import main.PLCCommunication.*;
+import main.PLCCommunication.ICommands;
+import main.PLCCommunication.Message;
+import main.PLCCommunication.PLCConnection;
 
 
 import java.util.BitSet;
-import java.util.EventListener;
 
 /**
  * API to communicate to the PLC
@@ -352,7 +356,7 @@ public class Greenhouse implements IGreenhouse, ICommands
         return false;
 
 
-        
+
 
 
     }

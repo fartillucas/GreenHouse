@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package PLCCommunication;
+package main.PLCCommunication;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

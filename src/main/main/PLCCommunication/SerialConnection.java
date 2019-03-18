@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package PLCCommunication;
+package main.PLCCommunication;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package RS485Com;
+package main.RS485Com;
 
 import gnu.io.*;
 

@@ -1,4 +1,7 @@
+package main;
+
 import java.util.BitSet;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.

@@ -1,3 +1,6 @@
+package main;
+
+import java.util.BitSet;
 import java.util.EventListener;
 
 /*
@@ -7,11 +10,12 @@ import java.util.EventListener;
  */
 
 /**
- * Not used
- * PLC callbacks
+ * Not used 
+ * Preparation for asynchronous approuch
  * @author Steffen Skov
  */
-public interface ICallbacks 
+public interface AlarmListener extends EventListener
 {
-    void addAlarmListener(EventListener e);    
+    void alarmRise(BitSet s);
+    
 }
