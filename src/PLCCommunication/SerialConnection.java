@@ -143,7 +143,7 @@ public class SerialConnection extends PLCConnection implements IMessage
     
     /**
      * Scan the computer for present ports
-     * @param port the choosen port
+     * @param port the chosen port
      * @return a list om ports etc.
      */
     static public String getPortList(String port)
