@@ -1,4 +1,4 @@
 package raspberry.logic.subscribers;
 
-public class emptyclass {
+public class HumiditySubscriber {
 }
