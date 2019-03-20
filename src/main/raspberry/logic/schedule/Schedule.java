@@ -1,4 +1,15 @@
 package raspberry.logic.schedule;
 
-public class Schedule {
+import raspberry.Acquaintance.ErrorCode;
+import raspberry.Acquaintance.ISchedule;
+
+import java.util.List;
+
+public class Schedule implements ISchedule {
+
+
+    @Override
+    public ErrorCode apply(List<String> data) {
+        return ErrorCode.NOTAPPLIED;
+    }
 }
