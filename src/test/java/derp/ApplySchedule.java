@@ -6,14 +6,9 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.json.JSONObject;
 import raspberry.logic.Starter;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
-
-import static java.lang.Thread.sleep;
+import static junit.framework.TestCase.assertTrue;
 
 public class ApplySchedule {
 
@@ -31,20 +26,19 @@ public class ApplySchedule {
     @Given("^the system is initialized$")
     public void theSystemIsInitialized() throws Throwable {
         Starter.start();
-
     }
 
     @When("^a valid schedule is received$")
     public void aValidScheduleIsReceived() throws Throwable {
         String JSONMessage = "{\"phonetype\":\"N95\",\"cat\":\"WP\"}";
-
-
+        ServerMock.getInstance().sendMessage("Testing",JSONMessage, 0);
     }
 
     @Then("^the schedule is saved in the system$")
     public void theScheduleIsSavedInTheSystem() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        boolean success = ServerMock.getInstance().getReplyStatus();
+
+        assertTrue(success);
     }
 
     @And("^a schedule is in use$")
