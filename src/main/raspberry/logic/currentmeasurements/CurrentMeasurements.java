@@ -2,49 +2,49 @@ package raspberry.logic.currentmeasurements;
 
 public class CurrentMeasurements {
 
-	private double internalTemperature;
-	private double externalTemperature;
-	private double humidity;
-	private double waterLevel;
+	private double temp; //internal temperature
+	private double temp2; //external temperature
+	private double moist; //humidity
+	private double level; //water level
 
 	public CurrentMeasurements(double internalTemperature, double externalTemperature, double humidity, double waterLevel) {
-		this.internalTemperature = internalTemperature;
-		this.externalTemperature = externalTemperature;
-		this.humidity = humidity;
-		this.waterLevel = waterLevel;
+		this.temp = internalTemperature;
+		this.temp2 = externalTemperature;
+		this.moist = humidity;
+		this.level = waterLevel;
 	}
 
-	public double getInternalTemperature() {
+	public double getTemp() {
 
-		return internalTemperature;
+		return temp;
 	}
 
-	public void setInternalTemperature(double internalTemperature) {
-		this.internalTemperature = internalTemperature;
+	public void setTemp(double temp) {
+		this.temp = temp;
 	}
 
-	public double getExternalTemperature() {
-		return externalTemperature;
+	public double getTemp2() {
+		return temp2;
 	}
 
-	public void setExternalTemperature(double externalTemperature) {
-		this.externalTemperature = externalTemperature;
+	public void setTemp2(double temp2) {
+		this.temp2 = temp2;
 	}
 
-	public double getHumidity() {
-		return humidity;
+	public double getMoist() {
+		return moist;
 	}
 
-	public void setHumidity(double humidity) {
-		this.humidity = humidity;
+	public void setMoist(double moist) {
+		this.moist = moist;
 	}
 
-	public double getWaterLevel() {
-		return waterLevel;
+	public double getLevel() {
+		return level;
 	}
 
-	public void setWaterLevel(double waterLevel) {
-		this.waterLevel = waterLevel;
+	public void setLevel(double level) {
+		this.level = level;
 	}
 }
 

@@ -2,10 +2,11 @@ package raspberry.communication.greenhouseconnection;
 
 import main.Greenhouse;
 import main.IGreenhouse;
+import main.PLCCommunication.Message;
 import main.PLCCommunication.PLCConnection;
 import main.PLCCommunication.UDPConnection;
 
-public class Connection {
+ public class Connection {
 
 	public PLCConnection GreenhouseConnection() {
 
