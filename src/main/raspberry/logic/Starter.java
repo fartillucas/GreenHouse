@@ -8,7 +8,6 @@ public class Starter {
     }
 
     public static void start() {
-        System.out.println("this is here");
         RaspberryAPI api = new RaspberryAPI();
     }
 }

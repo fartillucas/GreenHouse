@@ -1,12 +1,13 @@
 package raspberry.logic;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.json.JSONObject;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+
+import static java.lang.Thread.sleep;
 
 public class RaspberryAPI {
 
@@ -17,26 +18,28 @@ public class RaspberryAPI {
         //TODO convert to measurements
         //TODO send to schedule
 
-//        Socket socket = new Socket("localhost", 8081)
-
-        try (ServerSocket serverSocket = new ServerSocket(8080)){
-
-            System.out.println("here i am");
-            Socket socket = serverSocket.accept();
-
+        try(Socket socket = new Socket("localhost",8090);
             Scanner input = new Scanner(socket.getInputStream());
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        ){
 
-            String test = "";
+            String RaspMessage = "connec\n derp\n";
+            System.out.println("Rasp: "+RaspMessage);
+            writer.print(RaspMessage);
+            writer.flush();
 
-            while (input.hasNext()){
-                test+=input.nextLine();
-            }
+            String reply = "";
 
-            System.out.println(test);
+            reply+=input.nextLine();
+
+            JSONObject jsonObj = new JSONObject(reply);
+            System.out.println("Rasp: JSON"+jsonObj.toString());
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 }
