@@ -2,21 +2,21 @@ package raspberry.logic;
 
 public interface ICurrentMeasurements {
 
-	 double getTemp();
+	 Double getTemp();
 
-	 void setTemp(double temp);
+	 void setTemp(Double temp);
 
-	 double getTemp2();
+	 Double getTemp2();
 
-	 void setTemp2(double temp2);
+	 void setTemp2(Double temp2);
 
-	 double getMoist();
+	 Double getMoist();
 
-	 void setMoist(double moist);
+	 void setMoist(Double moist);
 
-	 double getLevel();
+	 Double getLevel();
 
-	 void setLevel(double level);
+	 void setLevel(Double level);
 }
 
 
