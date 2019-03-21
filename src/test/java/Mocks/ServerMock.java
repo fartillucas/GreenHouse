@@ -16,7 +16,7 @@ public class ServerMock {
 
     private List<Socket> sockets;
     private ServerSocket serverSocket;
-    private ErrorCode replyStatus;
+    private boolean replyStatus;
 
     public static ServerMock getInstance(){
         if (instance == null){
@@ -27,39 +27,54 @@ public class ServerMock {
     }
 
     private ServerMock(){
+
+        Scanner input = null;
+
         try {
             this.serverSocket = new ServerSocket(8090);
             Socket socket = serverSocket.accept();
+
             this.sockets.add(socket);
 
-
+            input = new Scanner(socket.getInputStream());
+            System.out.println("Server: "+input.nextLine());
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if  (input!=null){
+                input.close();
+            }
         }
-
     }
 
-    public void sendMessage(String message, int socketNumber){
+    public void sendMessage(String procedure, String message, int socketNumber){
 
         Socket socket = this.sockets.get(socketNumber);
+        Boolean success = false;
 
         try (Scanner input = new Scanner(socket.getInputStream());
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);){
 
-            System.out.println("Server: "+input.nextLine()+input.nextLine());
-
-
             JSONObject jsonObj = new JSONObject(message);
 
-            System.out.println("Server: JSON is "+jsonObj.toString());
+            System.out.println(procedure+"\n"+jsonObj.toString()+"\n");
 
-            writer.print(jsonObj.toString()+"\n");
+            writer.print(procedure+"\n"+jsonObj.toString()+"\n");
             writer.flush();
+
+            String status = input.nextLine();
+
+            if (status.equals("OK")){
+                success = true;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        this.replyStatus = success;
     }
 
-
+    public boolean getReplyStatus() {
+        return replyStatus;
+    }
 }
