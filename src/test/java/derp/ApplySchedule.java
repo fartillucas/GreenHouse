@@ -8,30 +8,43 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import raspberry.logic.Starter;
 
+import java.io.IOException;
+
+import static java.lang.Thread.sleep;
 import static junit.framework.TestCase.assertTrue;
 
 public class ApplySchedule {
 
     @Given("^that there is a server$")
     public void thatThereIsAServer() throws Throwable {
-        Thread starter = new Thread() {
-            @Override
-            public void run() {
-                ServerMock.getInstance();
+        Thread starter = new Thread(() -> {
+            try {
+                ServerMock.getInstance().listenForConnections();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        };
+        });
+        starter.setName("ServerMock");
         starter.start();
+
+        sleep(1000);
     }
 
     @Given("^the system is initialized$")
     public void theSystemIsInitialized() throws Throwable {
-        Starter.start();
+        Thread thread = new Thread(()->{
+            Starter.start();
+        });
+        thread.setName("Client");
+        thread.start();
+
+        sleep(1000);
     }
 
     @When("^a valid schedule is received$")
     public void aValidScheduleIsReceived() throws Throwable {
-        String JSONMessage = "{\"phonetype\":\"N95\",\"cat\":\"WP\"}";
-        ServerMock.getInstance().sendMessage("Testing",JSONMessage, 0);
+        String JSONMessage = "{\"procedure\":\"applySchedule\",\"phonetype\":\"N95\",\"cat\":\"WP\"}";
+        ServerMock.getInstance().sendMessage(JSONMessage, 0);
     }
 
     @Then("^the schedule is saved in the system$")
