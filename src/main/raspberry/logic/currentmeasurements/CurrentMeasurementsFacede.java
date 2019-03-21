@@ -3,44 +3,52 @@ package raspberry.logic.currentmeasurements;
 import raspberry.logic.ICurrentMeasurements;
 
 public class CurrentMeasurementsFacede implements ICurrentMeasurements {
+	private static CurrentMeasurementsFacede instance;
 
-	@Override
-	public double getTemp() {
-		return 0;
+	public static CurrentMeasurementsFacede getInstance() {
+		if (CurrentMeasurementsFacede.instance == null) {
+			CurrentMeasurementsFacede.instance = new CurrentMeasurementsFacede();
+		}
+		return CurrentMeasurementsFacede.instance;
 	}
 
 	@Override
-	public void setTemp(double temp) {
-
+	public Double getTemp() {
+		return null;
 	}
 
 	@Override
-	public double getTemp2() {
-		return 0;
-	}
-
-	@Override
-	public void setTemp2(double temp2) {
-
-	}
-
-	@Override
-	public double getMoist() {
-		return 0;
-	}
-
-	@Override
-	public void setMoist(double moist) {
+	public void setTemp(Double temp) {
 
 	}
 
 	@Override
-	public double getLevel() {
-		return 0;
+	public Double getTemp2() {
+		return null;
 	}
 
 	@Override
-	public void setLevel(double level) {
+	public void setTemp2(Double temp2) {
+
+	}
+
+	@Override
+	public Double getMoist() {
+		return null;
+	}
+
+	@Override
+	public void setMoist(Double moist) {
+
+	}
+
+	@Override
+	public Double getLevel() {
+		return null;
+	}
+
+	@Override
+	public void setLevel(Double level) {
 
 	}
 }
