@@ -2,10 +2,10 @@ package raspberry.logic.currentmeasurements;
 
 public class CurrentMeasurements {
 
-	private double temp; //internal temperature
-	private double temp2; //external temperature
-	private double moist; //humidity
-	private double level; //water level
+	private Double temp; //internal temperature
+	private Double temp2; //external temperature
+	private Double moist; //humidity
+	private Double level; //water level
 
 	public CurrentMeasurements(double internalTemperature, double externalTemperature, double humidity, double waterLevel) {
 		this.temp = internalTemperature;
@@ -14,10 +14,8 @@ public class CurrentMeasurements {
 		this.level = waterLevel;
 	}
 
-	public double getTemp() {
 
-		return temp;
-	}
+	public double getTemp() {return temp;}
 
 	public void setTemp(double temp) {
 		this.temp = temp;
