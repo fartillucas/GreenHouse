@@ -3,7 +3,7 @@ package raspberry.Acquaintance;
 public enum ErrorCode {
 
     OK("OK"),
-    NOTAPPLIED("can't apply"),
+    NOTAPPLIED("Can't apply"),
     UNDEFINEDPROCEDURE("Unknown procedure");
 
     private String message;

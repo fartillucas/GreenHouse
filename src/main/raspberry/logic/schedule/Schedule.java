@@ -7,6 +7,12 @@ import java.util.List;
 
 public class Schedule implements ISchedule {
 
+    public Schedule(){
+
+    }
+
+
+
 
     @Override
     public ErrorCode apply(List<String> data) {
