@@ -2,13 +2,15 @@ package raspberry.Acquaintance;
 
 public enum ErrorCode {
 
-    OK("success"),
-    NOTAPPLIED("can't apply");
+    OK("OK"),
+    NOTAPPLIED("Can't apply"),
+    UNDEFINEDPROCEDURE("Unknown procedure");
 
     private String message;
 
     ErrorCode(String message){
         this.message = message;
     }
+
 
 }
