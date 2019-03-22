@@ -2,26 +2,36 @@ package raspberry.logic;
 
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
+import raspberry.logic.schedule.Schedule;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class ProcedureInterpreter {
+
     private ScheduleInterpreter scheduleInterpreter;
 
     public ProcedureInterpreter(){
-        scheduleInterpreter = new ScheduleInterpreter();
+        this.scheduleInterpreter = new ScheduleInterpreter();
     }
 
     public ErrorCode interpret(String message) {
 
-        JSONObject jsonObj = new JSONObject(message);
+        JSONObject jsonMessage = new JSONObject(message);
 
-        String procedure = jsonObj.getString("procedure");
-        System.out.println("Client procedure: "+procedure);
-        System.out.println(jsonObj.toString());
+        String procedure = jsonMessage.getString("procedure");
 
         switch(procedure){
             case "applySchedule":
-                scheduleInterpreter.interpret(jsonObj);
-                return ErrorCode.OK;
+                List<HashMap<Integer, SetPoints>> schedule = null;
+
+                try {
+                    schedule = this.scheduleInterpreter.interpret(jsonMessage);
+                } catch (NullPointerException|ClassCastException e){
+                    return ErrorCode.WRONGFORMAT;
+                }
+
+                return Schedule.getInstance().apply(schedule);
             case "getLiveData":
                 return ErrorCode.NOTAPPLIED;
             default:
