@@ -1,4 +1,4 @@
-package raspberry.logic;
+package raspberry.Acquaintance;
 
 public interface ICurrentMeasurements {
 

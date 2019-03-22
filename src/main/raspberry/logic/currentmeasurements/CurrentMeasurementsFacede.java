@@ -1,6 +1,6 @@
 package raspberry.logic.currentmeasurements;
 
-import raspberry.logic.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurements;
 
 public class CurrentMeasurementsFacede implements ICurrentMeasurements {
 	private static CurrentMeasurementsFacede instance;
