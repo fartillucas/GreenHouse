@@ -1,18 +1,16 @@
-package derp;
+Feature: Maintaining the internal environment
 
-import Mocks.ServerMock;
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import raspberry.logic.Starter;
-import java.io.IOException;
+  Background:
+    Given an initialized system
+    And the system contains a schedule
 
-import static java.lang.Thread.sleep;
-import static junit.framework.TestCase.assertTrue;
+  Scenario:
+    When
+    Then
 
-public class MaintainInternalInvironment {
+
+
+
 
 
 	@Given("^Measurements are within acceptable parameters$")
@@ -56,5 +54,3 @@ public class MaintainInternalInvironment {
 
 		return true;
 	}
-
-}
