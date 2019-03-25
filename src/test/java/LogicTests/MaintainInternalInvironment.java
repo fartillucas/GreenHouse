@@ -1,4 +1,4 @@
-package derp;
+package LogicTests;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -10,6 +10,7 @@ public class MaintainInternalInvironment {
 	public void measurementsAreAcceptable() {
 
 	}
+
 	@Given("^The internal temperature is too high$")
 	public void temperatureIsToHigh() {
 	}
