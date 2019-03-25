@@ -22,9 +22,9 @@ public class ScheduleInterpreter {
             HashMap<Integer, SetPoints> dayMap = new HashMap<>();
 
             for (int j = 1; j <= 12; j++) {
-                String blcckString = day.get("block"+j).toString();
+                String blockString = day.get("block"+j).toString();
 
-                JSONObject block = new JSONObject(blcckString);
+                JSONObject block = new JSONObject(blockString);
 
                 double temperature = block.getDouble("temperature");
                 double humidity = block.getDouble("humidity");

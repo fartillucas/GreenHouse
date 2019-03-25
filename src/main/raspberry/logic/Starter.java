@@ -2,7 +2,6 @@ package raspberry.logic;
 
 public class Starter {
 
-
     public static void main(String[] args) {
         Starter.start();
     }

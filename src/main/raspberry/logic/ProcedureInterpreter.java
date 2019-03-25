@@ -27,11 +27,11 @@ public class ProcedureInterpreter {
 
                 try {
                     schedule = this.scheduleInterpreter.interpret(jsonMessage);
-                } catch (NullPointerException|ClassCastException e){
+                    return Schedule.getInstance().apply(schedule);
+                } catch (Exception e){
                     return ErrorCode.WRONGFORMAT;
                 }
 
-                return Schedule.getInstance().apply(schedule);
             case "getLiveData":
                 return ErrorCode.NOTAPPLIED;
             default:

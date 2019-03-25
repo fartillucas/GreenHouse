@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ServerMock {
@@ -17,7 +14,8 @@ public class ServerMock {
     private static ServerMock instance;
 
     private ServerSocket serverSocket;
-    private boolean replyStatus;
+    private boolean success;
+    private ErrorCode replyStatus;
 
     public static ServerMock getInstance() throws IOException {
         if (instance == null){
@@ -43,21 +41,25 @@ public class ServerMock {
             writer.flush();
 
             String response = input.nextLine();
+            System.out.println("xrtcfyvgubhinjonihbugvyftdcrxsrdctfVYGBUHN");
             System.out.println("Server response: "+response);
             System.out.println(ErrorCode.OK.toString());
 
+            this.replyStatus = ErrorCode.fromString(response);
+            System.out.println(this.getReplyStatus());
+
             if (response.equals(ErrorCode.OK.toString())){
-                this.replyStatus=true;
+                this.success =true;
             } else {
-                this.replyStatus = false;
+                this.success = false;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean getReplyStatus() {
-        return replyStatus;
+    public boolean getSuccess() {
+        return success;
     }
 
     public void listenForConnections(){
@@ -72,5 +74,9 @@ public class ServerMock {
                 e.printStackTrace();
             }
         }
+    }
+
+    public ErrorCode getReplyStatus() {
+        return replyStatus;
     }
 }
