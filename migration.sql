@@ -4,7 +4,6 @@ CREATE DATABASE greenhousedatabase;
 
 USE greenhousedatabase;
 
-
 create table user(
 	user_id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
 	username VARCHAR(50) NOT NULL UNIQUE,

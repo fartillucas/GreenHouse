@@ -6,6 +6,7 @@ public class CurrentMeasurementsFacede implements ICurrentMeasurements {
 	private static CurrentMeasurementsFacede instance;
 
 	public static CurrentMeasurementsFacede getInstance() {
+		//TODO singleton vs interface
 		if (CurrentMeasurementsFacede.instance == null) {
 			CurrentMeasurementsFacede.instance = new CurrentMeasurementsFacede();
 		}
