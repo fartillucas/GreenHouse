@@ -1,18 +1,21 @@
 package raspberry.communication.greenhouseconnection;
 
+import Mocks.Mocks.GreenhouseMock;
 import main.Greenhouse;
+import main.IGreenhouse;
 import raspberry.communication.IGreenhouseCommunicationFacade;
 
 import java.util.BitSet;
 
-
 public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacade {
 
-	Greenhouse greenhouseAPI = new Greenhouse();
+	//Greenhouse greenhouseAPI = new Greenhouse();
+	IGreenhouse greenhouseAPI = GreenhouseMock.getInstanance();
 
 	@Override
 	public GreenhouseConnectionFacade getGreenhouseConnection() {
 
+		GreenhouseMock.getInstanance();
 		return null;
 	}
 	@Override
@@ -36,8 +39,8 @@ public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacad
 	}
 
 	@Override
-	public boolean addWater() {
-		return false;
+	public boolean addWater(int sec) {
+		return this.greenhouseAPI.AddWater(sec);
 	}
 
 	@Override
@@ -56,8 +59,8 @@ public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacad
 	}
 
 	@Override
-	public boolean setFanSpeed() {
-		return false;
+	public boolean setFanSpeed(int speed) {
+		return this.greenhouseAPI.SetFanSpeed(speed);
 	}
 
 	@Override

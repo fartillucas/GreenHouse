@@ -19,7 +19,6 @@ public class Schedule implements ISchedule {
 
     private List<HashMap<Integer, SetPoints>> schedule;
     private LocalDate appliedDate;
-    private LocalDate dateNow;
 
 
     public static ISchedule getInstance() {
@@ -54,15 +53,13 @@ public class Schedule implements ISchedule {
     }
 
     private SetPoints getSetpoint(){
-        getMeasurementDate();
+        LocalDate dateNow = getMeasurementDate();
         LocalTime currentTimeOfDay = getTimeOfDay();
 
         int minutes = currentTimeOfDay.getHour()*60+currentTimeOfDay.getMinute();
         int block = minutes/120;
 
-
         long index = DAYS.between(appliedDate, dateNow)%schedule.size();
-
 
         HashMap<Integer, SetPoints> day = schedule.get((int) index);
 

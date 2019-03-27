@@ -1,4 +1,4 @@
-package Mocks;
+package Mocks.Mocks;
 
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;

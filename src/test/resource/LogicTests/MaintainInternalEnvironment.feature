@@ -1,6 +1,7 @@
 Feature: Maintaining the internal environment
 
   Background:
+	  Given there is a server present
     Given an initialized system
     And the system contains a schedule
 
@@ -17,10 +18,6 @@ Feature: Maintaining the internal environment
 		When The internal temperature is too high
 		And  and external temperature is above threshold
 		Then do nothing
-
-	Scenario: The temperature is too low
-		When the internal temperature is too low
-		Then increase heat
 
 	Scenario: The water level is too high
 		When all the plants are submerged

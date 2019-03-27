@@ -1,6 +1,6 @@
 package LogicTests;
 
-import Mocks.ServerMock;
+import Mocks.Mocks.ServerMock;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

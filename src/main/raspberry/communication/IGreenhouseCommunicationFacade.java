@@ -15,11 +15,11 @@ public interface IGreenhouseCommunicationFacade {
 	double readMoist();
 	double readWaterLevel();
 	BitSet readErrors();
-	boolean addWater();
+	boolean addWater(int sec);
 	boolean setRedLight();
 	boolean setBlueLight();
 	double setTemperature();
-	boolean setFanSpeed();
+	boolean setFanSpeed(int speed);
 
 
 }
