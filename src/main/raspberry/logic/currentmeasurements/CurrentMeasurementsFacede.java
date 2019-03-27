@@ -4,6 +4,7 @@ import raspberry.Acquaintance.ICurrentMeasurements;
 
 public class CurrentMeasurementsFacede implements ICurrentMeasurements {
 	private static CurrentMeasurementsFacede instance;
+	private CurrentMeasurements currentMeasurements;
 
 	public static CurrentMeasurementsFacede getInstance() {
 		//TODO singleton vs interface
@@ -13,9 +14,13 @@ public class CurrentMeasurementsFacede implements ICurrentMeasurements {
 		return CurrentMeasurementsFacede.instance;
 	}
 
+	private CurrentMeasurementsFacede() {
+		this.currentMeasurements = new CurrentMeasurements();
+	}
+
 	@Override
 	public Double getTemp() {
-		return null;
+		return currentMeasurements.getTemp();
 	}
 
 	@Override
@@ -25,7 +30,7 @@ public class CurrentMeasurementsFacede implements ICurrentMeasurements {
 
 	@Override
 	public Double getTemp2() {
-		return null;
+		return currentMeasurements.getTemp2();
 	}
 
 	@Override
@@ -35,7 +40,7 @@ public class CurrentMeasurementsFacede implements ICurrentMeasurements {
 
 	@Override
 	public Double getMoist() {
-		return null;
+		return currentMeasurements.getMoist();
 	}
 
 	@Override
@@ -45,7 +50,7 @@ public class CurrentMeasurementsFacede implements ICurrentMeasurements {
 
 	@Override
 	public Double getLevel() {
-		return null;
+		return currentMeasurements.getLevel();
 	}
 
 	@Override

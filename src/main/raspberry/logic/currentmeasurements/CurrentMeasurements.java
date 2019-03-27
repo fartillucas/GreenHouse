@@ -14,6 +14,8 @@ public class CurrentMeasurements {
 		this.level = waterLevel;
 	}
 
+	public CurrentMeasurements() {
+	}
 
 	public double getTemp() {return temp;}
 

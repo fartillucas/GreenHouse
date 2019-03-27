@@ -5,7 +5,9 @@ public enum ErrorCode {
     OK("OK","OK"),
     NOTAPPLIED("NOTAPPLIED","Can't apply"),
     WRONGFORMAT("WRONGFORMAT","JSON file content doesn't match procedure type"),
+    INVALIDIPADDRESS("INVALIDIADDRESS", "The IPAddress or port is out of bounce"),
     UNDEFINEDPROCEDURE("UNDEFINEDPROCEDURE","Unknown procedure");
+
 
     private String message;
     private String name;

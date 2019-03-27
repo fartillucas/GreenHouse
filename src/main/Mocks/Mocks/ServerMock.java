@@ -16,7 +16,7 @@ public class ServerMock {
     private ServerSocket serverSocket;
     private boolean success;
     private ErrorCode replyStatus;
-    private String lastProceudre;
+    private String lastProceudre = "";
     private Socket liveDataScoket;
 
     public static ServerMock getInstance() throws IOException {
@@ -57,6 +57,7 @@ public class ServerMock {
                 this.success = false;
             }
         } catch (IOException e) {
+            replyStatus.equals(ErrorCode.NOTAPPLIED);
             e.printStackTrace();
         }
     }
