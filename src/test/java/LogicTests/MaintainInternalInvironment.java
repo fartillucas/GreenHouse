@@ -1,42 +1,23 @@
 package LogicTests;
 
 
-import Mocks.ServerMock;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import raspberry.logic.Starter;
-
-import static java.lang.Thread.sleep;
-import static junit.framework.TestCase.assertTrue;
 
 public class MaintainInternalInvironment {
-	private Thread currentSystem = null;
-	private String doNothing = "doing nothing";
-
-
 	@Given("^an initialized system$")
 	public void anInitializedSystem() throws Throwable {
-		this.currentSystem = new Thread(()->{
-			Starter.start();
-		});
-		this.currentSystem.setName("Client");
-		this.currentSystem.start();
-
-		sleep(1000);
+		// Write code here that turns the phrase above into concrete actions
+		throw new PendingException();
 	}
 
 	@And("^the system contains a schedule$")
 	public void theSystemContainsASchedule() throws Throwable {
-		try{
-			boolean success = ServerMock.getInstance().getSuccess();
-
-			assertTrue(success);
-		} finally {
-			this.currentSystem.interrupt();
-		}
+		// Write code here that turns the phrase above into concrete actions
+		throw new PendingException();
 	}
 
 	@Given("^Measurements are within acceptable parameters$")
@@ -47,7 +28,8 @@ public class MaintainInternalInvironment {
 
 	@Then("^do nothing$")
 	public void doNothing() throws Throwable {
-		ServerMock.getInstance().sendMessage(this.doNothing, 0);
+		// Write code here that turns the phrase above into concrete actions
+		throw new PendingException();
 	}
 
 	@When("^The internal temperature is too high$")
@@ -64,7 +46,8 @@ public class MaintainInternalInvironment {
 
 	@Then("^start fan$")
 	public void startFan() throws Throwable {
-
+		// Write code here that turns the phrase above into concrete actions
+		throw new PendingException();
 	}
 
 	@And("^and external temperature is above threshold$")
