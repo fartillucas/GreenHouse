@@ -29,8 +29,7 @@ public class TestGreenhouse
         //while (true)
         //   outdoorTemperature = api.ReadTemp2();
         
-       
-        
+
                 
         //System.exit(3);
     }
