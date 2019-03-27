@@ -6,13 +6,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.json.JSONObject;
-import raspberry.Acquaintance.ErrorCode;
 import raspberry.logic.Starter;
 
 import java.io.IOException;
 
 import static java.lang.Thread.sleep;
-import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 
@@ -20,7 +18,6 @@ public class GetLiveData {
 
     private Thread currentSystem = null;
     private String JSONmessage;
-
 
     @Given("^the server exists$")
     public void theServerExists() throws Throwable {
@@ -89,30 +86,21 @@ public class GetLiveData {
     }
 
     @Given("^a invalid subscription request$")
-    public void aInvalidSubscriptionRequest() throws Throwable {
-        JSONmessage = "{\"procedure\": \"getLiveData\"," +
-                "\"IPAdress\":\"127.0.8588.1\"," +
-                "\"port\":\"809a\"}";
+    public void aInvalidSubscriptionRequest() {
+
     }
 
     @Then("^the new subscription is not subscribed$")
-    public void theNewSubscriptionIsNotSubscribed() throws Throwable {
-        boolean connected = ServerMock.getInstance().isDataListenAlive();
+    public void theNewSubscriptionIsNotSubscribed() {
 
-        assertFalse(connected);
     }
 
     @And("^error is sent$")
-    public void errorIsSent() throws Throwable {
-        ErrorCode error = ServerMock.getInstance().getReplyStatus();
+    public void errorIsSent() {
 
-        assertFalse(error.equals(ErrorCode.OK));
     }
 
     @And("^greenhouse doesn't send internal environment to new subscriber every cycle$")
-    public void greenhouseDoesnTSendInternalEnvironmentToNewSubscriberEveryCycle() throws Throwable {
-
-       
-
+    public void greenhouseDoesnTSendInternalEnvironmentToNewSubscriberEveryCycle() {
     }
 }
