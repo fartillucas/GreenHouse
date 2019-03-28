@@ -52,7 +52,7 @@ public class GetLiveData {
     public void aValidSubscriptionRequest() throws Throwable{
          JSONmessage = "{\"procedure\": \"getLiveData\"," +
                 "\"IPAdress\":\"127.0.0.1\"," +
-                "\"port\":\"8090\"}";
+                "\"port\":8090}";
 
     }
 
@@ -109,10 +109,4 @@ public class GetLiveData {
         assertFalse(error.equals(ErrorCode.OK));
     }
 
-    @And("^greenhouse doesn't send internal environment to new subscriber every cycle$")
-    public void greenhouseDoesnTSendInternalEnvironmentToNewSubscriberEveryCycle() throws Throwable {
-
-       
-
-    }
 }

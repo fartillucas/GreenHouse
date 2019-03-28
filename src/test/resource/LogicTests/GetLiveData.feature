@@ -16,4 +16,3 @@ Feature: Creating a subscriber to send internal environment measurements.
     When server side sends subscription request
     Then the new subscription is not subscribed
     And error is sent
-    And greenhouse doesn't send internal environment to new subscriber every cycle

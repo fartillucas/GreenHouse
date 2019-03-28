@@ -19,6 +19,7 @@ public class RaspberryAPI {
         //TODO send to schedule
         try {
             this.serverSocket = new ServerSocket(8091);
+            System.out.println("rasp serverscoket initialized");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,6 +34,7 @@ public class RaspberryAPI {
 
     private void acceptIncomingTraffic(){
         while (true){
+            System.out.println("rasp serversocket" + serverSocket);
             try (Socket socket = serverSocket.accept();
                  Scanner input = new Scanner(socket.getInputStream());
                  PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
