@@ -13,7 +13,6 @@ public class LiveDataGetterFacade {
         this.liveDataGetter = new LiveDataGetter();
         this.liveDataGetter.setName("LiveDataGetter");
         this.liveDataGetter.start();
-        System.out.println("\nRaspberry: datagetter is started");
     }
 
     public static LiveDataGetterFacade getInstance(){

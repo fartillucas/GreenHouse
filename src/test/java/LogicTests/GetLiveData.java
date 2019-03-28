@@ -39,8 +39,6 @@ public class GetLiveData {
             }
         }
 
-
-
         sleep(1000);
     }
 

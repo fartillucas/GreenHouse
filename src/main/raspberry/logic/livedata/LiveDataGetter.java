@@ -38,7 +38,6 @@ public class LiveDataGetter extends Thread implements ILiveDataGetter {
             scan = new Scanner(socket.getInputStream());
 
             writer.print("LiveDate ready\n");
-            System.out.println("Datagetter: Connection set");
         } catch (IOException e) {
             return ErrorCode.INVALIDIPADDRESS;
         }
@@ -79,10 +78,7 @@ public class LiveDataGetter extends Thread implements ILiveDataGetter {
                     measurements.put("water level", JSONObject.NULL);
                 }
 
-
-
                 String message = measurements.toString();
-                System.out.println("\nDatagetter: "+message);
 
                 writer.print(message+"\n");
                 writer.flush();
@@ -100,7 +96,5 @@ public class LiveDataGetter extends Thread implements ILiveDataGetter {
                 e.printStackTrace();
             }
         }
-
-
     }
 }

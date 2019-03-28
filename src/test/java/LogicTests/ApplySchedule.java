@@ -108,9 +108,6 @@ public class ApplySchedule {
 
         boolean error;
 
-        System.out.println(ServerMock.getInstance().getSuccess());
-        System.out.println(ServerMock.getInstance().getReplyStatus());
-
         if (formatError || appliedError || procedureError){
             error = true;
         } else {

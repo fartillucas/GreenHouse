@@ -41,7 +41,6 @@ public class RaspberryAPI {
                  PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             ) {
                 String message = input.nextLine();
-                System.out.println("\nRaspberry: message from server is "+message);
 
                 ErrorCode errorCode = this.interpreter.interpret(message);
 

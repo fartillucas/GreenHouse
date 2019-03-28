@@ -29,8 +29,8 @@ public class ScheduleInterpreter {
                 double temperature = block.getDouble("temperature");
                 double humidity = block.getDouble("humidity");
                 double waterlevel = block.getDouble("waterlevel");
-                double blueLight = block.getDouble("light_blue");
-                double redLight = block.getDouble("light_red");
+                int blueLight = block.getInt("light_blue");
+                int redLight = block.getInt("light_red");
 
                 SetPoints setPoints = new SetPoints(temperature, humidity, waterlevel, blueLight, redLight);
 
