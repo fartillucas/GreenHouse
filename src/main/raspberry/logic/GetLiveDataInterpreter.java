@@ -10,7 +10,7 @@ public class GetLiveDataInterpreter {
         String ip = jsonLiveData.getString("IPAddress");
         int port = jsonLiveData.getInt("port");
 
-        String[] iparray = ip.split(".");
+        String[] iparray = ip.split("[.]");
 
         if (iparray.length != 4) {
             throw new InvalidIPAddressException();

@@ -10,6 +10,7 @@ import raspberry.Acquaintance.ErrorCode;
 import raspberry.logic.Starter;
 
 import java.io.IOException;
+import java.net.BindException;
 
 import static java.lang.Thread.sleep;
 import static junit.framework.TestCase.assertFalse;
@@ -20,19 +21,25 @@ public class GetLiveData {
 
     private Thread currentSystem = null;
     private String JSONmessage;
-
+    private ServerMock serverMock;
+    private int port;
 
     @Given("^the server exists$")
     public void theServerExists() throws Throwable {
-        Thread starter = new Thread(() -> {
-            try {
-                ServerMock.getInstance().listenForConnections();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+        port = 8090;
+
+        this.serverMock = null;
+
+        while (this.serverMock == null) {
+            try{
+                this.serverMock = new ServerMock(port);
+            } catch (BindException e) {
+                port++;
             }
-        });
-        starter.setName("ServerMock");
-        starter.start();
+        }
+
+
 
         sleep(1000);
     }
@@ -43,6 +50,7 @@ public class GetLiveData {
             Starter.start();
         });
         this.currentSystem.setName("Client");
+        this.currentSystem.setDaemon(true);
         this.currentSystem.start();
 
         sleep(1000);
@@ -50,27 +58,28 @@ public class GetLiveData {
 
     @Given("^a valid subscription request$")
     public void aValidSubscriptionRequest() throws Throwable{
-         JSONmessage = "{\"procedure\": \"getLiveData\"," +
-                "\"IPAdress\":\"127.0.0.1\"," +
-                "\"port\":8090}";
+        JSONmessage = "{\"procedure\": \"getLiveData\"," +
+                "\"IPAddress\":\"127.0.0.1\"," +
+                "\"port\":"+this.port+"}";
 
     }
 
     @When("^server side sends subscription request$")
     public void serverSideSendsSubscriptionRequest() throws Throwable {
-        ServerMock.getInstance().sendMessage(JSONmessage,0);
+        serverMock.sendMessage(JSONmessage,0);
     }
 
     @Then("^the subscriber is subscribed$")
     public void theSubscriberIsSubscribed() throws Throwable {
-        boolean connected = ServerMock.getInstance().isDataListenAlive();
+        sleep(2000);
+        boolean connected = serverMock.isDataListenAlive();
 
         assertTrue(connected);
     }
 
     @And("^greenhouse sends internal environment measurements every cycle$")
     public void greenhouseSendsInternalEnvironmentMeasurementsEveryCycle() throws Throwable {
-        JSONObject measurements = ServerMock.getInstance().readLiveData();
+        JSONObject measurements = serverMock.readLiveData();
         if(!measurements.isNull("InternalTemp")) {
             measurements.getDouble("InternalTemp");
         }
@@ -97,14 +106,14 @@ public class GetLiveData {
 
     @Then("^the new subscription is not subscribed$")
     public void theNewSubscriptionIsNotSubscribed() throws Throwable {
-        boolean connected = ServerMock.getInstance().isDataListenAlive();
+        boolean connected = serverMock.isDataListenAlive();
 
         assertFalse(connected);
     }
 
     @And("^error is sent$")
     public void errorIsSent() throws Throwable {
-        ErrorCode error = ServerMock.getInstance().getReplyStatus();
+        ErrorCode error = serverMock.getReplyStatus();
 
         assertFalse(error.equals(ErrorCode.OK));
     }

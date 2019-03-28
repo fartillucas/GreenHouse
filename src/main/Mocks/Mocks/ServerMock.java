@@ -16,20 +16,51 @@ public class ServerMock {
     private ServerSocket serverSocket;
     private boolean success;
     private ErrorCode replyStatus;
-    private String lastProceudre = "";
+    private String lastProcedure = "";
     private Socket liveDataScoket;
+    private PrintWriter liveWriter;
+    private Scanner liveScanner;
 
     public static ServerMock getInstance() throws IOException {
         if (instance == null){
             instance = new ServerMock();
         }
-        System.out.println("Server: getting instance");
         return instance;
     }
 
     private ServerMock() throws IOException {
         this.serverSocket = new ServerSocket(8090);
     }
+
+    public ServerMock(int port) throws IOException {
+        this.serverSocket = new ServerSocket(port);
+
+        Thread starter = new Thread(() -> {
+                while (true) {
+                    System.out.println("\nServer is listening");
+                    try {
+                        Socket socket = serverSocket.accept();
+                        Scanner input = new Scanner(socket.getInputStream());
+                        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+
+                        System.out.println("\nServer: Accepting connection " + input.nextLine());
+                        if(this.lastProcedure.equals("getLiveData")){
+                            liveDataScoket = socket;
+                            liveScanner = input;
+                            liveWriter = writer;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+        });
+        starter.setName("ServerMock");
+        starter.setDaemon(true);
+        starter.start();
+    }
+
+
 
     public void sendMessage(String message, int socketNumber){
 
@@ -38,18 +69,16 @@ public class ServerMock {
              PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ){
             JSONObject jsonMessage = new JSONObject(message);
-
+            lastProcedure = jsonMessage.getString("procedure");
+            System.out.println("\nServer: last procedure "+ lastProcedure);
             writer.print(jsonMessage.toString()+"\n");
             writer.flush();
 
             String response = input.nextLine();
-            System.out.println("Server response: "+response);
-            System.out.println(ErrorCode.OK.toString());
-
-            lastProceudre = jsonMessage.getString("procedure");
 
             this.replyStatus = ErrorCode.fromString(response);
-            System.out.println(this.getReplyStatus());
+
+
 
             if (response.equals(ErrorCode.OK.toString())){
                 this.success =true;
@@ -67,15 +96,17 @@ public class ServerMock {
     }
 
     public void listenForConnections(){
-        System.out.println("Server is listening");
         while (true) {
+            System.out.println("\nServer is listening");
             try (Socket socket = serverSocket.accept();
-                 Scanner input = new Scanner(socket.getInputStream());
-                 PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+//                 Scanner input = new Scanner(socket.getInputStream());
+//                 PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             ) {
-                System.out.println("Server: " + input.nextLine());
-                if(this.lastProceudre.equals("getLiveData")){
+                System.out.println("\nServer: Accepting connection ");// + input.nextLine());
+                if(this.lastProcedure.equals("getLiveData")){
                     liveDataScoket = socket;
+//                    liveScanner = input;
+//                    liveWriter = writer;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -85,7 +116,9 @@ public class ServerMock {
 
     public JSONObject readLiveData() throws IOException {
         Scanner scan = new Scanner(liveDataScoket.getInputStream());
-        JSONObject measurement = new JSONObject(scan.nextLine());
+        String message = scan.nextLine();
+        System.out.println(message);
+        JSONObject measurement = new JSONObject(message);
         return measurement;
     }
 
@@ -93,10 +126,16 @@ public class ServerMock {
         return replyStatus;
     }
 
-    public boolean isDataListenAlive() throws IOException {
+    public boolean isDataListenAlive() {
+
         if (this.liveDataScoket != null) {
-            PrintWriter writer = new PrintWriter(liveDataScoket.getOutputStream());
-            writer.print("IsUAlive?");
+            try {
+                PrintWriter writer  = new PrintWriter(liveDataScoket.getOutputStream());
+                writer.print("IsUAlive?");
+            } catch (IOException e) {
+                return false;
+            }
+            return true;
         }
 
         return false;
