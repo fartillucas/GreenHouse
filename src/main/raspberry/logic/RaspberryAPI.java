@@ -1,6 +1,7 @@
 package raspberry.logic;
 
 import raspberry.Acquaintance.ErrorCode;
+import raspberry.logic.Interpreters.ProcedureInterpreter;
 
 import java.io.IOException;
 import java.io.PrintWriter;

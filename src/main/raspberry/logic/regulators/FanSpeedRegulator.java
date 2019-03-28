@@ -1,14 +1,14 @@
 package raspberry.logic.regulators;
 
 import raspberry.communication.CommunicationFacade;
-import raspberry.logic.ScheduleInterpreter;
 import raspberry.logic.SetPoints;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacede;
+import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
 
 public class FanSpeedRegulator implements Runnable{
+
 	public void fanSpeedRegulator(int speed){
 		CommunicationFacade.getInstance().getGreenhouseConnection().setFanSpeed(speed);
 	}
@@ -18,7 +18,7 @@ public class FanSpeedRegulator implements Runnable{
 		while (true){
 			try {
 				SetPoints setpoints = Schedule.getInstance().getSetpoints();
-				Double currentTemp = CurrentMeasurementsFacede.getInstance().getTemp();
+				Double currentTemp = CurrentMeasurementsFacade.getInstance().getTemp();
 				double scheduleTemp = setpoints.getTemperature();
 				Double tempDifference = currentTemp-scheduleTemp;
 				if (tempDifference <= 0)

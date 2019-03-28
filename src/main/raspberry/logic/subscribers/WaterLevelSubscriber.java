@@ -1,7 +1,7 @@
 package raspberry.logic.subscribers;
 
 import raspberry.communication.CommunicationFacade;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacede;
+import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 
 import static java.lang.Thread.sleep;
 
@@ -12,7 +12,7 @@ public class WaterLevelSubscriber implements Runnable{
 	@Override
 	public void run() {
 		Double level= CommunicationFacade.getInstance().getGreenhouseConnection().readWaterLevel();
-		CurrentMeasurementsFacede.getInstance().setLevel(level);
+		CurrentMeasurementsFacade.getInstance().setLevel(level);
 		try {
 			sleep(1000);
 		} catch (InterruptedException e) {

@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
 import raspberry.Acquaintance.ILiveDataGetter;
 import raspberry.logic.IPAddressPort;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacede;
+import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,10 +50,10 @@ public class LiveDataGetter extends Thread implements ILiveDataGetter {
     public void run() {
         while (true) {
             if (itsAGoTime) {
-                Double internalTemp = CurrentMeasurementsFacede.getInstance().getTemp();
-                Double externalTemp = CurrentMeasurementsFacede.getInstance().getTemp2();
-                Double humidity = CurrentMeasurementsFacede.getInstance().getMoist();
-                Double waterLevel = CurrentMeasurementsFacede.getInstance().getLevel();
+                Double internalTemp = CurrentMeasurementsFacade.getInstance().getTemp();
+                Double externalTemp = CurrentMeasurementsFacade.getInstance().getTemp2();
+                Double humidity = CurrentMeasurementsFacade.getInstance().getMoist();
+                Double waterLevel = CurrentMeasurementsFacade.getInstance().getLevel();
 
                 JSONObject measurements = new JSONObject("{}");
 

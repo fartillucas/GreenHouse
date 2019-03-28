@@ -2,19 +2,21 @@ package raspberry.logic.currentmeasurements;
 
 import raspberry.Acquaintance.ICurrentMeasurements;
 
-public class CurrentMeasurementsFacede implements ICurrentMeasurements {
-	private static CurrentMeasurementsFacede instance;
+public class CurrentMeasurementsFacade implements ICurrentMeasurements {
+
+	private static CurrentMeasurementsFacade instance;
+
 	private CurrentMeasurements currentMeasurements;
 
-	public static CurrentMeasurementsFacede getInstance() {
+	public static CurrentMeasurementsFacade getInstance() {
 		//TODO singleton vs interface
-		if (CurrentMeasurementsFacede.instance == null) {
-			CurrentMeasurementsFacede.instance = new CurrentMeasurementsFacede();
+		if (CurrentMeasurementsFacade.instance == null) {
+			CurrentMeasurementsFacade.instance = new CurrentMeasurementsFacade();
 		}
-		return CurrentMeasurementsFacede.instance;
+		return CurrentMeasurementsFacade.instance;
 	}
 
-	private CurrentMeasurementsFacede() {
+	private CurrentMeasurementsFacade() {
 		this.currentMeasurements = new CurrentMeasurements();
 	}
 

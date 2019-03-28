@@ -1,6 +1,7 @@
-package raspberry.logic;
+package raspberry.logic.Interpreters;
 
 import org.json.JSONObject;
+import raspberry.logic.SetPoints;
 
 import java.util.ArrayList;
 import java.util.HashMap;

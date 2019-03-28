@@ -1,10 +1,11 @@
 package raspberry.communication;
 
+import raspberry.Acquaintance.ICommunicationsFacade;
 import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
 
 import java.util.BitSet;
 
-public class CommunicationFacade {
+public class CommunicationFacade implements ICommunicationsFacade {
 	private static CommunicationFacade instance;
 	private GreenhouseConnectionFacade greenhouse;
 
@@ -16,7 +17,7 @@ public class CommunicationFacade {
 		return CommunicationFacade.instance;
 	}
 
-	public CommunicationFacade() {
+	private CommunicationFacade() {
 		this.greenhouse = new GreenhouseConnectionFacade();
 	}
 

@@ -2,7 +2,7 @@ package raspberry.logic.regulators;
 
 import raspberry.communication.CommunicationFacade;
 import raspberry.logic.SetPoints;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacede;
+import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
@@ -17,7 +17,7 @@ public class WaterLevelRegulator implements Runnable{
 		while (true){
 			try {
 				SetPoints setPoints = Schedule.getInstance().getSetpoints();
-				Double currentWaterLevel = CurrentMeasurementsFacede.getInstance().getLevel();
+				Double currentWaterLevel = CurrentMeasurementsFacade.getInstance().getLevel();
 				double scheduleWaterLevel = setPoints.getWaterlevel();
 				if (currentWaterLevel<scheduleWaterLevel)
 					waterLevelRegulator(5);

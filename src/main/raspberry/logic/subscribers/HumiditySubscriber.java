@@ -1,7 +1,7 @@
 package raspberry.logic.subscribers;
 
 import raspberry.communication.CommunicationFacade;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacede;
+import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 
 import static java.lang.Thread.sleep;
 
@@ -15,7 +15,7 @@ public class HumiditySubscriber implements Runnable{
 	public void run() {
 		try {
 			Double moist= CommunicationFacade.getInstance().getGreenhouseConnection().readMoist();
-			CurrentMeasurementsFacede.getInstance().setMoist(moist);
+			CurrentMeasurementsFacade.getInstance().setMoist(moist);
 
 			sleep(1000);
 		} catch (InterruptedException e) {

@@ -11,6 +11,7 @@ import java.util.List;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Schedule implements ISchedule {
+    //TODO doesn't yet need a facade??
 
     private static Schedule instance;
     private double temperature;

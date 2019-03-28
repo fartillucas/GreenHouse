@@ -4,10 +4,10 @@ import raspberry.Acquaintance.ErrorCode;
 import raspberry.logic.IPAddressPort;
 
 public class LiveDataGetterFacade {
+
     private static LiveDataGetterFacade instance;
+
     private LiveDataGetter liveDataGetter;
-
-
 
     private LiveDataGetterFacade() {
         this.liveDataGetter = new LiveDataGetter();

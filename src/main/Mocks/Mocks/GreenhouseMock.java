@@ -8,23 +8,28 @@ public class GreenhouseMock implements IGreenhouse {
 
 	private static GreenhouseMock instance;
 
-	public static GreenhouseMock getInstanance(){
-		if (GreenhouseMock.instance==null)	{
-			GreenhouseMock.instance = new GreenhouseMock();
-		}
-		return GreenhouseMock.instance;
-	}
-
-
 	private Double humidity;
 	private Double waterLevel;
 	private Double internalTemperature;
 	private int fanSpeed;
 	private int addWaterSecs;
 
+	public static GreenhouseMock getInstanance(){
+		if (GreenhouseMock.instance==null)	{
+			GreenhouseMock.instance = new GreenhouseMock();
+		}
+
+		return GreenhouseMock.instance;
+	}
+
+	private GreenhouseMock(){
+
+	}
+
 	public void setInternalTemperature(Double internalTemperature) {
 		this.internalTemperature = internalTemperature;
 	}
+
 	public void setHumidity(Double humidity) {
 		this.humidity = humidity;
 	}

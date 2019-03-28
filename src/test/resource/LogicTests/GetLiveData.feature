@@ -4,7 +4,6 @@ Feature: Creating a subscriber to send internal environment measurements.
     Given the server exists
     And the system is started
 
-
   Scenario: Subscription is Successful
     Given a valid subscription request
     When server side sends subscription request

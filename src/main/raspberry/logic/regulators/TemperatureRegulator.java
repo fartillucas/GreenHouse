@@ -2,7 +2,7 @@ package raspberry.logic.regulators;
 
 import raspberry.communication.CommunicationFacade;
 import raspberry.logic.SetPoints;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacede;
+import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
@@ -16,7 +16,7 @@ public class TemperatureRegulator implements Runnable {
 		try {
 			SetPoints setPoints = Schedule.getInstance().getSetpoints();
 			double scheduleTemp = setPoints.getTemperature();
-			Double currentTemp = CurrentMeasurementsFacede.getInstance().getTemp();
+			Double currentTemp = CurrentMeasurementsFacade.getInstance().getTemp();
 			if (currentTemp<scheduleTemp)
 				temperatureRegulator((int) scheduleTemp);
 

@@ -1,11 +1,13 @@
-package raspberry.logic;
+package raspberry.logic.Interpreters;
 
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
+import raspberry.logic.IPAddressPort;
+import raspberry.logic.InvalidIPAddressException;
+import raspberry.logic.SetPoints;
 import raspberry.logic.livedata.LiveDataGetterFacade;
 import raspberry.logic.schedule.Schedule;
 
-import java.net.Inet4Address;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class ProcedureInterpreter {
     }
 
     public ErrorCode interpret(String message) {
+        //TODO should the interpreter also dispatch the message?
 
         JSONObject jsonMessage = new JSONObject(message);
 
@@ -27,15 +30,12 @@ public class ProcedureInterpreter {
 
         switch(procedure){
             case "applySchedule":
-                List<HashMap<Integer, SetPoints>> schedule = null;
-
                 try {
-                    schedule = this.scheduleInterpreter.interpret(jsonMessage);
+                    List<HashMap<Integer, SetPoints>> schedule = this.scheduleInterpreter.interpret(jsonMessage);
                     return Schedule.getInstance().apply(schedule);
                 } catch (Exception e){
                     return ErrorCode.WRONGFORMAT;
                 }
-
             case "getLiveData":
                 try {
                     IPAddressPort connectionIformation = this.liveDataInterpreter.Interpret(jsonMessage);
@@ -45,7 +45,6 @@ public class ProcedureInterpreter {
                 } catch (Exception e) {
                     return ErrorCode.WRONGFORMAT;
                 }
-
             default:
                 return ErrorCode.UNDEFINEDPROCEDURE;
         }

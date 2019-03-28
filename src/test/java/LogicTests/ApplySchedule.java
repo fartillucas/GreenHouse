@@ -9,6 +9,7 @@ import raspberry.Acquaintance.ErrorCode;
 import raspberry.logic.Starter;
 
 import java.io.IOException;
+import java.net.BindException;
 
 import static java.lang.Thread.sleep;
 import static junit.framework.TestCase.assertTrue;
@@ -20,19 +21,22 @@ public class ApplySchedule {
     private String invalidTestSchedule = "{\"procedure\": \"applySchedule\",\"startdate\" : \"21-03-2019\",\"days\" : 1,\"day1\" : {\"block1\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block2\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block11\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block12\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},}}";
     private String preTestSchedule = "{\"procedure\": \"applySchedule\",\"startdate\" : \"21-03-2019\",\"days\" : 1,\"day1\" : {\"block1\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block2\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block3\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block4\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block5\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block6\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block7\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block8\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block9\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block10\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block11\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},\"block12\":{\"temperature\":20, \"humidity\":40, \"waterlevel\":5, \"light_blue\":80, \"light_red\":80},}}";
     private Thread currentSystem = null;
+    private int port;
+    private ServerMock serverMock;
 
     @Given("^that there is a server$")
     public void thatThereIsAServer() throws Throwable {
-        Thread starter = new Thread(() -> {
-            try {
-                ServerMock.getInstance().listenForConnections();
-            } catch (IOException e) {
-                e.printStackTrace();
+        port = 8090;
+
+        this.serverMock = null;
+
+        while (this.serverMock == null) {
+            try{
+                this.serverMock = new ServerMock(port);
+            } catch (BindException e) {
+                port++;
             }
-        });
-        starter.setName("ServerMock");
-        starter.setDaemon(true);
-        starter.start();
+        }
 
         sleep(1000);
     }
@@ -51,14 +55,14 @@ public class ApplySchedule {
 
     @When("^a valid schedule is received$")
     public void aValidScheduleIsReceived() throws Throwable {
-        ServerMock.getInstance().sendMessage(this.testSchedule, 0);
+       serverMock.sendMessage(this.testSchedule, 0);
     }
 
     @Then("^the schedule is saved in the system$")
     public void theScheduleIsSavedInTheSystem() throws Throwable {
         //TODO better test when schedule can be retrieved
         try{
-            boolean success = ServerMock.getInstance().getSuccess();
+            boolean success = serverMock.getSuccess();
 
             assertTrue(success);
         } finally {
@@ -68,14 +72,14 @@ public class ApplySchedule {
 
     @And("^a schedule is in use$")
     public void aScheduleIsInUse() throws Throwable {
-        ServerMock.getInstance().sendMessage(this.preTestSchedule,0);
+        serverMock.sendMessage(this.preTestSchedule,0);
     }
 
     @Then("^the new schedule is saved in the system$")
     public void theNewScheduleIsSavedInTheSystem() throws Throwable {
         try{
             //TODO better test when schedule can be retrieved
-            boolean success = ServerMock.getInstance().getSuccess();
+            boolean success = serverMock.getSuccess();
 
             assertTrue(success);
         } finally {
@@ -85,14 +89,14 @@ public class ApplySchedule {
 
     @When("^an invalid schedule is received$")
     public void anInvalidScheduleIsReceived() throws Throwable {
-        ServerMock.getInstance().sendMessage(this.invalidTestSchedule,0);
+        serverMock.sendMessage(this.invalidTestSchedule,0);
     }
 
     @Then("^the schedule s not saved in the system$")
     public void theScheduleSNotSavedInTheSystem() throws Throwable {
         //TODO better test when schedule can be retrieved
         try{
-            boolean success = ServerMock.getInstance().getSuccess();
+            boolean success = serverMock.getSuccess();
 
             assertFalse(success);
         } finally {
@@ -102,9 +106,9 @@ public class ApplySchedule {
 
     @And("^an error is returned$")
     public void anErrorIsReturned() throws Throwable {
-        boolean formatError = ErrorCode.WRONGFORMAT.equals(ServerMock.getInstance().getReplyStatus());
-        boolean appliedError = ErrorCode.NOTAPPLIED.equals(ServerMock.getInstance().getReplyStatus());
-        boolean procedureError = ErrorCode.UNDEFINEDPROCEDURE.equals(ServerMock.getInstance().getReplyStatus());
+        boolean formatError = ErrorCode.WRONGFORMAT.equals(serverMock.getReplyStatus());
+        boolean appliedError = ErrorCode.NOTAPPLIED.equals(serverMock.getReplyStatus());
+        boolean procedureError = ErrorCode.UNDEFINEDPROCEDURE.equals(serverMock.getReplyStatus());
 
         boolean error;
 
