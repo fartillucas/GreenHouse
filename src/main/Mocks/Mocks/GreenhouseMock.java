@@ -14,7 +14,7 @@ public class GreenhouseMock implements IGreenhouse {
 	private int fanSpeed;
 	private int addWaterSecs;
 
-	public static GreenhouseMock getInstanance(){
+	public static GreenhouseMock getInstance(){
 		if (GreenhouseMock.instance==null)	{
 			GreenhouseMock.instance = new GreenhouseMock();
 		}

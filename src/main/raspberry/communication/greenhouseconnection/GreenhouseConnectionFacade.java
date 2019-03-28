@@ -2,21 +2,15 @@ package raspberry.communication.greenhouseconnection;
 
 import Mocks.Mocks.GreenhouseMock;
 import main.IGreenhouse;
-import raspberry.communication.IGreenhouseCommunicationFacade;
+import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.BitSet;
 
-public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacade {
+public class GreenhouseConnectionFacade implements IGreenhouseConnectionFacade {
 
 	//Greenhouse greenhouseAPI = new Greenhouse();
-	IGreenhouse greenhouseAPI = GreenhouseMock.getInstanance();
-
-	@Override
-	public GreenhouseConnectionFacade getGreenhouseConnection() {
-
-		GreenhouseMock.getInstanance();
-		return null;
-	}
+	IGreenhouse greenhouseAPI = GreenhouseMock.getInstance();
 
 	@Override
 	public Double readTemp1() {
@@ -34,7 +28,6 @@ public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacad
 		} catch (Exception e) {
 			return null;
 		}
-
 	}
 
 	@Override
@@ -44,24 +37,21 @@ public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacad
 		} catch (Exception e) {
 			return null;
 		}
-
 	}
 
 	@Override
 	public BitSet readErrors() {
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public boolean addWater(int sec) {
 		return this.greenhouseAPI.AddWater(sec);
-
 	}
 
 	@Override
 	public boolean setRedLight(int level) {
 		return this.greenhouseAPI.SetRedLight(level);
-
 	}
 
 	@Override
@@ -87,6 +77,6 @@ public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacad
 		} catch (Exception e) {
 			return null;
 		}
-
 	}
+
 }

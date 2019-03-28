@@ -1,14 +1,14 @@
 package raspberry.communication;
 
 import raspberry.Acquaintance.ICommunicationsFacade;
+import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
 import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
 
-import java.util.BitSet;
-
 public class CommunicationFacade implements ICommunicationsFacade {
-	private static CommunicationFacade instance;
-	private GreenhouseConnectionFacade greenhouse;
 
+	private static CommunicationFacade instance;
+
+	private IGreenhouseConnectionFacade greenhouse;
 
 	public static CommunicationFacade getInstance() {
 		if (CommunicationFacade.instance == null) {
@@ -21,9 +21,9 @@ public class CommunicationFacade implements ICommunicationsFacade {
 		this.greenhouse = new GreenhouseConnectionFacade();
 	}
 
-	public GreenhouseConnectionFacade getGreenhouseConnection() {
+	@Override
+	public IGreenhouseConnectionFacade getGreenhouseConnection() {
 		return this.greenhouse;
 	}
-
 
 }

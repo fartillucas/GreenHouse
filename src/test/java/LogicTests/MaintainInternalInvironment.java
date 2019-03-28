@@ -7,10 +7,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import main.Greenhouse;
 import raspberry.logic.Starter;
 
-import java.io.IOException;
 import java.net.BindException;
 
 import static java.lang.Thread.sleep;
@@ -60,83 +58,83 @@ public class MaintainInternalInvironment {
 
 	@Given("^Measurements are within acceptable parameters$")
 	public void measurementsAreWithinAcceptableParameters() throws Throwable {
-		GreenhouseMock.getInstanance().setInternalTemperature(20.0);
-		GreenhouseMock.getInstanance().setHumidity(40.0);
-		GreenhouseMock.getInstanance().setWaterLevel(5.0);
+		GreenhouseMock.getInstance().setInternalTemperature(20.0);
+		GreenhouseMock.getInstance().setHumidity(40.0);
+		GreenhouseMock.getInstance().setWaterLevel(5.0);
 	}
 
 	@Then("^do nothing$")
 	public void doNothing() throws Throwable {
-		assertFalse(GreenhouseMock.getInstanance().fanIsStarted());
-		assertFalse(GreenhouseMock.getInstanance().waterPumpIsStarted());
+		assertFalse(GreenhouseMock.getInstance().fanIsStarted());
+		assertFalse(GreenhouseMock.getInstance().waterPumpIsStarted());
 	}
 
 	@When("^The internal temperature is too high$")
 	public void theInternalTemperatureIsTooHigh() throws Throwable {
-		GreenhouseMock.getInstanance().setInternalTemperature(25.0);
+		GreenhouseMock.getInstance().setInternalTemperature(25.0);
 
 
 	}
 
 	@And("^and external temperature is below threshold$")
 	public void andExternalTemperatureIsBelowThreshold() throws Throwable {
-		GreenhouseMock.getInstanance().setExternalTemperature(18.0);
+		GreenhouseMock.getInstance().setExternalTemperature(18.0);
 
 	}
 
 	@Then("^start fan$")
 	public void startFan() throws Throwable {
-		assertTrue(GreenhouseMock.getInstanance().fanIsStarted());
+		assertTrue(GreenhouseMock.getInstance().fanIsStarted());
 	}
 
 	@And("^and external temperature is above threshold$")
 	public void andExternalTemperatureIsAboveThreshold() throws Throwable {
-		GreenhouseMock.getInstanance().setExternalTemperature(300.0);
+		GreenhouseMock.getInstance().setExternalTemperature(300.0);
 	}
 
 	@When("^all the plants are submerged$")
 	public void allThePlantsAreSubmerged() throws Throwable {
-		GreenhouseMock.getInstanance().setWaterLevel(15.0);
+		GreenhouseMock.getInstance().setWaterLevel(15.0);
 	}
 
 	@When("^the water level is to low$")
 	public void theWaterLevelIsToLow() throws Throwable {
-		GreenhouseMock.getInstanance().setWaterLevel(0.0);
+		GreenhouseMock.getInstance().setWaterLevel(0.0);
 
 	}
 
 	@Then("^start water pump$")
 	public void startWaterPump() throws Throwable {
-		assertTrue(GreenhouseMock.getInstanance().waterPumpIsStarted());
+		assertTrue(GreenhouseMock.getInstance().waterPumpIsStarted());
 
 	}
 
 	@When("^humidity is too high$")
 	public void humidityIsTooHigh() throws Throwable {
-		GreenhouseMock.getInstanance().setHumidity(90.0);
+		GreenhouseMock.getInstance().setHumidity(90.0);
 
 	}
 
 	@And("^external temperature is above threshold$")
 	public void externalTemperatureIsAboveThreshold() throws Throwable {
-		GreenhouseMock.getInstanance().setExternalTemperature(200.0);
+		GreenhouseMock.getInstance().setExternalTemperature(200.0);
 	}
 
 	@When("^humidity is to high$")
 	public void humidityIsToHigh() throws Throwable {
-		GreenhouseMock.getInstanance().setHumidity(85.0);
+		GreenhouseMock.getInstance().setHumidity(85.0);
 
 	}
 
 	@And("^external temperature is below threshold$")
 	public void externalTemperatureIsBelowThreshold() throws Throwable {
-		GreenhouseMock.getInstanance().setExternalTemperature(10.0);
+		GreenhouseMock.getInstance().setExternalTemperature(10.0);
 
 	}
 
 	@When("^humidity is too low$")
 	public void humidityIsTooLow() throws Throwable {
-		GreenhouseMock.getInstanance().setHumidity(25.0);
+		GreenhouseMock.getInstance().setHumidity(25.0);
 
 	}
 

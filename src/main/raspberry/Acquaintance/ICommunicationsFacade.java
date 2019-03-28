@@ -1,10 +1,10 @@
 package raspberry.Acquaintance;
 
-import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
+import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
 
 public interface ICommunicationsFacade  {
 
+	IGreenhouseConnectionFacade getGreenhouseConnection();
 
-	GreenhouseConnectionFacade getGreenhouseConnection();
 }
 

@@ -1,6 +1,7 @@
 package raspberry.logic;
 
 import raspberry.Acquaintance.ICommunicationsFacade;
+import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
 import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
 
 public class OutFacadeLogic {
@@ -20,7 +21,7 @@ public class OutFacadeLogic {
         this.communicationFacade = communicationFacade;
     }
 
-    public GreenhouseConnectionFacade getGreenhouseConnection() {
+    public IGreenhouseConnectionFacade getGreenhouseConnection() {
         return this.communicationFacade.getGreenhouseConnection();
     }
 
