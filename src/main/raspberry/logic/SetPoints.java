@@ -5,10 +5,10 @@ public class SetPoints {
     private double temperature;
     private double humidity;
     private double waterlevel;
-    private double blueLight;
-    private double redLight;
+    private int blueLight;
+    private int redLight;
 
-    public SetPoints(double temperature, double humidity, double waterlevel, double blueLight, double redLight) {
+    public SetPoints(double temperature, double humidity, double waterlevel, int blueLight, int redLight) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.waterlevel = waterlevel;
@@ -28,11 +28,11 @@ public class SetPoints {
         return waterlevel;
     }
 
-    public double getBlueLight() {
+    public int getBlueLight() {
         return blueLight;
     }
 
-    public double getRedLight() {
+    public int getRedLight() {
         return redLight;
     }
 }

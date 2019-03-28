@@ -1,7 +1,6 @@
 package raspberry.communication.greenhouseconnection;
 
 import Mocks.Mocks.GreenhouseMock;
-import main.Greenhouse;
 import main.IGreenhouse;
 import raspberry.communication.IGreenhouseCommunicationFacade;
 
@@ -18,19 +17,34 @@ public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacad
 		GreenhouseMock.getInstanance();
 		return null;
 	}
-	@Override
-	public double readTemp1(){
-
-		return 0;
-	}
-	@Override
-	public double readMoist() {
-		return 0;
-	}
 
 	@Override
-	public double readWaterLevel() {
-		return 0;
+	public Double readTemp1() {
+		try {
+			return greenhouseAPI.ReadTemp1();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Double readMoist() {
+		try {
+			return greenhouseAPI.ReadMoist();
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+	@Override
+	public Double readWaterLevel() {
+		try {
+			return greenhouseAPI.ReadWaterLevel();
+		} catch (Exception e) {
+			return null;
+		}
+
 	}
 
 	@Override
@@ -41,22 +55,25 @@ public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacad
 	@Override
 	public boolean addWater(int sec) {
 		return this.greenhouseAPI.AddWater(sec);
+
 	}
 
 	@Override
-	public boolean setRedLight() {
-		return false;
+	public boolean setRedLight(int level) {
+		return this.greenhouseAPI.SetRedLight(level);
+
 	}
 
 	@Override
-	public boolean setBlueLight() {
-		return false;
+	public boolean setBlueLight(int level) {
+		return this.greenhouseAPI.SetBlueLight(level);
 	}
 
 	@Override
-	public double setTemperature() {
-		return 0;
+	public boolean setTemperature(int kelvin) {
+		return this.greenhouseAPI.SetTemperature(kelvin);
 	}
+
 
 	@Override
 	public boolean setFanSpeed(int speed) {
@@ -64,9 +81,12 @@ public class GreenhouseConnectionFacade implements IGreenhouseCommunicationFacad
 	}
 
 	@Override
-	public double readTemp2(){
+	public Double readTemp2() {
+		try {
+			return greenhouseAPI.ReadTemp2();
+		} catch (Exception e) {
+			return null;
+		}
 
-		return 0;
 	}
-
 }

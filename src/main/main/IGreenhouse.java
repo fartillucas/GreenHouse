@@ -28,7 +28,7 @@ public interface IGreenhouse
      * @param kelvin :temperature in kelvin
      * @return true if processed
      */
-    boolean SetTemperature( int kelvin);
+    boolean SetTemperature(int kelvin);
     
     /**
      * Setpoint for moisture inside Greenhouse

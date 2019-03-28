@@ -8,7 +8,7 @@ public class CurrentMeasurements {
 	private Double level; //water level
 
 	public CurrentMeasurements(double internalTemperature, double externalTemperature, double humidity, double waterLevel) {
-			this.temp = internalTemperature;
+		this.temp = internalTemperature;
 		this.temp2 = externalTemperature;
 		this.moist = humidity;
 		this.level = waterLevel;
@@ -17,34 +17,53 @@ public class CurrentMeasurements {
 	public CurrentMeasurements() {
 	}
 
-	public double getTemp() {return temp;}
+	public double getTemp() {
+		synchronized (temp) {
+			return temp;
+		}
+	}
 
 	public void setTemp(double temp) {
-		this.temp = temp;
+		synchronized (this.temp) {
+			this.temp = temp;
+		}
 	}
 
 	public double getTemp2() {
-		return temp2;
+		synchronized (temp2) {
+			return temp2;
+		}
 	}
 
+
 	public void setTemp2(double temp2) {
-		this.temp2 = temp2;
+		synchronized (this.temp2) {
+			this.temp2 = temp2;
+		}
 	}
 
 	public double getMoist() {
-		return moist;
+		synchronized (moist) {
+			return moist;
+		}
 	}
 
 	public void setMoist(double moist) {
-		this.moist = moist;
+		synchronized (this.moist) {
+			this.moist = moist;
+		}
 	}
 
 	public double getLevel() {
-		return level;
+		synchronized (moist) {
+			return level;
+		}
 	}
 
 	public void setLevel(double level) {
-		this.level = level;
+		synchronized (this.level) {
+			this.level = level;
+		}
 	}
 }
 

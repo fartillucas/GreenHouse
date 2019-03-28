@@ -8,4 +8,8 @@ import java.util.List;
 public interface ISchedule {
 
     ErrorCode apply(List<HashMap<Integer, SetPoints>> schedule);
-}
+
+    public SetPoints getSetpoints();
+
+    }
+

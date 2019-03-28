@@ -1,6 +1,5 @@
 package main;
 
-import main.PLCCommunication.*;
 import main.PLCCommunication.ICommands;
 import main.PLCCommunication.Message;
 import main.PLCCommunication.PLCConnection;
@@ -41,7 +40,7 @@ public class Greenhouse implements IGreenhouse, ICommands
      * @return true if processed
      */
     
-    public boolean SetTemperature( int kelvin)
+    public boolean SetTemperature(int kelvin)
     {
         mess = new Message(TEMP_SETPOINT);
         if (kelvin > 273 && kelvin < 303) // 0 - 30 grader celcius

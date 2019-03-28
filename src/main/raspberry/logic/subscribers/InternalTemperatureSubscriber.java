@@ -1,21 +1,20 @@
 package raspberry.logic.subscribers;
 
 import raspberry.communication.CommunicationFacade;
+import raspberry.logic.currentmeasurements.CurrentMeasurementsFacede;
 
 import static java.lang.Thread.sleep;
 
 
 public class InternalTemperatureSubscriber implements Runnable{
 
-
-
 	public void internalTemperatureSubscriber() {
-		CommunicationFacade.getInstance().getGreenhouseConnection().readTemp1();
 
 	}
-
 	@Override
 	public void run() {
+		Double temp= CommunicationFacade.getInstance().getGreenhouseConnection().readTemp1();
+		CurrentMeasurementsFacede.getInstance().setTemp(temp);
 
 		try {
 			sleep(1000);

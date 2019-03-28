@@ -2,7 +2,6 @@ package raspberry.communication;
 
 
 import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
-import main.Greenhouse;
 
 import java.util.BitSet;
 
@@ -10,15 +9,15 @@ public interface IGreenhouseCommunicationFacade {
 
 	GreenhouseConnectionFacade getGreenhouseConnection();
 
-	double readTemp1();
-	double readTemp2();
-	double readMoist();
-	double readWaterLevel();
+	Double readTemp1();
+	Double readTemp2();
+	Double readMoist();
+	Double readWaterLevel();
 	BitSet readErrors();
 	boolean addWater(int sec);
-	boolean setRedLight();
-	boolean setBlueLight();
-	double setTemperature();
+	boolean setRedLight(int level);
+	boolean setBlueLight(int level);
+	boolean setTemperature(int kelvin);
 	boolean setFanSpeed(int speed);
 
 

@@ -3,8 +3,6 @@ package raspberry.logic.schedule;
 import raspberry.Acquaintance.ErrorCode;
 import raspberry.Acquaintance.ISchedule;
 import raspberry.logic.SetPoints;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
@@ -42,6 +40,11 @@ public class Schedule implements ISchedule {
         } else {
             return ErrorCode.NOTAPPLIED;
         }
+    }
+
+    @Override
+    public SetPoints getSetpoints() {
+        return null;
     }
 
     public static LocalDate getMeasurementDate() {
