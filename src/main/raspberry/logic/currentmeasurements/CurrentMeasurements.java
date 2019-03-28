@@ -8,7 +8,7 @@ public class CurrentMeasurements {
 	private Double level; //water level
 
 	public CurrentMeasurements(double internalTemperature, double externalTemperature, double humidity, double waterLevel) {
-		this.temp = internalTemperature;
+			this.temp = internalTemperature;
 		this.temp2 = externalTemperature;
 		this.moist = humidity;
 		this.level = waterLevel;

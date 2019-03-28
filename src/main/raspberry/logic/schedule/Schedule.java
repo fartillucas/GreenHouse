@@ -52,7 +52,7 @@ public class Schedule implements ISchedule {
         return LocalTime.now();
     }
 
-    private SetPoints getSetpoint(){
+    public SetPoints getSetpoint(){
         LocalDate dateNow = getMeasurementDate();
         LocalTime currentTimeOfDay = getTimeOfDay();
 
