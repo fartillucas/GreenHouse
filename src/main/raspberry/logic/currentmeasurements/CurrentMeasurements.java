@@ -17,13 +17,13 @@ public class CurrentMeasurements {
 	public CurrentMeasurements() {
 	}
 
-	public double getTemp() {return temp;}
+	public Double getTemp() {return temp;}
 
 	public void setTemp(double temp) {
 		this.temp = temp;
 	}
 
-	public double getTemp2() {
+	public Double getTemp2() {
 		return temp2;
 	}
 
@@ -31,7 +31,7 @@ public class CurrentMeasurements {
 		this.temp2 = temp2;
 	}
 
-	public double getMoist() {
+	public Double getMoist() {
 		return moist;
 	}
 
@@ -39,7 +39,7 @@ public class CurrentMeasurements {
 		this.moist = moist;
 	}
 
-	public double getLevel() {
+	public Double getLevel() {
 		return level;
 	}
 

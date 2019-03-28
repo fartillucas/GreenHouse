@@ -17,11 +17,13 @@ public class RaspberryAPI {
         //TODO get info from interwebs
         //TODO convert to measurements
         //TODO send to schedule
-        try {
-            this.serverSocket = new ServerSocket(8091);
-            System.out.println("rasp serverscoket initialized");
-        } catch (IOException e) {
-            e.printStackTrace();
+        int port = 8091;
+        while (this.serverSocket == null) {
+            try {
+                this.serverSocket = new ServerSocket(port);
+            } catch (IOException e) {
+                port++;
+            }
         }
 
         this.interpreter = new ProcedureInterpreter();
@@ -34,13 +36,12 @@ public class RaspberryAPI {
 
     private void acceptIncomingTraffic(){
         while (true){
-            System.out.println("rasp serversocket" + serverSocket);
             try (Socket socket = serverSocket.accept();
                  Scanner input = new Scanner(socket.getInputStream());
                  PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             ) {
                 String message = input.nextLine();
-                System.out.println(message);
+                System.out.println("\nRaspberry: message from server is "+message);
 
                 ErrorCode errorCode = this.interpreter.interpret(message);
 
@@ -57,8 +58,7 @@ public class RaspberryAPI {
             Scanner input = new Scanner(socket.getInputStream());
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ){
-            String RaspMessage = "connect Raspberry 01\n";
-            System.out.println("Rasp: "+RaspMessage);
+            String RaspMessage = "connect\n";
             writer.print(RaspMessage);
             writer.flush();
         } catch (IOException e) {

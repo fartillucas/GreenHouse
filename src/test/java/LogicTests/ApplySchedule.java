@@ -31,6 +31,7 @@ public class ApplySchedule {
             }
         });
         starter.setName("ServerMock");
+        starter.setDaemon(true);
         starter.start();
 
         sleep(1000);
@@ -42,6 +43,7 @@ public class ApplySchedule {
             Starter.start();
         });
         this.currentSystem.setName("Client");
+        this.currentSystem.setDaemon(true);
         this.currentSystem.start();
 
         sleep(1000);
