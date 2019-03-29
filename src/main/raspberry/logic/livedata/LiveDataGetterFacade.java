@@ -9,7 +9,7 @@ public class LiveDataGetterFacade {
 
     private LiveDataGetter liveDataGetter;
 
-    private LiveDataGetterFacade() {
+    public LiveDataGetterFacade() {
         this.liveDataGetter = new LiveDataGetter();
         this.liveDataGetter.setName("LiveDataGetter");
         this.liveDataGetter.start();

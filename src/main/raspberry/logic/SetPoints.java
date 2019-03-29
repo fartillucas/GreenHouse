@@ -1,6 +1,8 @@
 package raspberry.logic;
 
-public class SetPoints {
+import raspberry.Acquaintance.ReadableSetpoints;
+
+public class SetPoints implements ReadableSetpoints {
 
     private double temperature;
     private double humidity;

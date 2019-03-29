@@ -17,7 +17,7 @@ public class CurrentMeasurementsFacade implements ICurrentMeasurements {
 		return CurrentMeasurementsFacade.instance;
 	}
 
-	private CurrentMeasurementsFacade() {
+	public CurrentMeasurementsFacade() {
 		this.currentMeasurements = new CurrentMeasurements();
 	}
 

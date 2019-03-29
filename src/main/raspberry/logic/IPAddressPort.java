@@ -1,6 +1,8 @@
 package raspberry.logic;
 
-public class IPAddressPort {
+import raspberry.Acquaintance.ReadableIPAddressPort;
+
+public class IPAddressPort implements ReadableIPAddressPort {
 
     int[] ipaddress;
     int port;
