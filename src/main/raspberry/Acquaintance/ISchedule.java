@@ -9,7 +9,12 @@ public interface ISchedule {
 
     ErrorCode apply(List<HashMap<Integer, SetPoints>> schedule);
 
-    public SetPoints getSetpoints();
+    SetPoints getSetpoints();
 
-    }
+    double getTemperature();
+    double getHumidity();
+    double getWaterLevel();
+    int getBlueLight();
+    int getRedLight();
 
+}

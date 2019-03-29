@@ -1,6 +1,6 @@
 package raspberry.communication.databaseconnection;
 
-import raspberry.communication.communicationAquaintance.IDataseConnectionFacade;
+import raspberry.communication.communicationAquaintance.IDatabaseConnectionFacade;
 
-public class DatabaseConnectionFacade implements IDataseConnectionFacade {
+public class DatabaseConnectionFacade implements IDatabaseConnectionFacade {
 }

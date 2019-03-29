@@ -7,9 +7,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
-import raspberry.logic.Starter;
+import raspberry.glue.Starter;
 
-import java.io.IOException;
 import java.net.BindException;
 
 import static java.lang.Thread.sleep;

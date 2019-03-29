@@ -13,6 +13,7 @@ public class CurrentMeasurementsFacade implements ICurrentMeasurements {
 		if (CurrentMeasurementsFacade.instance == null) {
 			CurrentMeasurementsFacade.instance = new CurrentMeasurementsFacade();
 		}
+
 		return CurrentMeasurementsFacade.instance;
 	}
 
@@ -27,7 +28,7 @@ public class CurrentMeasurementsFacade implements ICurrentMeasurements {
 
 	@Override
 	public void setTemp(Double temp) {
-
+		this.currentMeasurements.setTemp(temp);
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class CurrentMeasurementsFacade implements ICurrentMeasurements {
 
 	@Override
 	public void setTemp2(Double temp2) {
-
+		this.currentMeasurements.setTemp2(temp2);
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class CurrentMeasurementsFacade implements ICurrentMeasurements {
 
 	@Override
 	public void setMoist(Double moist) {
-
+		this.currentMeasurements.setMoist(moist);
 	}
 
 	@Override
@@ -57,6 +58,6 @@ public class CurrentMeasurementsFacade implements ICurrentMeasurements {
 
 	@Override
 	public void setLevel(Double level) {
-
+		this.currentMeasurements.setLevel(level);
 	}
 }

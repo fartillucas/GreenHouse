@@ -6,6 +6,8 @@ public class CurrentMeasurements {
 	private Double temp2; //external temperature
 	private Double moist; //humidity
 	private Double level; //water level
+
+	//TODO This should be real locks?
 	private Double tempLock = 1.0;
 	private Double temp2Lock = 1.0;
 	private Double moistLock = 1.0;
@@ -34,7 +36,7 @@ public class CurrentMeasurements {
 	}
 
 	public Double getTemp2() {
-		synchronized (temp2Lock) {
+		synchronized (this.temp2Lock) {
 			return temp2;
 		}
 	}

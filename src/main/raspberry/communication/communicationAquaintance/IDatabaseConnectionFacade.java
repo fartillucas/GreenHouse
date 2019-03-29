@@ -1,4 +1,4 @@
 package raspberry.communication.communicationAquaintance;
 
-public interface IDataseConnectionFacade {
+public interface IDatabaseConnectionFacade {
 }

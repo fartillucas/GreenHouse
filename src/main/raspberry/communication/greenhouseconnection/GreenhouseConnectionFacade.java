@@ -64,7 +64,6 @@ public class GreenhouseConnectionFacade implements IGreenhouseConnectionFacade {
 		return this.greenhouseAPI.SetTemperature(kelvin);
 	}
 
-
 	@Override
 	public boolean setFanSpeed(int speed) {
 		return this.greenhouseAPI.SetFanSpeed(speed);

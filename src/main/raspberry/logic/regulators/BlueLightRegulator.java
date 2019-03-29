@@ -1,25 +1,34 @@
 package raspberry.logic.regulators;
 
-import raspberry.communication.CommunicationFacade;
+import raspberry.logic.OutFacadeLogic;
 import raspberry.logic.SetPoints;
 import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
 
 public class BlueLightRegulator implements Runnable{
-	public void blueLightRegulator (int level)  {
-		CommunicationFacade.getInstance().getGreenhouseConnection().setBlueLight(level);
-	}
+
+	private int lastSetpoint;
 
 	@Override
 	public void run() {
 		try {
 			SetPoints setPoints = Schedule.getInstance().getSetpoints();
 			int scheduleBlueLightLevel = setPoints.getBlueLight();
-			blueLightRegulator(scheduleBlueLightLevel);
+
+			if (scheduleBlueLightLevel != this.lastSetpoint) {
+				regulate(scheduleBlueLightLevel);
+			}
+
+			this.lastSetpoint = scheduleBlueLightLevel;
+
 			sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void regulate (int level)  {
+		OutFacadeLogic.getInstance().getGreenhouseConnection().setBlueLight(level);
 	}
 }

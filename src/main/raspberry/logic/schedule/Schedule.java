@@ -14,7 +14,6 @@ public class Schedule implements ISchedule {
     //TODO doesn't yet need a facade??
 
     private static Schedule instance;
-    private double temperature;
 
     private List<HashMap<Integer, SetPoints>> schedule;
     private LocalDate appliedDate;
@@ -37,18 +36,14 @@ public class Schedule implements ISchedule {
     public ErrorCode apply(List<HashMap<Integer, SetPoints>> schedule) {
         if (schedule != null) {
             this.schedule = schedule;
+            this.appliedDate = getMeasurementDate();
             return ErrorCode.OK;
         } else {
             return ErrorCode.NOTAPPLIED;
         }
     }
 
-    @Override
-    public SetPoints getSetpoints() {
-        return null;
-    }
-
-    public static LocalDate getMeasurementDate() {
+    private LocalDate getMeasurementDate() {
         return LocalDate.now();
     }
 
@@ -56,7 +51,8 @@ public class Schedule implements ISchedule {
         return LocalTime.now();
     }
 
-    public SetPoints getSetpoint(){
+    @Override
+    public SetPoints getSetpoints(){
         LocalDate dateNow = getMeasurementDate();
         LocalTime currentTimeOfDay = getTimeOfDay();
 
@@ -72,17 +68,34 @@ public class Schedule implements ISchedule {
         return setpoints;
     }
 
+    @Override
     public double getTemperature() {
-        SetPoints setPoints = this.getSetpoint();
+        SetPoints setPoints = this.getSetpoints();
         return setPoints.getTemperature();
     }
+
+    @Override
     public double getHumidity() {
-        SetPoints setPoints = this.getSetpoint();
+        SetPoints setPoints = this.getSetpoints();
         return setPoints.getHumidity();
     }
+
+    @Override
     public double getWaterLevel() {
-        SetPoints setPoints = this.getSetpoint();
+        SetPoints setPoints = this.getSetpoints();
         return setPoints.getWaterlevel();
+    }
+
+    @Override
+    public int getBlueLight() {
+        SetPoints setPoints = this.getSetpoints();
+        return setPoints.getBlueLight();
+    }
+
+    @Override
+    public int getRedLight() {
+        SetPoints setPoints = this.getSetpoints();
+        return setPoints.getRedLight();
     }
 
 }
