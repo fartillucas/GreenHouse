@@ -1,9 +1,8 @@
 package raspberry.logic.regulators;
 
+import raspberry.Acquaintance.ISchedule;
+import raspberry.Acquaintance.ReadableSetpoints;
 import raspberry.logic.OutFacadeLogic;
-import raspberry.logic.SetPoints;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
-import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
 
@@ -11,13 +10,19 @@ public class TemperatureRegulator implements Runnable {
 
 	private double lastSetpoint;
 
+	private ISchedule schedule;
+
+	public TemperatureRegulator(ISchedule schedule){
+		this.schedule = schedule;
+	}
+
 	@Override
 	public void run() {
 		try {
-			SetPoints setPoints = Schedule.getInstance().getSetpoints();
+			ReadableSetpoints setPoints = schedule.getSetpoints();
 			double scheduleTemp = setPoints.getTemperature();
 
-			Double currentTemp = CurrentMeasurementsFacade.getInstance().getTemp();
+//			Double currentTemp = CurrentMeasurementsFacade.getInstance().getTemp();
 
 			if (scheduleTemp != lastSetpoint) {
 				//TODO if we can not control the heater, but only a temperature setpoint, then the comparison doesn't make sense

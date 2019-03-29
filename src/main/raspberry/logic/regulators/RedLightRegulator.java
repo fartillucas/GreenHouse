@@ -1,9 +1,8 @@
 package raspberry.logic.regulators;
 
-import raspberry.communication.CommunicationFacade;
+import raspberry.Acquaintance.ISchedule;
+import raspberry.Acquaintance.ReadableSetpoints;
 import raspberry.logic.OutFacadeLogic;
-import raspberry.logic.SetPoints;
-import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
 
@@ -11,10 +10,16 @@ public class RedLightRegulator implements Runnable{
 
 	private int lastSetpoint;
 
+	private ISchedule schedule;
+
+	public RedLightRegulator(ISchedule schedule){
+		this.schedule = schedule;
+	}
+
 	@Override
 	public void run() {
 		try {
-			SetPoints setPoints = Schedule.getInstance().getSetpoints();
+			ReadableSetpoints setPoints = schedule.getSetpoints();
 			int scheduleRedLightLevel = setPoints.getRedLight();
 
 			if (scheduleRedLightLevel != lastSetpoint) {

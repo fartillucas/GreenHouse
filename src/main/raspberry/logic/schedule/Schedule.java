@@ -13,23 +13,23 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class Schedule implements ISchedule {
     //TODO doesn't yet need a facade??
 
-    private static Schedule instance;
+//    private static Schedule instance;
 
     private List<HashMap<Integer, SetPoints>> schedule;
     private LocalDate appliedDate;
 
 
-    public static ISchedule getInstance() {
-        //TODO fix singleton vs interface
+//    public static ISchedule getInstance() {
+//        //TODO fix singleton vs interface
+//
+//        if (Schedule.instance == null) {
+//            Schedule.instance = new Schedule();
+//        }
+//
+//        return Schedule.instance;
+//    }
 
-        if (Schedule.instance == null) {
-            Schedule.instance = new Schedule();
-        }
-
-        return Schedule.instance;
-    }
-
-    private Schedule() {
+    public Schedule() {
     }
 
     @Override

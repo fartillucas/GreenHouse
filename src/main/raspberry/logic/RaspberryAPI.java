@@ -1,6 +1,7 @@
 package raspberry.logic;
 
 import raspberry.Acquaintance.ErrorCode;
+import raspberry.Acquaintance.IInterpreter;
 import raspberry.logic.Interpreters.ProcedureInterpreter;
 
 import java.io.IOException;
@@ -12,7 +13,8 @@ import java.util.Scanner;
 public class RaspberryAPI {
 
     private ServerSocket serverSocket;
-    private ProcedureInterpreter interpreter;
+//    private ProcedureInterpreter interpreter;
+    private IInterpreter interpreter;
 
     public RaspberryAPI(){
         //TODO get info from interwebs
@@ -26,8 +28,10 @@ public class RaspberryAPI {
                 port++;
             }
         }
+    }
 
-        this.interpreter = new ProcedureInterpreter();
+    public void injectInterpreter(IInterpreter interpreter){
+        this.interpreter = interpreter;
     }
 
     public void initialise(){

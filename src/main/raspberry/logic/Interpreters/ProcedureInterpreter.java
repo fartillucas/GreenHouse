@@ -2,6 +2,8 @@ package raspberry.logic.Interpreters;
 
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
+import raspberry.Acquaintance.ILiveDataGetter;
+import raspberry.Acquaintance.ISchedule;
 import raspberry.logic.IPAddressPort;
 import raspberry.logic.InvalidIPAddressException;
 import raspberry.logic.SetPoints;
@@ -15,10 +17,14 @@ public class ProcedureInterpreter {
 
     private ScheduleInterpreter scheduleInterpreter;
     private GetLiveDataInterpreter liveDataInterpreter;
+    private ISchedule scheduleFacade;
+    private ILiveDataGetter liveDataGetter;
 
-    public ProcedureInterpreter(){
+    public ProcedureInterpreter(ISchedule scheduleFacade, ILiveDataGetter liveDataGetter){
         this.scheduleInterpreter = new ScheduleInterpreter();
         this.liveDataInterpreter = new GetLiveDataInterpreter();
+        this.scheduleFacade = scheduleFacade;
+        this.liveDataGetter = liveDataGetter;
     }
 
     public ErrorCode interpret(String message) {
@@ -32,14 +38,14 @@ public class ProcedureInterpreter {
             case "applySchedule":
                 try {
                     List<HashMap<Integer, SetPoints>> schedule = this.scheduleInterpreter.interpret(jsonMessage);
-                    return Schedule.getInstance().apply(schedule);
+                    return scheduleFacade.apply(schedule);
                 } catch (Exception e){
                     return ErrorCode.WRONGFORMAT;
                 }
             case "getLiveData":
                 try {
                     IPAddressPort connectionIformation = this.liveDataInterpreter.Interpret(jsonMessage);
-                    return LiveDataGetterFacade.getInstance().setConnection(connectionIformation);
+                    return this.liveDataGetter.setConnection(connectionIformation);
                 } catch (InvalidIPAddressException e) {
                     return ErrorCode.INVALIDIPADDRESS;
                 } catch (Exception e) {

@@ -4,18 +4,18 @@ import raspberry.Acquaintance.ICurrentMeasurements;
 
 public class CurrentMeasurementsFacade implements ICurrentMeasurements {
 
-	private static CurrentMeasurementsFacade instance;
+//	private static CurrentMeasurementsFacade instance;
 
 	private CurrentMeasurements currentMeasurements;
 
-	public static CurrentMeasurementsFacade getInstance() {
-		//TODO singleton vs interface
-		if (CurrentMeasurementsFacade.instance == null) {
-			CurrentMeasurementsFacade.instance = new CurrentMeasurementsFacade();
-		}
-
-		return CurrentMeasurementsFacade.instance;
-	}
+//	public static CurrentMeasurementsFacade getInstance() {
+//		//TODO singleton vs interface
+//		if (CurrentMeasurementsFacade.instance == null) {
+//			CurrentMeasurementsFacade.instance = new CurrentMeasurementsFacade();
+//		}
+//
+//		return CurrentMeasurementsFacade.instance;
+//	}
 
 	public CurrentMeasurementsFacade() {
 		this.currentMeasurements = new CurrentMeasurements();

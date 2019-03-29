@@ -1,22 +1,30 @@
 package raspberry.logic.regulators;
 
+import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ISchedule;
+import raspberry.Acquaintance.ReadableSetpoints;
 import raspberry.logic.OutFacadeLogic;
-import raspberry.logic.SetPoints;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
-import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
 
 public class WaterLevelRegulator implements Runnable{
 
+	private final ICurrentMeasurements currentMeasurements;
+	private ISchedule schedule;
+
+	public WaterLevelRegulator(ICurrentMeasurements currentMeasurements, ISchedule schedule){
+		this.currentMeasurements = currentMeasurements;
+		this.schedule = schedule;
+	}
+
 	@Override
 	public void run() {
 		while (true){
 			try {
-				SetPoints setPoints = Schedule.getInstance().getSetpoints();
+				ReadableSetpoints setPoints = schedule.getSetpoints();
 				double scheduleWaterLevel = setPoints.getWaterlevel();
 
-				Double currentWaterLevel = CurrentMeasurementsFacade.getInstance().getLevel();
+				Double currentWaterLevel = currentMeasurements.getLevel();
 
 				if (currentWaterLevel<scheduleWaterLevel) {
 					regulate(5);

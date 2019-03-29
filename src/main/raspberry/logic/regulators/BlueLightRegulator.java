@@ -1,8 +1,8 @@
 package raspberry.logic.regulators;
 
+import raspberry.Acquaintance.ISchedule;
+import raspberry.Acquaintance.ReadableSetpoints;
 import raspberry.logic.OutFacadeLogic;
-import raspberry.logic.SetPoints;
-import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
 
@@ -10,10 +10,16 @@ public class BlueLightRegulator implements Runnable{
 
 	private int lastSetpoint;
 
+	private ISchedule schedule;
+
+	public BlueLightRegulator(ISchedule schedule){
+		this.schedule = schedule;
+	}
+
 	@Override
 	public void run() {
 		try {
-			SetPoints setPoints = Schedule.getInstance().getSetpoints();
+			ReadableSetpoints setPoints = schedule.getSetpoints();
 			int scheduleBlueLightLevel = setPoints.getBlueLight();
 
 			if (scheduleBlueLightLevel != this.lastSetpoint) {

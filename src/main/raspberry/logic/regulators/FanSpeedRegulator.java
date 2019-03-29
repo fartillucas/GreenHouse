@@ -1,22 +1,30 @@
 package raspberry.logic.regulators;
 
+import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ISchedule;
+import raspberry.Acquaintance.ReadableSetpoints;
 import raspberry.logic.OutFacadeLogic;
-import raspberry.logic.SetPoints;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
-import raspberry.logic.schedule.Schedule;
 
 import static java.lang.Thread.sleep;
 
 public class FanSpeedRegulator implements Runnable{
 
+	private ICurrentMeasurements currentMeasurements;
+	private ISchedule schedule;
+
+	public FanSpeedRegulator(ICurrentMeasurements currentMeasurements, ISchedule schedule){
+		this.currentMeasurements = currentMeasurements;
+		this.schedule = schedule;
+	}
+
 	@Override
 	public void run() {
 		while (true){
 			try {
-				SetPoints setpoints = Schedule.getInstance().getSetpoints();
+				ReadableSetpoints setpoints = schedule.getSetpoints();
 				double scheduleTemp = setpoints.getTemperature();
 
-				Double currentTemp = CurrentMeasurementsFacade.getInstance().getTemp();
+				Double currentTemp = currentMeasurements.getTemp();
 
 				Double tempDifference = currentTemp-scheduleTemp;
 

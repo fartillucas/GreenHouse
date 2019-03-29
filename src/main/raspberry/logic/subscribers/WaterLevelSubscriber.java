@@ -1,16 +1,22 @@
 package raspberry.logic.subscribers;
 
+import raspberry.Acquaintance.ICurrentMeasurements;
 import raspberry.logic.OutFacadeLogic;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 
 import static java.lang.Thread.sleep;
 
 public class WaterLevelSubscriber implements Runnable{
 
+	private ICurrentMeasurements currentMeasurements;
+
+	public WaterLevelSubscriber(ICurrentMeasurements currentMeasurements){
+		this.currentMeasurements = currentMeasurements;
+	}
+
 	@Override
 	public void run() {
 		Double level = OutFacadeLogic.getInstance().getGreenhouseConnection().readWaterLevel();
-		CurrentMeasurementsFacade.getInstance().setLevel(level);
+		currentMeasurements.setLevel(level);
 
 		try {
 			sleep(1000);
