@@ -11,10 +11,10 @@ public interface ISchedule {
 
     SetPoints getSetpoints();
 
-    double getTemperature();
-    double getHumidity();
-    double getWaterLevel();
-    int getBlueLight();
-    int getRedLight();
+    Double getTemperature();
+    Double getHumidity();
+    Double getWaterLevel();
+    Integer getBlueLight();
+    Integer getRedLight();
 
 }

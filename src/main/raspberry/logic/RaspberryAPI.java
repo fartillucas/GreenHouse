@@ -2,7 +2,6 @@ package raspberry.logic;
 
 import raspberry.Acquaintance.ErrorCode;
 import raspberry.Acquaintance.IInterpreter;
-import raspberry.logic.Interpreters.ProcedureInterpreter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +12,8 @@ import java.util.Scanner;
 public class RaspberryAPI {
 
     private ServerSocket serverSocket;
-//    private ProcedureInterpreter interpreter;
     private IInterpreter interpreter;
+    private boolean continueListening = true;
 
     public RaspberryAPI(){
         //TODO get info from interwebs
@@ -40,7 +39,7 @@ public class RaspberryAPI {
     }
 
     private void acceptIncomingTraffic(){
-        while (true){
+        while (!Thread.interrupted() && continueListening){
             try (Socket socket = serverSocket.accept();
                  Scanner input = new Scanner(socket.getInputStream());
                  PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
@@ -51,8 +50,9 @@ public class RaspberryAPI {
 
                 writer.print(errorCode);
                 writer.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+//                e.printStackTrace();
+                System.out.println();
             }
         }
     }
@@ -65,6 +65,15 @@ public class RaspberryAPI {
             String RaspMessage = "connect\n";
             writer.print(RaspMessage);
             writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopListening(){
+        continueListening = false;
+        try {
+            this.serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

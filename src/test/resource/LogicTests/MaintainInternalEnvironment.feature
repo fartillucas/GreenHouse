@@ -6,8 +6,8 @@ Feature: Maintaining the internal environment
     And the system contains a schedule
 
   Scenario: For each stable condition
-      Given Measurements are within acceptable parameters
-		Then do nothing
+    Given Measurements are within acceptable parameters
+    Then do nothing
 
   Scenario: The temperature is too high, and external temperature is below threshold
     When The internal temperature is too high
@@ -16,7 +16,7 @@ Feature: Maintaining the internal environment
 
   Scenario: The temperature is too high, and external temperature is above threshold
     When The internal temperature is too high
-    And  and external temperature is above threshold
+    And external temperature is above threshold
     Then do nothing
 
   Scenario: The water level is too high
@@ -40,10 +40,3 @@ Feature: Maintaining the internal environment
   Scenario: Humidity is too low
     When humidity is too low
     Then do nothing
-
-
-
-
-
-
-

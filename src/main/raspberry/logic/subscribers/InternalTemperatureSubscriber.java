@@ -7,21 +7,25 @@ import static java.lang.Thread.sleep;
 
 public class InternalTemperatureSubscriber implements Runnable{
 
+    private boolean continueRunning;
     private ICurrentMeasurements currentMeasurements;
 
     public InternalTemperatureSubscriber(ICurrentMeasurements currentMeasurements){
         this.currentMeasurements = currentMeasurements;
+        continueRunning = true;
     }
 
     @Override
     public void run() {
-        Double temp= OutFacadeLogic.getInstance().getGreenhouseConnection().readTemp1();
-        currentMeasurements.setTemp(temp);
+        while (!Thread.interrupted() && continueRunning) {
+            Double temp= OutFacadeLogic.getInstance().getGreenhouseConnection().readTemp1();
+            currentMeasurements.setTemp(temp);
 
-        try {
-            sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                continueRunning = false;
+            }
         }
     }
 }

@@ -54,7 +54,7 @@ public class ApplySchedule {
 
     @When("^a valid schedule is received$")
     public void aValidScheduleIsReceived() throws Throwable {
-       serverMock.sendMessage(this.testSchedule, 0);
+        serverMock.sendMessage(this.testSchedule, 0);
     }
 
     @Then("^the schedule is saved in the system$")
@@ -65,7 +65,9 @@ public class ApplySchedule {
 
             assertTrue(success);
         } finally {
-            this.currentSystem.interrupt();
+            if (serverMock != null && currentSystem != null){
+                resetThreads(serverMock);
+            }
         }
     }
 
@@ -82,7 +84,9 @@ public class ApplySchedule {
 
             assertTrue(success);
         } finally {
-            this.currentSystem.interrupt();
+            if (serverMock != null && currentSystem != null){
+                resetThreads(serverMock);
+            }
         }
     }
 
@@ -105,18 +109,30 @@ public class ApplySchedule {
 
     @And("^an error is returned$")
     public void anErrorIsReturned() throws Throwable {
-        boolean formatError = ErrorCode.WRONGFORMAT.equals(serverMock.getReplyStatus());
-        boolean appliedError = ErrorCode.NOTAPPLIED.equals(serverMock.getReplyStatus());
-        boolean procedureError = ErrorCode.UNDEFINEDPROCEDURE.equals(serverMock.getReplyStatus());
+        try {
+            boolean formatError = ErrorCode.WRONGFORMAT.equals(serverMock.getReplyStatus());
+            boolean appliedError = ErrorCode.NOTAPPLIED.equals(serverMock.getReplyStatus());
+            boolean procedureError = ErrorCode.UNDEFINEDPROCEDURE.equals(serverMock.getReplyStatus());
 
-        boolean error;
+            boolean error;
 
-        if (formatError || appliedError || procedureError){
-            error = true;
-        } else {
-            error = false;
+            if (formatError || appliedError || procedureError){
+                error = true;
+            } else {
+                error = false;
+            }
+
+            assertTrue(error);
+        } finally {
+            if (serverMock != null && currentSystem != null){
+                resetThreads(serverMock);
+            }
         }
+    }
 
-        assertTrue(error);
+    private void resetThreads(ServerMock serverMock){
+        serverMock.stopThreads();
+
+        Starter.stopThreads();
     }
 }

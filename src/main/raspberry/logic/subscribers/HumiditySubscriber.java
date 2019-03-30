@@ -7,21 +7,25 @@ import static java.lang.Thread.sleep;
 
 public class HumiditySubscriber implements Runnable{
 
-    private ICurrentMeasurements currentMeasurements;
+	private boolean continueRunning;
+	private ICurrentMeasurements currentMeasurements;
 
     public HumiditySubscriber(ICurrentMeasurements currentMeasurements){
         this.currentMeasurements = currentMeasurements;
+        continueRunning = true;
     }
 
 	@Override
 	public void run() {
-		try {
-			Double moist= OutFacadeLogic.getInstance().getGreenhouseConnection().readMoist();
-			currentMeasurements.setMoist(moist);
+		while (!Thread.interrupted() && continueRunning) {
+			try {
+				Double moist= OutFacadeLogic.getInstance().getGreenhouseConnection().readMoist();
+				currentMeasurements.setMoist(moist);
 
-			sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+				sleep(1000);
+			} catch (InterruptedException e) {
+				continueRunning = false;
+			}
 		}
 	}
 }

@@ -4,13 +4,13 @@ import raspberry.Acquaintance.ReadableSetpoints;
 
 public class SetPoints implements ReadableSetpoints {
 
-    private double temperature;
-    private double humidity;
-    private double waterlevel;
-    private int blueLight;
-    private int redLight;
+    private Double temperature;
+    private Double humidity;
+    private Double waterlevel;
+    private Integer blueLight;
+    private Integer redLight;
 
-    public SetPoints(double temperature, double humidity, double waterlevel, int blueLight, int redLight) {
+    public SetPoints(Double temperature, Double humidity, Double waterlevel, Integer blueLight, Integer redLight) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.waterlevel = waterlevel;
@@ -18,23 +18,23 @@ public class SetPoints implements ReadableSetpoints {
         this.redLight = redLight;
     }
 
-    public double getTemperature() {
+    public Double getTemperature() {
         return temperature;
     }
 
-    public double getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
-    public double getWaterlevel() {
+    public Double getWaterlevel() {
         return waterlevel;
     }
 
-    public int getBlueLight() {
+    public Integer getBlueLight() {
         return blueLight;
     }
 
-    public int getRedLight() {
+    public Integer getRedLight() {
         return redLight;
     }
 }

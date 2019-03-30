@@ -8,29 +8,35 @@ import static java.lang.Thread.sleep;
 
 public class BlueLightRegulator implements Runnable{
 
-	private int lastSetpoint;
+	private boolean continueRunning;
+	private Integer lastSetpoint;
 
 	private ISchedule schedule;
 
 	public BlueLightRegulator(ISchedule schedule){
 		this.schedule = schedule;
+		continueRunning = true;
 	}
 
 	@Override
 	public void run() {
-		try {
-			ReadableSetpoints setPoints = schedule.getSetpoints();
-			int scheduleBlueLightLevel = setPoints.getBlueLight();
+		while (!Thread.interrupted() && continueRunning) {
+			try {
+				ReadableSetpoints setPoints = schedule.getSetpoints();
+				Integer scheduleBlueLightLevel = setPoints.getBlueLight();
 
-			if (scheduleBlueLightLevel != this.lastSetpoint) {
-				regulate(scheduleBlueLightLevel);
+				if(scheduleBlueLightLevel == null) {
+					regulate(0);
+				} else if (scheduleBlueLightLevel.equals(lastSetpoint)) {
+					regulate(scheduleBlueLightLevel);
+				}
+
+				this.lastSetpoint = scheduleBlueLightLevel;
+
+				sleep(1000);
+			} catch (InterruptedException e) {
+				continueRunning = false;
 			}
-
-			this.lastSetpoint = scheduleBlueLightLevel;
-
-			sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 

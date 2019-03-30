@@ -2,10 +2,10 @@ package raspberry.Acquaintance;
 
 public interface ReadableSetpoints {
 
-    double getTemperature();
-    double getHumidity();
-    double getWaterlevel();
-    int getBlueLight();
-    int getRedLight();
+    Double getTemperature();
+    Double getHumidity();
+    Double getWaterlevel();
+    Integer getBlueLight();
+    Integer getRedLight();
 
 }

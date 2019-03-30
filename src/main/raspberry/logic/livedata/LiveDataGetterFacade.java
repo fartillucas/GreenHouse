@@ -8,20 +8,11 @@ import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 
 public class LiveDataGetterFacade implements ILiveDataGetter {
 
-//    private static LiveDataGetterFacade instance;
-
     private ICurrentMeasurements currentMeasurementsFacade;
     private LiveDataGetter liveDataGetter;
 
     public LiveDataGetterFacade() {
     }
-
-//    public static LiveDataGetterFacade getInstance(){
-//        if(instance == null) {
-//            instance = new LiveDataGetterFacade();
-//        }
-//        return instance;
-//    }
 
     @Override
     public ErrorCode setConnection(IPAddressPort ipAddressPort){
@@ -35,6 +26,11 @@ public class LiveDataGetterFacade implements ILiveDataGetter {
     public void initialize(){
         this.liveDataGetter = new LiveDataGetter(currentMeasurementsFacade);
         this.liveDataGetter.setName("LiveDataGetter");
+        this.liveDataGetter.setDaemon(true);
         this.liveDataGetter.start();
+    }
+
+    public void stopThreads() {
+        this.liveDataGetter.interrupt();
     }
 }

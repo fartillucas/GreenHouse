@@ -8,36 +8,42 @@ import static java.lang.Thread.sleep;
 
 public class TemperatureRegulator implements Runnable {
 
-	private double lastSetpoint;
+    private boolean continueRunning;
+    private ISchedule schedule;
 
-	private ISchedule schedule;
+	private Double lastSetpoint;
 
 	public TemperatureRegulator(ISchedule schedule){
 		this.schedule = schedule;
+		this.lastSetpoint = null;
+		continueRunning = true;
 	}
 
 	@Override
 	public void run() {
-		try {
-			ReadableSetpoints setPoints = schedule.getSetpoints();
-			double scheduleTemp = setPoints.getTemperature();
+        while (!Thread.interrupted() && continueRunning) {
+            try {
+                ReadableSetpoints setPoints = schedule.getSetpoints();
+                Double scheduleTemp = setPoints.getTemperature();
 
 //			Double currentTemp = CurrentMeasurementsFacade.getInstance().getTemp();
-
-			if (scheduleTemp != lastSetpoint) {
-				//TODO if we can not control the heater, but only a temperature setpoint, then the comparison doesn't make sense
+                if (scheduleTemp != null){
+                    if (scheduleTemp != lastSetpoint) {
+                        //TODO if we can not control the heater, but only a temperature setpoint, then the comparison doesn't make sense
 //				if (currentTemp<scheduleTemp) {
-					regulate((int) scheduleTemp);
+                        regulate(scheduleTemp.intValue());
 //				}
-			}
+                    }
+                }
 
-			this.lastSetpoint = scheduleTemp;
+                this.lastSetpoint = scheduleTemp;
 
-			sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+                sleep(1000);
+            } catch (InterruptedException e) {
+                continueRunning = false;
+            }
+        }
+    }
 
 	private void regulate(int kelvin) {
 		OutFacadeLogic.getInstance().getGreenhouseConnection().setTemperature(kelvin);

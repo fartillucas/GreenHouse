@@ -15,9 +15,13 @@ public class Schedule implements ISchedule {
 
 //    private static Schedule instance;
 
-    private List<HashMap<Integer, SetPoints>> schedule;
-    private LocalDate appliedDate;
+    private static List<HashMap<Integer, SetPoints>> schedule;
+    private static LocalDate appliedDate;
 
+    public static void setSchedule(List<HashMap<Integer, SetPoints>> scheduleNew){
+        schedule = scheduleNew;
+        appliedDate = LocalDate.now();
+    }
 
 //    public static ISchedule getInstance() {
 //        //TODO fix singleton vs interface
@@ -53,47 +57,50 @@ public class Schedule implements ISchedule {
 
     @Override
     public SetPoints getSetpoints(){
-        LocalDate dateNow = getMeasurementDate();
-        LocalTime currentTimeOfDay = getTimeOfDay();
+        if (this.schedule != null){
+            LocalDate dateNow = getMeasurementDate();
+            LocalTime currentTimeOfDay = getTimeOfDay();
 
-        int minutes = currentTimeOfDay.getHour()*60+currentTimeOfDay.getMinute();
-        int block = minutes/120;
+            int minutes = currentTimeOfDay.getHour()*60+currentTimeOfDay.getMinute();
+            int block = minutes/120;
 
-        long index = DAYS.between(appliedDate, dateNow)%schedule.size();
+            long index = DAYS.between(appliedDate, dateNow)%schedule.size();
 
-        HashMap<Integer, SetPoints> day = schedule.get((int) index);
+            HashMap<Integer, SetPoints> day = schedule.get((int) index);
 
-        SetPoints setpoints = day.get(block);
-
-        return setpoints;
+            SetPoints setpoints = day.get(block);
+            return setpoints;
+        } else {
+            return new SetPoints(null,null,null,null,null);
+        }
     }
 
     @Override
-    public double getTemperature() {
+    public Double getTemperature() {
         SetPoints setPoints = this.getSetpoints();
         return setPoints.getTemperature();
     }
 
     @Override
-    public double getHumidity() {
+    public Double getHumidity() {
         SetPoints setPoints = this.getSetpoints();
         return setPoints.getHumidity();
     }
 
     @Override
-    public double getWaterLevel() {
+    public Double getWaterLevel() {
         SetPoints setPoints = this.getSetpoints();
         return setPoints.getWaterlevel();
     }
 
     @Override
-    public int getBlueLight() {
+    public Integer getBlueLight() {
         SetPoints setPoints = this.getSetpoints();
         return setPoints.getBlueLight();
     }
 
     @Override
-    public int getRedLight() {
+    public Integer getRedLight() {
         SetPoints setPoints = this.getSetpoints();
         return setPoints.getRedLight();
     }

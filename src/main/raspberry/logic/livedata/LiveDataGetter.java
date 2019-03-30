@@ -18,10 +18,12 @@ public class LiveDataGetter extends Thread {
     private Scanner scan;
     private String ip;
     private int port;
+    private boolean continueRunning;
 
     public LiveDataGetter(ICurrentMeasurements currentMeasurementsFacade) {
         this.itsAGoTime = false;
         this.currentMeasurements = currentMeasurementsFacade;
+        this.continueRunning = true;
     }
 
     public ErrorCode setConnection(ReadableIPAddressPort ipAddressPort){
@@ -46,7 +48,7 @@ public class LiveDataGetter extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (!Thread.interrupted() && continueRunning) {
             if (itsAGoTime) {
                 Double internalTemp = currentMeasurements.getTemp();
                 Double externalTemp = currentMeasurements.getTemp2();
@@ -91,7 +93,7 @@ public class LiveDataGetter extends Thread {
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                continueRunning = false;
             }
         }
     }

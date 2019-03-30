@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class ServerMock {
 
     private static ServerMock instance;
+    private Thread acceptingSocketsThread;
 
     private ServerSocket serverSocket;
     private boolean success;
@@ -33,10 +34,11 @@ public class ServerMock {
     }
 
     public ServerMock(int port) throws IOException {
+//        port = port; // static
         this.serverSocket = new ServerSocket(port);
 
-        Thread starter = new Thread(() -> {
-            while (true) {
+        acceptingSocketsThread = new Thread(() -> {
+            while (!Thread.interrupted()) {
                 try {
                     Socket socket = serverSocket.accept();
                     Scanner input = new Scanner(socket.getInputStream());
@@ -55,12 +57,10 @@ public class ServerMock {
             }
 
         });
-        starter.setName("ServerMock");
-        starter.setDaemon(true);
-        starter.start();
+        acceptingSocketsThread.setName("ServerMock");
+        acceptingSocketsThread.setDaemon(true);
+        acceptingSocketsThread.start();
     }
-
-
 
     public void sendMessage(String message, int socketNumber){
 
@@ -95,7 +95,7 @@ public class ServerMock {
     }
 
     public void listenForConnections(){
-        while (true) {
+        while (!Thread.interrupted()) {
             try{
                 Socket socket = serverSocket.accept();
                 Scanner input = new Scanner(socket.getInputStream());
@@ -137,5 +137,16 @@ public class ServerMock {
         }
 
         return false;
+    }
+
+    public void stopThreads() {
+        try {
+            this.serverSocket.close();
+            this.acceptingSocketsThread.interrupt();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

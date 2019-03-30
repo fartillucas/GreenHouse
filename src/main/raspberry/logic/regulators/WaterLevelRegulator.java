@@ -9,31 +9,38 @@ import static java.lang.Thread.sleep;
 
 public class WaterLevelRegulator implements Runnable{
 
-	private final ICurrentMeasurements currentMeasurements;
+	private ICurrentMeasurements currentMeasurements;
+	private boolean continueRunning;
 	private ISchedule schedule;
 
 	public WaterLevelRegulator(ICurrentMeasurements currentMeasurements, ISchedule schedule){
 		this.currentMeasurements = currentMeasurements;
 		this.schedule = schedule;
+		continueRunning = true;
 	}
 
 	@Override
 	public void run() {
-		while (true){
+		while (!Thread.interrupted() && continueRunning){
 			try {
 				ReadableSetpoints setPoints = schedule.getSetpoints();
-				double scheduleWaterLevel = setPoints.getWaterlevel();
+				Double scheduleWaterLevel = setPoints.getWaterlevel();
 
 				Double currentWaterLevel = currentMeasurements.getLevel();
 
-				if (currentWaterLevel<scheduleWaterLevel) {
-					regulate(5);
+				if (scheduleWaterLevel != null && currentWaterLevel != null){
+					if (currentWaterLevel<scheduleWaterLevel) {
+						regulate(5);
+					} else {
+						regulate(0);
+					}
 				} else {
 					regulate(0);
 				}
+
 				sleep(1000);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				continueRunning = false;
 			}
 		}
 	}

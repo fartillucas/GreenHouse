@@ -76,21 +76,28 @@ public class GetLiveData {
 
     @And("^greenhouse sends internal environment measurements every cycle$")
     public void greenhouseSendsInternalEnvironmentMeasurementsEveryCycle() throws Throwable {
-        JSONObject measurements = serverMock.readLiveData();
-        if(!measurements.isNull("InternalTemp")) {
-            measurements.getDouble("InternalTemp");
-        }
+        try{
+            JSONObject measurements = serverMock.readLiveData();
 
-        if (!measurements.isNull("ExternalTemp")) {
-            measurements.getDouble("ExternalTemp");
-        }
+            if(!measurements.isNull("InternalTemp")) {
+                measurements.getDouble("InternalTemp");
+            }
 
-        if (!measurements.isNull("Humidity")) {
-            measurements.getDouble("Humidity");
-        }
+            if (!measurements.isNull("ExternalTemp")) {
+                measurements.getDouble("ExternalTemp");
+            }
 
-        if (!measurements.isNull("WaterLevel")) {
-            measurements.getDouble("WaterLevel");
+            if (!measurements.isNull("Humidity")) {
+                measurements.getDouble("Humidity");
+            }
+
+            if (!measurements.isNull("WaterLevel")) {
+                measurements.getDouble("WaterLevel");
+            }
+        } finally {
+            if (serverMock != null && currentSystem != null){
+                resetThreads(serverMock);
+            }
         }
     }
 
@@ -110,9 +117,21 @@ public class GetLiveData {
 
     @And("^error is sent$")
     public void errorIsSent() throws Throwable {
-        ErrorCode error = serverMock.getReplyStatus();
+        try {
+            ErrorCode error = serverMock.getReplyStatus();
 
-        assertFalse(error.equals(ErrorCode.OK));
+            assertFalse(error.equals(ErrorCode.OK));
+        } finally {
+            if (serverMock != null && currentSystem != null){
+                resetThreads(serverMock);
+            }
+        }
+    }
+
+    private void resetThreads(ServerMock serverMock){
+        serverMock.stopThreads();
+
+        Starter.stopThreads();
     }
 
 }
