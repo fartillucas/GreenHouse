@@ -2,7 +2,7 @@ package raspberry.logic.livedata;
 
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
-import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.Acquaintance.ReadableIPAddressPort;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 
 public class LiveDataGetter extends Thread {
-    private final ICurrentMeasurements currentMeasurements;
+    private final ICurrentMeasurementsFacade currentMeasurements;
     private boolean itsAGoTime;
     private PrintWriter writer;
     private Scanner scan;
@@ -20,7 +20,7 @@ public class LiveDataGetter extends Thread {
     private int port;
     private boolean continueRunning;
 
-    public LiveDataGetter(ICurrentMeasurements currentMeasurementsFacade) {
+    public LiveDataGetter(ICurrentMeasurementsFacade currentMeasurementsFacade) {
         this.itsAGoTime = false;
         this.currentMeasurements = currentMeasurementsFacade;
         this.continueRunning = true;
@@ -50,10 +50,10 @@ public class LiveDataGetter extends Thread {
     public void run() {
         while (!Thread.interrupted() && continueRunning) {
             if (itsAGoTime) {
-                Double internalTemp = currentMeasurements.getTemp();
-                Double externalTemp = currentMeasurements.getTemp2();
-                Double humidity = currentMeasurements.getMoist();
-                Double waterLevel = currentMeasurements.getLevel();
+                Double internalTemp = currentMeasurements.getInternalTemperature();
+                Double externalTemp = currentMeasurements.getExternalTemperature();
+                Double humidity = currentMeasurements.getHumdity();
+                Double waterLevel = currentMeasurements.getWaterlevel();
 
                 JSONObject measurements = new JSONObject("{}");
 

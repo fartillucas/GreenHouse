@@ -1,6 +1,6 @@
 package raspberry.logic.subscribers;
 
-import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.Acquaintance.ISubscribersFacade;
 
 import java.util.concurrent.ExecutorService;
@@ -8,11 +8,11 @@ import java.util.concurrent.Executors;
 
 public class SubscribersFacade implements ISubscribersFacade {
 
-    private ICurrentMeasurements currentMeasurementsFacade;
+    private ICurrentMeasurementsFacade currentMeasurementsFacade;
 
     private ExecutorService executor;
 
-    public void injectCurrentMeasurementsFacade(ICurrentMeasurements currentMeasurementsFacade) {
+    public void injectCurrentMeasurementsFacade(ICurrentMeasurementsFacade currentMeasurementsFacade) {
         this.currentMeasurementsFacade = currentMeasurementsFacade;
     }
 

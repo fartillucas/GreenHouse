@@ -1,27 +1,27 @@
 package raspberry.communication;
 
-import raspberry.Acquaintance.ICommunicationsFacade;
+import raspberry.Acquaintance.ICommunications;
 import raspberry.communication.communicationAquaintance.IDatabaseConnectionFacade;
 import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
-import raspberry.communication.databaseconnection.DatabaseConnectionFacade;
-import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
 
-public class CommunicationFacade implements ICommunicationsFacade {
+import java.util.Date;
+
+public class Communication implements ICommunications {
 
 	//Should no longer require being singleton
-	private static CommunicationFacade instance;
+	private static Communication instance;
 
-	public static CommunicationFacade getInstance() {
-		if (CommunicationFacade.instance == null) {
-			CommunicationFacade.instance = new CommunicationFacade();
+	public static Communication getInstance() {
+		if (Communication.instance == null) {
+			Communication.instance = new Communication();
 		}
-		return CommunicationFacade.instance;
+		return Communication.instance;
 	}
 
 	private IDatabaseConnectionFacade databaseConnection;
 	private IGreenhouseConnectionFacade greenhouse;
 
-	public CommunicationFacade() {
+	public Communication() {
 	}
 
 	public void injectDatabaseConnection(IDatabaseConnectionFacade databaseConnection) {
@@ -35,6 +35,11 @@ public class CommunicationFacade implements ICommunicationsFacade {
 	@Override
 	public IGreenhouseConnectionFacade getGreenhouseConnection() {
 		return this.greenhouse;
+	}
+
+	@Override
+	public void insertLog(String greenhouseId, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel) {
+		databaseConnection.insertLog(greenhouseId, timeOfReading, internalTemperature, extenalTemperature, humidity, waterlevel);
 	}
 
 }

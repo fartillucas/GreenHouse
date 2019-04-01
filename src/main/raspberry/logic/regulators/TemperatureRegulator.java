@@ -26,7 +26,7 @@ public class TemperatureRegulator implements Runnable {
                 ReadableSetpoints setPoints = schedule.getSetpoints();
                 Double scheduleTemp = setPoints.getTemperature();
 
-//			Double currentTemp = CurrentMeasurementsFacade.getInstance().getTemp();
+//			Double currentTemp = CurrentMeasurementsFacade.getInstance().getInternalTemperature();
                 if (scheduleTemp != null){
                     if (scheduleTemp != lastSetpoint) {
                         //TODO if we can not control the heater, but only a temperature setpoint, then the comparison doesn't make sense

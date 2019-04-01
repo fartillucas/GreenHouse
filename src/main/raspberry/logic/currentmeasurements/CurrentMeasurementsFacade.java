@@ -1,8 +1,8 @@
 package raspberry.logic.currentmeasurements;
 
-import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 
-public class CurrentMeasurementsFacade implements ICurrentMeasurements {
+public class CurrentMeasurementsFacade implements ICurrentMeasurementsFacade {
 
 //	private static CurrentMeasurementsFacade instance;
 
@@ -22,42 +22,42 @@ public class CurrentMeasurementsFacade implements ICurrentMeasurements {
 	}
 
 	@Override
-	public Double getTemp() {
+	public Double getInternalTemperature() {
 		return currentMeasurements.getTemp();
 	}
 
 	@Override
-	public void setTemp(Double temp) {
+	public void setInternalTemperature(Double temp) {
 		this.currentMeasurements.setTemp(temp);
 	}
 
 	@Override
-	public Double getTemp2() {
+	public Double getExternalTemperature() {
 		return currentMeasurements.getTemp2();
 	}
 
 	@Override
-	public void setTemp2(Double temp2) {
+	public void setExternalTemperature(Double temp2) {
 		this.currentMeasurements.setTemp2(temp2);
 	}
 
 	@Override
-	public Double getMoist() {
+	public Double getHumdity() {
 		return currentMeasurements.getMoist();
 	}
 
 	@Override
-	public void setMoist(Double moist) {
+	public void setMoisture(Double moist) {
 		this.currentMeasurements.setMoist(moist);
 	}
 
 	@Override
-	public Double getLevel() {
+	public Double getWaterlevel() {
 		return currentMeasurements.getLevel();
 	}
 
 	@Override
-	public void setLevel(Double level) {
+	public void setWaterLevel(Double level) {
 		this.currentMeasurements.setLevel(level);
 	}
 }

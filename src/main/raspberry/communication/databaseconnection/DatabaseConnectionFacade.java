@@ -4,10 +4,11 @@ import raspberry.communication.communicationAquaintance.IDatabaseConnectionFacad
 import raspberry.communication.databaseconnection.inserters.LogInserter;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class DatabaseConnectionFacade implements IDatabaseConnectionFacade {
     @Override
-    public void insertLog(String greenhouseId, Timestamp timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel) {
-        new LogInserter().insert(greenhouseId, timeOfReading, (float)internalTemperature, (float)extenalTemperature, (float)humidity, (float)waterlevel);
+    public void insertLog(String greenhouseId, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel) {
+        new LogInserter().insert(greenhouseId, new Timestamp(timeOfReading.getTime()), (float)internalTemperature, (float)extenalTemperature, (float)humidity, (float)waterlevel);
     }
 }

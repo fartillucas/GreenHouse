@@ -1,6 +1,6 @@
 package raspberry.glue;
 
-import raspberry.communication.CommunicationFacade;
+import raspberry.communication.Communication;
 import raspberry.communication.databaseconnection.DatabaseConnectionFacade;
 import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
 import raspberry.logic.Interpreters.InterpreterFacade;
@@ -26,7 +26,7 @@ public class Starter {
     public static void start() {
         raspberryAPI = new RaspberryAPI();
         OutFacadeLogic outFacadeLogic = OutFacadeLogic.getInstance();
-        CommunicationFacade communicationFacade = new CommunicationFacade();
+        Communication communicationFacade = new Communication();
 
         outFacadeLogic.injectCommunicationFacade(communicationFacade);
 
@@ -60,7 +60,7 @@ public class Starter {
         initializeLogic(interpreterFacade, liveDataGetterFacade, subscribersFacade, regulatorFacade);
     }
 
-    private static void glueCommunication(CommunicationFacade communicationFacade){
+    private static void glueCommunication(Communication communicationFacade){
         DatabaseConnectionFacade databaseConnectionFacade = new DatabaseConnectionFacade();
         GreenhouseConnectionFacade greenhouseConnectionFacade = new GreenhouseConnectionFacade();
 

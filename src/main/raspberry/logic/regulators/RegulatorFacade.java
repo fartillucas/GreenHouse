@@ -1,6 +1,6 @@
 package raspberry.logic.regulators;
 
-import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.Acquaintance.IRegulatorFacade;
 import raspberry.Acquaintance.ISchedule;
 
@@ -9,12 +9,12 @@ import java.util.concurrent.Executors;
 
 public class RegulatorFacade implements IRegulatorFacade {
 
-    private ICurrentMeasurements currentMeasurementsFacade;
+    private ICurrentMeasurementsFacade currentMeasurementsFacade;
     private ISchedule schedule;
 
     private ExecutorService executor;
 
-    public void injectCurrentMeasurementsFacade(ICurrentMeasurements currentMeasurementsFacade) {
+    public void injectCurrentMeasurementsFacade(ICurrentMeasurementsFacade currentMeasurementsFacade) {
         this.currentMeasurementsFacade = currentMeasurementsFacade;
     }
 

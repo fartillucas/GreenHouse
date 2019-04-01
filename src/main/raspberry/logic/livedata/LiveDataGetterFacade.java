@@ -1,14 +1,13 @@
 package raspberry.logic.livedata;
 
 import raspberry.Acquaintance.ErrorCode;
-import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.Acquaintance.ILiveDataGetter;
 import raspberry.logic.IPAddressPort;
-import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
 
 public class LiveDataGetterFacade implements ILiveDataGetter {
 
-    private ICurrentMeasurements currentMeasurementsFacade;
+    private ICurrentMeasurementsFacade currentMeasurementsFacade;
     private LiveDataGetter liveDataGetter;
 
     public LiveDataGetterFacade() {
@@ -19,7 +18,7 @@ public class LiveDataGetterFacade implements ILiveDataGetter {
         return liveDataGetter.setConnection(ipAddressPort);
     }
 
-    public void injectCurrentMeasurementsFacade(ICurrentMeasurements currentMeasurementsFacade) {
+    public void injectCurrentMeasurementsFacade(ICurrentMeasurementsFacade currentMeasurementsFacade) {
         this.currentMeasurementsFacade = currentMeasurementsFacade;
     }
 

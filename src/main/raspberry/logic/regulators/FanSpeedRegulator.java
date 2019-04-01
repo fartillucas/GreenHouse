@@ -1,6 +1,6 @@
 package raspberry.logic.regulators;
 
-import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.Acquaintance.ISchedule;
 import raspberry.Acquaintance.ReadableSetpoints;
 import raspberry.logic.OutFacadeLogic;
@@ -10,12 +10,12 @@ import static java.lang.Thread.sleep;
 public class FanSpeedRegulator implements Runnable{
 
 	private boolean continueRunning;
-	private ICurrentMeasurements currentMeasurements;
+	private ICurrentMeasurementsFacade currentMeasurements;
 	private ISchedule schedule;
 
 	private int lastSpeed;
 
-	public FanSpeedRegulator(ICurrentMeasurements currentMeasurements, ISchedule schedule){
+	public FanSpeedRegulator(ICurrentMeasurementsFacade currentMeasurements, ISchedule schedule){
 		this.currentMeasurements = currentMeasurements;
 		this.schedule = schedule;
 		this.lastSpeed = -1;
@@ -30,9 +30,9 @@ public class FanSpeedRegulator implements Runnable{
 				Double scheduleTemperature = setpoints.getTemperature();
 				Double scheduleHumidity = setpoints.getHumidity();
 
-				Double currentInternalTemperature = currentMeasurements.getTemp();
-				Double currentHumidity = currentMeasurements.getMoist();
-				Double currentExternalTemperature = currentMeasurements.getTemp2();
+				Double currentInternalTemperature = currentMeasurements.getInternalTemperature();
+				Double currentHumidity = currentMeasurements.getHumdity();
+				Double currentExternalTemperature = currentMeasurements.getExternalTemperature();
 
 				int speed = 0;
 				boolean regulateTemperature = (scheduleTemperature != null && currentInternalTemperature != null

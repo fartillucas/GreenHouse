@@ -4,7 +4,7 @@ import raspberry.Acquaintance.*;
 
 public class InterpreterFacade implements IInterpreter {
 
-    private ICurrentMeasurements measurements;
+    private ICurrentMeasurementsFacade measurements;
     private ILiveDataGetter liveDataGetter;
     private ISchedule schedule;
 
@@ -18,7 +18,7 @@ public class InterpreterFacade implements IInterpreter {
         return this.interpreter.interpret(message);
     }
 
-    public void injectMeasurements(ICurrentMeasurements measurements) {
+    public void injectMeasurements(ICurrentMeasurementsFacade measurements) {
         this.measurements = measurements;
     }
 
