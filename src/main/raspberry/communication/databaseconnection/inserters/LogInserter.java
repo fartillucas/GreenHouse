@@ -16,13 +16,14 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogInserter {
+public class LogInserter implements Runnable{
 
     private String values;
     private String tables;
     private Connection connection;
+    List<PrepareInfo> wildCardInfo;
 
-    public LogInserter() {
+    public LogInserter()  {
         this.values = "(?,?,?,?,?,?)";
         this.tables = "datalog(greenhouse_id, time_of_reading, internal_temperature, external_temperature, humidity, water_level)";
         connection = new DatabaseConnector().openConnection();
@@ -34,8 +35,7 @@ public class LogInserter {
                        float extenalTemperature,
                        float humidity,
                        float waterlevel) {
-
-        List<PrepareInfo> wildCardInfo = new ArrayList<>();
+        wildCardInfo = new ArrayList<>();
         wildCardInfo.add(new PrepareInfo(1, PrepareType.STRING, greenhouseId));
         wildCardInfo.add(new PrepareInfo(2, PrepareType.TIMESTAMP, timeOfReading));
         wildCardInfo.add(new PrepareInfo(3, PrepareType.FLOAT, internalTemperature));
@@ -43,13 +43,19 @@ public class LogInserter {
         wildCardInfo.add(new PrepareInfo(5, PrepareType.FLOAT, humidity));
         wildCardInfo.add(new PrepareInfo(6, PrepareType.FLOAT, waterlevel));
 
-        new Insert().insertion(connection, tables, values, wildCardInfo);
+        new Thread(this).run();
+
 
         try {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void run() {
+        new Insert().insertion(connection, tables, values, wildCardInfo);
     }
 }
 
