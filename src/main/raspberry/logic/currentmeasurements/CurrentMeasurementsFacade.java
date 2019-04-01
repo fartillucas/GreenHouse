@@ -23,41 +23,41 @@ public class CurrentMeasurementsFacade implements ICurrentMeasurementsFacade {
 
 	@Override
 	public Double getInternalTemperature() {
-		return currentMeasurements.getTemp();
+		return currentMeasurements.getInternalTemperature();
 	}
 
 	@Override
 	public void setInternalTemperature(Double temp) {
-		this.currentMeasurements.setTemp(temp);
+		this.currentMeasurements.setInternalTemperature(temp);
 	}
 
 	@Override
 	public Double getExternalTemperature() {
-		return currentMeasurements.getTemp2();
+		return currentMeasurements.getExternalTemperature();
 	}
 
 	@Override
 	public void setExternalTemperature(Double temp2) {
-		this.currentMeasurements.setTemp2(temp2);
+		this.currentMeasurements.setExternalTemperature(temp2);
 	}
 
 	@Override
 	public Double getHumdity() {
-		return currentMeasurements.getMoist();
+		return currentMeasurements.getHumidity();
 	}
 
 	@Override
 	public void setMoisture(Double moist) {
-		this.currentMeasurements.setMoist(moist);
+		this.currentMeasurements.setHumidity(moist);
 	}
 
 	@Override
 	public Double getWaterlevel() {
-		return currentMeasurements.getLevel();
+		return currentMeasurements.getWaterlevel();
 	}
 
 	@Override
 	public void setWaterLevel(Double level) {
-		this.currentMeasurements.setLevel(level);
+		this.currentMeasurements.setWaterlevel(level);
 	}
 }

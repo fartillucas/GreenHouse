@@ -7,6 +7,7 @@ import raspberry.logic.Interpreters.InterpreterFacade;
 import raspberry.logic.OutFacadeLogic;
 import raspberry.logic.RaspberryAPI;
 import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
+import raspberry.logic.datalogger.DataloggerFacade;
 import raspberry.logic.livedata.LiveDataGetterFacade;
 import raspberry.logic.regulators.RegulatorFacade;
 import raspberry.logic.schedule.Schedule;
@@ -18,6 +19,7 @@ public class Starter {
     private static RegulatorFacade regulatorFacade;
     private static SubscribersFacade subscribersFacade;
     private static RaspberryAPI raspberryAPI;
+    private static DataloggerFacade dataloggerFacade;
 
     public static void main(String[] args) {
         Starter.start();
@@ -44,12 +46,14 @@ public class Starter {
         regulatorFacade = new RegulatorFacade();
         subscribersFacade = new SubscribersFacade();
         Schedule schedule = new Schedule();
+        dataloggerFacade = new DataloggerFacade();
         InterpreterFacade interpreterFacade = new InterpreterFacade();
 
         liveDataGetterFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
         subscribersFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
         regulatorFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
         regulatorFacade.injectSchedule(schedule);
+        dataloggerFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
 
         interpreterFacade.injectSchedule(schedule);
         interpreterFacade.injectLiveDataGetter(liveDataGetterFacade);
@@ -57,7 +61,7 @@ public class Starter {
 
         raspberryAPI.injectInterpreter(interpreterFacade);
 
-        initializeLogic(interpreterFacade, liveDataGetterFacade, subscribersFacade, regulatorFacade);
+        initializeLogic(interpreterFacade, liveDataGetterFacade, subscribersFacade, regulatorFacade, dataloggerFacade);
     }
 
     private static void glueCommunication(Communication communicationFacade){
@@ -66,13 +70,16 @@ public class Starter {
 
         communicationFacade.injectDatabaseConnection(databaseConnectionFacade);
         communicationFacade.injectGreenhouse(greenhouseConnectionFacade);
+
     }
 
-    private static void initializeLogic(InterpreterFacade interpreter, LiveDataGetterFacade liveDataGetterFacade, SubscribersFacade subscribersFacade, RegulatorFacade regulatorFacade){
+    private static void initializeLogic(InterpreterFacade interpreter, LiveDataGetterFacade liveDataGetterFacade, SubscribersFacade subscribersFacade, RegulatorFacade regulatorFacade, DataloggerFacade dataloggerFacade){
         interpreter.initialize();
         liveDataGetterFacade.initialize();
         subscribersFacade.initialize();
         regulatorFacade.initialize();
+        dataloggerFacade.initialize();
+
     }
 
     private static void initializeCommunication(){
@@ -84,6 +91,7 @@ public class Starter {
         Starter.liveDataGetterFacade.stopThreads();
         Starter.regulatorFacade.stopThreads();
         Starter.subscribersFacade.stopThreads();
+        Starter.dataloggerFacade.stopThreads();
     }
 
 }

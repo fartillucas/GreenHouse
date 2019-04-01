@@ -14,9 +14,7 @@ public class DataloggerRunnable implements Runnable {
         this.dataloggerFacade = dataloggerFacade;
     }
 
-    public void stopThread(){
-        this.stopped = true;
-    }
+
 
 
     @Override

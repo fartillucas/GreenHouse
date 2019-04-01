@@ -2,73 +2,73 @@ package raspberry.logic.currentmeasurements;
 
 public class CurrentMeasurements {
 
-	private Double temp; //internal temperature
-	private Double temp2; //external temperature
-	private Double moist; //humidity
-	private Double level; //water level
+	private Double internalTemperature; //internal temperature
+	private Double externalTemperature; //external temperature
+	private Double humidity; //humidity
+	private Double waterlevel; //water waterlevel
 
 	//TODO This should be real locks?
-	private Double tempLock = 1.0;
-	private Double temp2Lock = 1.0;
-	private Double moistLock = 1.0;
-	private Double levelLock = 1.0;
+	private Double internalTemperatureLock = 1.0;
+	private Double externalTemperatureLock = 1.0;
+	private Double humidityLock = 1.0;
+	private Double waterlevelLock = 1.0;
 
 	public CurrentMeasurements(double internalTemperature, double externalTemperature, double humidity, double waterLevel) {
-		this.temp = internalTemperature;
-		this.temp2 = externalTemperature;
-		this.moist = humidity;
-		this.level = waterLevel;
+		this.internalTemperature = internalTemperature;
+		this.externalTemperature = externalTemperature;
+		this.humidity = humidity;
+		this.waterlevel = waterLevel;
 	}
 
 	public CurrentMeasurements() {
 	}
 
-	public Double getTemp() {
-		synchronized (this.tempLock) {
-			return temp;
+	public Double getInternalTemperature() {
+		synchronized (this.internalTemperatureLock) {
+			return internalTemperature;
 		}
 	}
 
-	public void setTemp(Double temp) {
-		synchronized (this.tempLock) {
-			this.temp = temp;
+	public void setInternalTemperature(Double internalTemperature) {
+		synchronized (this.internalTemperatureLock) {
+			this.internalTemperature = internalTemperature;
 		}
 	}
 
-	public Double getTemp2() {
-		synchronized (this.temp2Lock) {
-			return temp2;
+	public Double getExternalTemperature() {
+		synchronized (this.externalTemperatureLock) {
+			return externalTemperature;
 		}
 	}
 
 
-	public void setTemp2(Double temp2) {
-		synchronized (this.temp2Lock) {
-			this.temp2 = temp2;
+	public void setExternalTemperature(Double externalTemperature) {
+		synchronized (this.externalTemperatureLock) {
+			this.externalTemperature = externalTemperature;
 		}
 	}
 
-	public Double getMoist() {
-		synchronized (this.moistLock) {
-			return moist;
+	public Double getHumidity() {
+		synchronized (this.humidityLock) {
+			return humidity;
 		}
 	}
 
-	public void setMoist(Double moist) {
-		synchronized (this.moistLock) {
-			this.moist = moist;
+	public void setHumidity(Double humidity) {
+		synchronized (this.humidityLock) {
+			this.humidity = humidity;
 		}
 	}
 
-	public Double getLevel() {
-		synchronized (this.levelLock) {
-			return level;
+	public Double getWaterlevel() {
+		synchronized (this.waterlevelLock) {
+			return waterlevel;
 		}
 	}
 
-	public void setLevel(Double level) {
-		synchronized (this.levelLock) {
-			this.level = level;
+	public void setWaterlevel(Double waterlevel) {
+		synchronized (this.waterlevelLock) {
+			this.waterlevel = waterlevel;
 		}
 	}
 }
