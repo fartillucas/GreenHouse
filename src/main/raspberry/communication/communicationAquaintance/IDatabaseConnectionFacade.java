@@ -1,9 +1,10 @@
 package raspberry.communication.communicationAquaintance;
 
-import java.sql.Timestamp;
+
+import java.util.Date;
 
 public interface IDatabaseConnectionFacade {
 
-    void insertLog(String greenhouseId, Timestamp timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel);
+    void insertLog(String greenhouseId, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel);
 
 }

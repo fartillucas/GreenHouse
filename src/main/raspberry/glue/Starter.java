@@ -1,12 +1,13 @@
 package raspberry.glue;
 
-import raspberry.communication.CommunicationFacade;
+import raspberry.communication.Communication;
 import raspberry.communication.databaseconnection.DatabaseConnectionFacade;
 import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
 import raspberry.logic.Interpreters.InterpreterFacade;
 import raspberry.logic.OutFacadeLogic;
 import raspberry.logic.RaspberryAPI;
 import raspberry.logic.currentmeasurements.CurrentMeasurementsFacade;
+import raspberry.logic.datalogger.DataloggerFacade;
 import raspberry.logic.livedata.LiveDataGetterFacade;
 import raspberry.logic.regulators.RegulatorFacade;
 import raspberry.logic.schedule.Schedule;
@@ -18,6 +19,7 @@ public class Starter {
     private static RegulatorFacade regulatorFacade;
     private static SubscribersFacade subscribersFacade;
     private static RaspberryAPI raspberryAPI;
+    private static DataloggerFacade dataloggerFacade;
 
     public static void main(String[] args) {
         Starter.start();
@@ -26,7 +28,7 @@ public class Starter {
     public static void start() {
         raspberryAPI = new RaspberryAPI();
         OutFacadeLogic outFacadeLogic = OutFacadeLogic.getInstance();
-        CommunicationFacade communicationFacade = new CommunicationFacade();
+        Communication communicationFacade = new Communication();
 
         outFacadeLogic.injectCommunicationFacade(communicationFacade);
 
@@ -44,12 +46,14 @@ public class Starter {
         regulatorFacade = new RegulatorFacade();
         subscribersFacade = new SubscribersFacade();
         Schedule schedule = new Schedule();
+        dataloggerFacade = new DataloggerFacade();
         InterpreterFacade interpreterFacade = new InterpreterFacade();
 
         liveDataGetterFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
         subscribersFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
         regulatorFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
         regulatorFacade.injectSchedule(schedule);
+        dataloggerFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
 
         interpreterFacade.injectSchedule(schedule);
         interpreterFacade.injectLiveDataGetter(liveDataGetterFacade);
@@ -57,22 +61,25 @@ public class Starter {
 
         raspberryAPI.injectInterpreter(interpreterFacade);
 
-        initializeLogic(interpreterFacade, liveDataGetterFacade, subscribersFacade, regulatorFacade);
+        initializeLogic(interpreterFacade, liveDataGetterFacade, subscribersFacade, regulatorFacade, dataloggerFacade);
     }
 
-    private static void glueCommunication(CommunicationFacade communicationFacade){
+    private static void glueCommunication(Communication communicationFacade){
         DatabaseConnectionFacade databaseConnectionFacade = new DatabaseConnectionFacade();
         GreenhouseConnectionFacade greenhouseConnectionFacade = new GreenhouseConnectionFacade();
 
         communicationFacade.injectDatabaseConnection(databaseConnectionFacade);
         communicationFacade.injectGreenhouse(greenhouseConnectionFacade);
+
     }
 
-    private static void initializeLogic(InterpreterFacade interpreter, LiveDataGetterFacade liveDataGetterFacade, SubscribersFacade subscribersFacade, RegulatorFacade regulatorFacade){
+    private static void initializeLogic(InterpreterFacade interpreter, LiveDataGetterFacade liveDataGetterFacade, SubscribersFacade subscribersFacade, RegulatorFacade regulatorFacade, DataloggerFacade dataloggerFacade){
         interpreter.initialize();
         liveDataGetterFacade.initialize();
         subscribersFacade.initialize();
         regulatorFacade.initialize();
+        dataloggerFacade.initialize();
+
     }
 
     private static void initializeCommunication(){
@@ -84,6 +91,7 @@ public class Starter {
         Starter.liveDataGetterFacade.stopThreads();
         Starter.regulatorFacade.stopThreads();
         Starter.subscribersFacade.stopThreads();
+        Starter.dataloggerFacade.stopThreads();
     }
 
 }

@@ -1,6 +1,6 @@
 package raspberry.logic.subscribers;
 
-import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.logic.OutFacadeLogic;
 
 import static java.lang.Thread.sleep;
@@ -8,9 +8,9 @@ import static java.lang.Thread.sleep;
 public class ExternalTemperatureSubscriber implements Runnable{
 
 	private boolean continueRunning;
-	private ICurrentMeasurements currentMeasurements;
+	private ICurrentMeasurementsFacade currentMeasurements;
 
-	public ExternalTemperatureSubscriber(ICurrentMeasurements currentMeasurements){
+	public ExternalTemperatureSubscriber(ICurrentMeasurementsFacade currentMeasurements){
 		this.currentMeasurements = currentMeasurements;
 		this.continueRunning = true;
 	}
@@ -19,7 +19,7 @@ public class ExternalTemperatureSubscriber implements Runnable{
 	public void run() {
 		while (!Thread.interrupted() && continueRunning) {
 			Double temp = OutFacadeLogic.getInstance().getGreenhouseConnection().readTemp2();
-			currentMeasurements.setTemp2(temp);
+			currentMeasurements.setExternalTemperature(temp);
 
 			try {
 				sleep(1000);

@@ -1,6 +1,6 @@
 package raspberry.logic.subscribers;
 
-import raspberry.Acquaintance.ICurrentMeasurements;
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.logic.OutFacadeLogic;
 
 import static java.lang.Thread.sleep;
@@ -8,9 +8,9 @@ import static java.lang.Thread.sleep;
 public class HumiditySubscriber implements Runnable{
 
 	private boolean continueRunning;
-	private ICurrentMeasurements currentMeasurements;
+	private ICurrentMeasurementsFacade currentMeasurements;
 
-    public HumiditySubscriber(ICurrentMeasurements currentMeasurements){
+    public HumiditySubscriber(ICurrentMeasurementsFacade currentMeasurements){
         this.currentMeasurements = currentMeasurements;
         continueRunning = true;
     }
@@ -20,7 +20,7 @@ public class HumiditySubscriber implements Runnable{
 		while (!Thread.interrupted() && continueRunning) {
 			try {
 				Double moist= OutFacadeLogic.getInstance().getGreenhouseConnection().readMoist();
-				currentMeasurements.setMoist(moist);
+				currentMeasurements.setMoisture(moist);
 
 				sleep(1000);
 			} catch (InterruptedException e) {
