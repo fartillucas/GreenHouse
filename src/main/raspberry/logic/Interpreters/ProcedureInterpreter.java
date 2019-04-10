@@ -6,10 +6,8 @@ import raspberry.Acquaintance.ILiveDataGetter;
 import raspberry.Acquaintance.ISchedule;
 import raspberry.Acquaintance.IWatchdogPetterFacade;
 import raspberry.logic.IPAddressPort;
-import raspberry.logic.InvalidIPAddressException;
+import raspberry.Acquaintance.InvalidIPAddressException;
 import raspberry.logic.SetPoints;
-import raspberry.logic.livedata.LiveDataGetterFacade;
-import raspberry.logic.schedule.Schedule;
 
 import java.util.HashMap;
 import java.util.List;

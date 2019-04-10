@@ -70,8 +70,9 @@ public class FanSpeedRegulator implements Runnable{
 		//TODO this should be tuned
 		double humidityFactor = 0.8;
 		double temperatureFactor = 1.0;
+		double temperatureDifference = 20;
 
-		double humidityScore = humidityFactor*(currentHumidity-scheduleHumidity)*(currentInternalTemperature+20-currentExternalTemperature);
+		double humidityScore = humidityFactor*(currentHumidity-scheduleHumidity)*(currentInternalTemperature+temperatureDifference-currentExternalTemperature);
 		double temperatureScore = temperatureFactor*((currentInternalTemperature-scheduleTemperature)*(currentInternalTemperature-currentExternalTemperature));
 
 		double regulatorScore = humidityScore+temperatureScore;
