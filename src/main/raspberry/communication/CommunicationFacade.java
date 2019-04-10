@@ -1,27 +1,25 @@
 package raspberry.communication;
 
-import raspberry.Acquaintance.ICommunications;
+import raspberry.Acquaintance.ICommunicationsFacade;
+import raspberry.Acquaintance.IWebAppConnectionFacade;
+import raspberry.Acquaintance.ReadableIPAddressPort;
+import raspberry.Acquaintance.ServerInfoEnum;
 import raspberry.communication.communicationAquaintance.IDatabaseConnectionFacade;
 import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
 
 import java.util.Date;
 
-public class Communication implements ICommunications {
-
-	//Should no longer require being singleton
-	private static Communication instance;
-
-	public static Communication getInstance() {
-		if (Communication.instance == null) {
-			Communication.instance = new Communication();
-		}
-		return Communication.instance;
-	}
+public class CommunicationFacade implements ICommunicationsFacade {
 
 	private IDatabaseConnectionFacade databaseConnection;
 	private IGreenhouseConnectionFacade greenhouse;
+	private IWebAppConnectionFacade webAppConnectionFacade;
 
-	public Communication() {
+	public CommunicationFacade() {
+	}
+
+	public void injectWebAppConnectionFacade(IWebAppConnectionFacade webAppConnectionFacade){
+		this.webAppConnectionFacade = webAppConnectionFacade;
 	}
 
 	public void injectDatabaseConnection(IDatabaseConnectionFacade databaseConnection) {
@@ -40,6 +38,18 @@ public class Communication implements ICommunications {
 	@Override
 	public void insertLog(String greenhouseId, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel) {
 		databaseConnection.insertLog(greenhouseId, timeOfReading, internalTemperature, extenalTemperature, humidity, waterlevel);
+	}
+
+	@Override
+	public boolean petWatchdog(String greenhouseID) {
+		//TODO DO THIS!!!
+		return webAppConnectionFacade.petTheDog(greenhouseID, ServerInfoEnum.SERVERINFO.getIP(), ServerInfoEnum.SERVERINFO.getPort());
+
+	}
+
+	@Override
+	public void setServerInfo(String serverIP, int serverPort) {
+
 	}
 
 }

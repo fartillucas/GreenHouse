@@ -5,12 +5,15 @@ import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFac
 import java.util.Date;
 
 
-public interface ICommunications {
+public interface ICommunicationsFacade {
 
 	IGreenhouseConnectionFacade getGreenhouseConnection();
 
 	void insertLog(String greenhouseId, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel);
 
 
+    boolean petWatchdog(String greenhouseID);
+
+	void setServerInfo(String serverIP, int serverPort);
 }
 

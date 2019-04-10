@@ -2,10 +2,10 @@ package raspberry.logic.currentmeasurements;
 
 public class CurrentMeasurements {
 
-	private Double internalTemperature; //internal temperature
-	private Double externalTemperature; //external temperature
-	private Double humidity; //humidity
-	private Double waterlevel; //water waterlevel
+	private Double internalTemperature;
+	private Double externalTemperature;
+	private Double humidity;
+	private Double waterlevel;
 
 	//TODO This should be real locks?
 	private Double internalTemperatureLock = 1.0;

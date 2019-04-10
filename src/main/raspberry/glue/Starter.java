@@ -1,8 +1,11 @@
 package raspberry.glue;
 
-import raspberry.communication.Communication;
+import raspberry.Acquaintance.ErrorCode;
+import raspberry.Acquaintance.IWebAppConnectionFacade;
+import raspberry.communication.CommunicationFacade;
 import raspberry.communication.databaseconnection.DatabaseConnectionFacade;
 import raspberry.communication.greenhouseconnection.GreenhouseConnectionFacade;
+import raspberry.communication.webappconnection.WebAppConnectionFacade;
 import raspberry.logic.Interpreters.InterpreterFacade;
 import raspberry.logic.OutFacadeLogic;
 import raspberry.logic.RaspberryAPI;
@@ -12,6 +15,7 @@ import raspberry.logic.livedata.LiveDataGetterFacade;
 import raspberry.logic.regulators.RegulatorFacade;
 import raspberry.logic.schedule.Schedule;
 import raspberry.logic.subscribers.SubscribersFacade;
+import raspberry.logic.watchdogpetter.WatchdogPetterFacade;
 
 public class Starter {
 
@@ -20,6 +24,8 @@ public class Starter {
     private static SubscribersFacade subscribersFacade;
     private static RaspberryAPI raspberryAPI;
     private static DataloggerFacade dataloggerFacade;
+    private static WatchdogPetterFacade watchdogPetterFacade;
+
 
     public static void main(String[] args) {
         Starter.start();
@@ -28,7 +34,7 @@ public class Starter {
     public static void start() {
         raspberryAPI = new RaspberryAPI();
         OutFacadeLogic outFacadeLogic = OutFacadeLogic.getInstance();
-        Communication communicationFacade = new Communication();
+        CommunicationFacade communicationFacade = new CommunicationFacade();
 
         outFacadeLogic.injectCommunicationFacade(communicationFacade);
 
@@ -40,6 +46,7 @@ public class Starter {
         raspberryAPI.initialise();
     }
 
+
     private static void glueLogic(RaspberryAPI raspberryAPI){
         CurrentMeasurementsFacade currentMeasurementsFacade = new CurrentMeasurementsFacade();
         liveDataGetterFacade = new LiveDataGetterFacade();
@@ -48,6 +55,7 @@ public class Starter {
         Schedule schedule = new Schedule();
         dataloggerFacade = new DataloggerFacade();
         InterpreterFacade interpreterFacade = new InterpreterFacade();
+        watchdogPetterFacade = new WatchdogPetterFacade();
 
         liveDataGetterFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
         subscribersFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
@@ -55,30 +63,34 @@ public class Starter {
         regulatorFacade.injectSchedule(schedule);
         dataloggerFacade.injectCurrentMeasurementsFacade(currentMeasurementsFacade);
 
+
         interpreterFacade.injectSchedule(schedule);
         interpreterFacade.injectLiveDataGetter(liveDataGetterFacade);
         interpreterFacade.injectMeasurements(currentMeasurementsFacade);
 
         raspberryAPI.injectInterpreter(interpreterFacade);
 
-        initializeLogic(interpreterFacade, liveDataGetterFacade, subscribersFacade, regulatorFacade, dataloggerFacade);
+        initializeLogic(interpreterFacade, liveDataGetterFacade, subscribersFacade, regulatorFacade, dataloggerFacade, watchdogPetterFacade);
     }
 
-    private static void glueCommunication(Communication communicationFacade){
+    private static void glueCommunication(CommunicationFacade communicationFacade){
         DatabaseConnectionFacade databaseConnectionFacade = new DatabaseConnectionFacade();
         GreenhouseConnectionFacade greenhouseConnectionFacade = new GreenhouseConnectionFacade();
+        IWebAppConnectionFacade webAppConnectionFacade = new WebAppConnectionFacade();
 
         communicationFacade.injectDatabaseConnection(databaseConnectionFacade);
         communicationFacade.injectGreenhouse(greenhouseConnectionFacade);
+        communicationFacade.injectWebAppConnectionFacade(webAppConnectionFacade);
 
     }
 
-    private static void initializeLogic(InterpreterFacade interpreter, LiveDataGetterFacade liveDataGetterFacade, SubscribersFacade subscribersFacade, RegulatorFacade regulatorFacade, DataloggerFacade dataloggerFacade){
+    private static void initializeLogic(InterpreterFacade interpreter, LiveDataGetterFacade liveDataGetterFacade, SubscribersFacade subscribersFacade, RegulatorFacade regulatorFacade, DataloggerFacade dataloggerFacade, WatchdogPetterFacade watchdogPetterFacade){
         interpreter.initialize();
         liveDataGetterFacade.initialize();
         subscribersFacade.initialize();
         regulatorFacade.initialize();
         dataloggerFacade.initialize();
+        watchdogPetterFacade.initialize();
 
     }
 

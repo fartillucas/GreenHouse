@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
 import raspberry.Acquaintance.ILiveDataGetter;
 import raspberry.Acquaintance.ISchedule;
+import raspberry.Acquaintance.IWatchdogPetterFacade;
 import raspberry.logic.IPAddressPort;
 import raspberry.logic.InvalidIPAddressException;
 import raspberry.logic.SetPoints;
@@ -19,8 +20,10 @@ public class ProcedureInterpreter {
     private GetLiveDataInterpreter liveDataInterpreter;
     private ISchedule scheduleFacade;
     private ILiveDataGetter liveDataGetter;
+    private IWatchdogPetterFacade watchdogPetterFacade;
 
-    public ProcedureInterpreter(ISchedule scheduleFacade, ILiveDataGetter liveDataGetter){
+    public ProcedureInterpreter(ISchedule scheduleFacade, ILiveDataGetter liveDataGetter, IWatchdogPetterFacade watchdogPetterFacade){
+        this.watchdogPetterFacade = watchdogPetterFacade;
         this.scheduleInterpreter = new ScheduleInterpreter();
         this.liveDataInterpreter = new GetLiveDataInterpreter();
         this.scheduleFacade = scheduleFacade;
@@ -51,6 +54,11 @@ public class ProcedureInterpreter {
                 } catch (Exception e) {
                     return ErrorCode.WRONGFORMAT;
                 }
+            case "retryConnection":
+                if(watchdogPetterFacade.restartWatchdogPetter()) {
+                    return ErrorCode.OK;
+                }
+                return ErrorCode.NOTAPPLIED;
             default:
                 return ErrorCode.UNDEFINEDPROCEDURE;
         }

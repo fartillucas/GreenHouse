@@ -1,6 +1,6 @@
 package raspberry.logic;
 
-import raspberry.Acquaintance.ICommunications;
+import raspberry.Acquaintance.ICommunicationsFacade;
 import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
 
 import java.util.Date;
@@ -9,8 +9,10 @@ public class OutFacadeLogic {
 
     private static OutFacadeLogic instance;
     private String greenhouseID = "standardGreenhouse";
+    private String serverIP;
+    private int serverPort;
 
-    private ICommunications communicationFacade;
+    private ICommunicationsFacade communicationFacade;
 
     public static OutFacadeLogic getInstance() {
         if (OutFacadeLogic.instance == null) {
@@ -21,7 +23,7 @@ public class OutFacadeLogic {
 
 
 
-    public void injectCommunicationFacade(ICommunications communicationFacade) {
+    public void injectCommunicationFacade(ICommunicationsFacade communicationFacade) {
         this.communicationFacade = communicationFacade;
     }
 
@@ -31,5 +33,13 @@ public class OutFacadeLogic {
 
     public void uploadDatalog(Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel) {
         communicationFacade.insertLog(greenhouseID, timeOfReading, internalTemperature, extenalTemperature, humidity, waterlevel);
+    }
+
+    public boolean petWatchdog() {
+        return communicationFacade.petWatchdog(greenhouseID);
+    }
+
+    public void setServerInfo(String serverIP, int serverPort) {
+        communicationFacade.setServerInfo(serverIP, serverPort);
     }
 }

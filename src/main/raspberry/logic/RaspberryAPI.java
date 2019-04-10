@@ -14,12 +14,17 @@ public class RaspberryAPI {
     private ServerSocket serverSocket;
     private IInterpreter interpreter;
     private boolean continueListening = true;
+    private String serverIP;
+    private int serverPort;
 
     public RaspberryAPI(){
         //TODO get info from interwebs
         //TODO convert to measurements
         //TODO send to schedule
         int port = 8091;
+        serverIP = "localhost";
+        serverPort = 8090;
+        OutFacadeLogic.getInstance().setServerInfo(serverIP,serverPort);
         while (this.serverSocket == null) {
             try {
                 this.serverSocket = new ServerSocket(port);
@@ -58,7 +63,7 @@ public class RaspberryAPI {
     }
 
     private void sendStartupMessage(){
-        try(Socket socket = new Socket("localhost",8090);
+        try(Socket socket = new Socket(serverIP,serverPort);
             Scanner input = new Scanner(socket.getInputStream());
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ){

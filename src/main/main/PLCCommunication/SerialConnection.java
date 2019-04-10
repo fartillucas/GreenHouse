@@ -289,7 +289,7 @@ class ApplicationServerListener implements Runnable, SerialPortEventListener
     @Override
     public void run() 
     {
-        System.out.println("Communication state " + comState.name());
+        System.out.println("CommunicationFacade state " + comState.name());
         int count = 0;
         while(count < 10 && comState != State.Ready)
         {
@@ -329,7 +329,7 @@ class ApplicationServerListener implements Runnable, SerialPortEventListener
                 case SerialPortEvent.OUTPUT_BUFFER_EMPTY:
                     serialPort.notifyOnDataAvailable(true);
                     comState = State.Clear_Buffer;
-                    System.out.println("Communication state 1 " + comState.name());
+                    System.out.println("CommunicationFacade state 1 " + comState.name());
                     System.out.println("All data is send");
                     break;
                 case SerialPortEvent.DATA_AVAILABLE:
@@ -347,20 +347,20 @@ class ApplicationServerListener implements Runnable, SerialPortEventListener
                                     else
                                         comState = State.Ready;
 
-                                    System.out.println("Communication state 2 " + comState.name());
+                                    System.out.println("CommunicationFacade state 2 " + comState.name());
                                 }
                                 else if ((mess.getResult())[DIRECTION] == FROMPLC && comState == State.Receiving)
                                 {
                                     if (mess.answerIsValid() == true)
                                     {
                                         comState = State.Ready;
-                                        System.out.println("Communication state 3 " + comState.name());
+                                        System.out.println("CommunicationFacade state 3 " + comState.name());
                                     }
                                     else if (TEST == true)
                                     {
                                         comState = State.Ready;
                                         serialPort.close();
-                                        System.out.println("Communication state " + comState.name());
+                                        System.out.println("CommunicationFacade state " + comState.name());
                                     }
                                 }
                         } 

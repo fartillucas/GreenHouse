@@ -32,7 +32,7 @@ create table datalog(
 
 create table schedule(
 	schedule_id varchar(50) not null,
-	blocknumber smallint unsignt not null,
+	blocknumber smallint unsigned not null,
 	temperature float,
 	humidity float, 
 	waterlevel float,
@@ -41,14 +41,14 @@ create table schedule(
 	primary key (schedule_id, blocknumber)
 	);
 	
-	--check lige op på hvilke datatyper der skal bruges
-	--double tænker jeg vi caster til float idet jeg ikke tror på at vi rammer 
-	--målinger hvor tallet er stort nok til at float ikke kan dække behovet.
-	--Hvis der nogen int værdier skal schedule table lige ændres til at have de rigtige værdier.
+	#check lige op på hvilke datatyper der skal bruges
+	#double tænker jeg vi caster til float idet jeg ikke tror på at vi rammer 
+	#målinger hvor tallet er stort nok til at float ikke kan dække behovet.
+	#Hvis der nogen int værdier skal schedule table lige ændres til at have de rigtige værdier.
 	
 create table greenhouse_user(
 	user_id integer unsigned not null,
-	greenhouse_id integer unsigned not null
+	greenhouse_id integer unsigned not null unique
 );
 
 create table greenhouse_shcedule(
@@ -59,4 +59,4 @@ create table greenhouse_shcedule(
 );
 
 
---INSERT INTO user(user_id, username, password, email) values (1, admin, <HASHED PASSWORD HERE>, admin@admin.pikfjæs);
+	#INSERT INTO user(user_id, username, password, email) values (1, admin, <HASHED PASSWORD HERE>, admin@admin.pikfjæs);	

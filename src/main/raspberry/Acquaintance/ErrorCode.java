@@ -6,7 +6,8 @@ public enum ErrorCode {
     NOTAPPLIED("NOTAPPLIED","Can't apply"),
     WRONGFORMAT("WRONGFORMAT","JSON file content doesn't match procedure type"),
     INVALIDIPADDRESS("INVALIDIADDRESS", "The IPAddress or port is out of bounce"),
-    UNDEFINEDPROCEDURE("UNDEFINEDPROCEDURE","Unknown procedure");
+    UNDEFINEDPROCEDURE("UNDEFINEDPROCEDURE","Unknown procedure"),
+    TEST("TEST1","TEST2");
 
 
     private String message;
@@ -32,6 +33,9 @@ public enum ErrorCode {
             }
         }
         return null;
+    }
+    public void setName(String name){
+        this.name = name;
     }
 
 
