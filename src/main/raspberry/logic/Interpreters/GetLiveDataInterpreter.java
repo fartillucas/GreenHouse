@@ -2,7 +2,7 @@ package raspberry.logic.Interpreters;
 
 import org.json.JSONObject;
 import raspberry.logic.IPAddressPort;
-import raspberry.logic.InvalidIPAddressException;
+import raspberry.Acquaintance.InvalidIPAddressException;
 
 
 public class GetLiveDataInterpreter {

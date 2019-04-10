@@ -13,16 +13,16 @@ public enum ErrorCode {
     private String name;
 
     ErrorCode(String name, String message){
-        this.message = message;
         this.name = name;
-    }
-
-    public String getMessage() {
-        return this.message;
+        this.message = message;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getMessage() {
+        return this.message;
     }
 
     public static ErrorCode fromString(String name) {

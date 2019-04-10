@@ -83,7 +83,6 @@ public class Starter {
     }
 
     private static void initializeCommunication(){
-
     }
 
     public static void stopThreads(){

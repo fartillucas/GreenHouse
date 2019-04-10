@@ -1,5 +1,6 @@
 package raspberry.logic;
 
+import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
 import raspberry.Acquaintance.IInterpreter;
 
@@ -48,7 +49,13 @@ public class RaspberryAPI {
 
                 ErrorCode errorCode = this.interpreter.interpret(message);
 
-                writer.print(errorCode);
+                JSONObject answer = new JSONObject();
+
+                answer.put("procedure", "errorcode");
+                answer.put("errorcode", errorCode.getName());
+
+
+                writer.print(answer.toString());
                 writer.flush();
             } catch (Exception e) {
 //                e.printStackTrace();
@@ -58,11 +65,12 @@ public class RaspberryAPI {
     }
 
     private void sendStartupMessage(){
+        //TODO change to database and use dataoutputstream and bufferedreader
         try(Socket socket = new Socket("localhost",8090);
             Scanner input = new Scanner(socket.getInputStream());
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ){
-            String RaspMessage = "connect\n";
+            String RaspMessage = "{\"procedure\":\"connect\"}\n";
             writer.print(RaspMessage);
             writer.flush();
         } catch (IOException e) {
