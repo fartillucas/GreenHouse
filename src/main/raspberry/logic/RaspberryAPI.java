@@ -72,7 +72,7 @@ public class RaspberryAPI {
     private void sendStartupMessage(){
         try(Socket socket = new Socket(serverIP,serverPort);
         //TODO change to database and use dataoutputstream and bufferedreader
-        try(Socket socket = new Socket("localhost",8090);
+
             Scanner input = new Scanner(socket.getInputStream());
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ){
