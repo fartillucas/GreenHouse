@@ -75,17 +75,17 @@ public class ServerMock {
 
             String response = input.nextLine();
 
-            this.replyStatus = ErrorCode.fromString(response);
+            JSONObject jsonResponse = new JSONObject(response);
+            String error = jsonResponse.getString("errorcode");
 
+            this.replyStatus = ErrorCode.fromString(error);
 
-
-            if (response.equals(ErrorCode.OK.toString())){
+            if (error.equals(ErrorCode.OK.toString())){
                 this.success =true;
             } else {
                 this.success = false;
             }
         } catch (IOException e) {
-            replyStatus.equals(ErrorCode.NOTAPPLIED);
             e.printStackTrace();
         }
     }

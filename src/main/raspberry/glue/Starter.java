@@ -67,6 +67,7 @@ public class Starter {
         interpreterFacade.injectSchedule(schedule);
         interpreterFacade.injectLiveDataGetter(liveDataGetterFacade);
         interpreterFacade.injectMeasurements(currentMeasurementsFacade);
+        interpreterFacade.injectWatchdogFacade(watchdogPetterFacade);
 
         raspberryAPI.injectInterpreter(interpreterFacade);
 

@@ -3,6 +3,7 @@ package raspberry.logic.datalogger;
 import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DataloggerFacade {
 
@@ -14,6 +15,7 @@ public class DataloggerFacade {
     }
 
     public void initialize(){
+        executor = Executors.newFixedThreadPool(1);
         DataloggerRunnable dataLogger = new DataloggerRunnable(this);
         executor.submit(dataLogger);
     }

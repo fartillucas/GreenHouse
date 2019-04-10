@@ -7,6 +7,7 @@ public class InterpreterFacade implements IInterpreter {
     private ICurrentMeasurementsFacade measurements;
     private ILiveDataGetter liveDataGetter;
     private ISchedule schedule;
+    private IWatchdogPetterFacade watchdogPetterFacade;
 
     private ProcedureInterpreter interpreter;
 
@@ -30,7 +31,11 @@ public class InterpreterFacade implements IInterpreter {
         this.schedule = schedule;
     }
 
+    public void injectWatchdogFacade(IWatchdogPetterFacade watchdogPetterFacade){
+        this.watchdogPetterFacade = watchdogPetterFacade;
+    }
+
     public void initialize(){
-        this.interpreter = new ProcedureInterpreter(schedule, liveDataGetter);
+        this.interpreter = new ProcedureInterpreter(schedule, liveDataGetter, watchdogPetterFacade);
     }
 }

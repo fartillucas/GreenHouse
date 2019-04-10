@@ -25,7 +25,7 @@ public class RaspberryAPI {
         int port = 8091;
         serverIP = "localhost";
         serverPort = 8090;
-        OutFacadeLogic.getInstance().setServerInfo(serverIP,serverPort);
+
         while (this.serverSocket == null) {
             try {
                 this.serverSocket = new ServerSocket(port);
@@ -42,6 +42,7 @@ public class RaspberryAPI {
     public void initialise(){
         this.sendStartupMessage();
         this.acceptIncomingTraffic();
+        OutFacadeLogic.getInstance().setServerInfo(serverIP,serverPort);
     }
 
     private void acceptIncomingTraffic(){
@@ -60,7 +61,7 @@ public class RaspberryAPI {
                 answer.put("errorcode", errorCode.getName());
 
 
-                writer.print(answer.toString());
+                writer.print(answer.toString()+"\n");
                 writer.flush();
             } catch (Exception e) {
 //                e.printStackTrace();

@@ -1,5 +1,6 @@
 Feature: DetectConnectionIssue
 
-  Background:
-    Given
-    And
+  Background: running tests
+    Given some tests to run
+    When running tests
+    Then they fail
