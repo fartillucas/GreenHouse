@@ -2,6 +2,7 @@ package raspberry.logic.livedata;
 
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
+import raspberry.Acquaintance.GreenhouseInfoEnum;
 import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.Acquaintance.ReadableIPAddressPort;
 
@@ -56,6 +57,8 @@ public class LiveDataGetter extends Thread {
                 Double waterLevel = currentMeasurements.getWaterlevel();
 
                 JSONObject measurements = new JSONObject("{}");
+                measurements.put("procedure","live data");
+                measurements.put("id", GreenhouseInfoEnum.GREENHOUSEINFO.getName());
 
                 measurements.put("internal temperature", internalTemp);
                 measurements.put("external temperature", externalTemp);
