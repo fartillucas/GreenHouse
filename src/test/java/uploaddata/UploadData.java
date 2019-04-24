@@ -15,9 +15,10 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class UploadData {
-    String databaseID = "test_db";
+    String greenhouseID = "test_greenhouse";
     Timestamp timestamp =  new Timestamp(new Date().getTime());
     double internalTemperature = 0;
     double externalTemperature = 0;
@@ -41,23 +42,31 @@ public class UploadData {
 
     @When("^It is time to upload data$")
     public void itIsTimeToUploadData() throws Throwable {
-        databaseConnectionFacade.insertLog(databaseID, timestamp, internalTemperature, externalTemperature, humditiy, waterlevel);
+        databaseConnectionFacade.insertLog(greenhouseID, timestamp, internalTemperature, externalTemperature, humditiy, waterlevel);
     }
 
     @Then("^Data is successfully stored on database$")
     public void dataIsSuccessfullyStoredOnDatabase() throws Throwable {
-
-        //TODO find out how this should be tested...
         Connection databaseConnection = new DatabaseConnector().openConnection();
         Statement statement = databaseConnection.createStatement();
-        ResultSet result = statement.executeQuery("SELECT * FROM datalog");
+        ResultSet result = statement.executeQuery("SELECT * FROM datalog where greenhouse_id = '" + greenhouseID + "'");
+        try {
 
 
-        assertEquals(databaseID, result.getString(1));
-        assertEquals(timestamp, result.getTimestamp(2));
-        assertEquals(internalTemperature, result.getFloat(3));
-        assertEquals(externalTemperature, result.getFloat(4));
-        assertEquals(humditiy, result.getFloat(5));
-        assertEquals(waterlevel, result.getFloat(6));
+            result.next();
+            assertEquals(greenhouseID, result.getString("greenhouse_id"));
+            assertTrue( result.getTimestamp("time_of_reading").getTime()-1000 < timestamp.getTime() || timestamp.getTime() < result.getTimestamp("time_of_reading").getTime());
+            assertEquals(internalTemperature, result.getFloat("internal_temperature"), 0.1);
+            assertEquals(externalTemperature, result.getFloat("external_temperature"), 0.1);
+            assertEquals(humditiy, result.getFloat("humidity"), 0.1);
+            assertEquals(waterlevel, result.getFloat("water_level"), 0.1);
+        } catch (Exception e)
+        {
+
+        }
+        finally {
+            statement.execute("DELETE FROM datalog where greenhouse_id = '" + greenhouseID + "'");
+        }
     }
+
 }

@@ -7,6 +7,8 @@ package raspberry.communication.databaseconnection.tools;
  * @param CloseConnection method closes the connection
  * to the postgres sql database
  */
+import raspberry.Acquaintance.DatabaseInfoEnum;
+
 import java.sql.*;
 
 
@@ -14,14 +16,14 @@ public class DatabaseConnector {
 
     public Connection openConnection() {
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("org.mariadb.jdbc.Driver");
         } catch (java.lang.ClassNotFoundException e) {
             System.out.println(e);
         }
 
-        String url = ""; //TODO connect to the database
-        String username = "si3_2018_group_21";
-        String password = "grim26:bijou";
+        String url = DatabaseInfoEnum.DATABASEINFO.getInfo();
+        String username = DatabaseInfoEnum.DATABASEINFO.getUser();
+        String password = DatabaseInfoEnum.DATABASEINFO.getPassword();
         Connection db = null;
 
         try {
