@@ -21,7 +21,6 @@ Feature: AddGreenhouse
     When “add Greenhouse” is pressed
     Then “Error 40 - wrong greenhouse id” is returned
 
-
   Scenario: no connection to database
     Given logged in
     And there is no connection to the database

@@ -52,7 +52,6 @@ public class UploadData {
         Statement statement = databaseConnection.createStatement();
         ResultSet result = statement.executeQuery("SELECT * FROM datalog");
 
-
         assertEquals(databaseID, result.getString(1));
         assertEquals(timestamp, result.getTimestamp(2));
         assertEquals(internalTemperature, result.getFloat(3));
