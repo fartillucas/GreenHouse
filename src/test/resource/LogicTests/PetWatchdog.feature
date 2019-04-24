@@ -4,10 +4,6 @@ Feature: PetWatchdog
     Given
     And
 
-  Scenario: the watchdog is successfully petted
-    Given petted dog watch is
-    When the dog is being pet
-    Then reset some countdown
 
   Scenario: the watchdog is unsuccessfully petted
     Given petted dog watch is
