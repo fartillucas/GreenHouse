@@ -15,5 +15,7 @@ public interface ICommunicationsFacade {
     boolean petWatchdog(String greenhouseID);
 
 	void setServerInfo(String serverIP, int serverPort);
+
+    boolean sendIPAddress(int currentPort, String greenhouseID);
 }
 

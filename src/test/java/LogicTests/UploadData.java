@@ -1,4 +1,4 @@
-package uploaddata;
+package LogicTests;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;

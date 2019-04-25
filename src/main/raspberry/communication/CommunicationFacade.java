@@ -2,7 +2,6 @@ package raspberry.communication;
 
 import raspberry.Acquaintance.ICommunicationsFacade;
 import raspberry.Acquaintance.IWebAppConnectionFacade;
-import raspberry.Acquaintance.ReadableIPAddressPort;
 import raspberry.Acquaintance.ServerInfoEnum;
 import raspberry.communication.communicationAquaintance.IDatabaseConnectionFacade;
 import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
@@ -42,14 +41,17 @@ public class CommunicationFacade implements ICommunicationsFacade {
 
 	@Override
 	public boolean petWatchdog(String greenhouseID) {
-		//TODO DO THIS!!!
 		return webAppConnectionFacade.petTheDog(greenhouseID, ServerInfoEnum.SERVERINFO.getIP(), ServerInfoEnum.SERVERINFO.getPort());
-
 	}
 
 	@Override
 	public void setServerInfo(String serverIP, int serverPort) {
 
+	}
+
+	@Override
+	public boolean sendIPAddress(int currentPort, String greenhouseID) {
+		return webAppConnectionFacade.sendIPAddress(currentPort, greenhouseID, ServerInfoEnum.SERVERINFO.getIP(), ServerInfoEnum.SERVERINFO.getPort());
 	}
 
 }

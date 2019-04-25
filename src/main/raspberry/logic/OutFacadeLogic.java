@@ -13,6 +13,7 @@ public class OutFacadeLogic {
     private int serverPort;
 
     private ICommunicationsFacade communicationFacade;
+    private int currentPort;
 
     public static OutFacadeLogic getInstance() {
         if (OutFacadeLogic.instance == null) {
@@ -41,5 +42,13 @@ public class OutFacadeLogic {
 
     public void setServerInfo(String serverIP, int serverPort) {
         communicationFacade.setServerInfo(serverIP, serverPort);
+    }
+
+    public boolean SendIPAddress() {
+        return communicationFacade.sendIPAddress(this.currentPort, greenhouseID);
+    }
+
+    public void setCurrentServerPort(int port) {
+        this.currentPort = port;
     }
 }

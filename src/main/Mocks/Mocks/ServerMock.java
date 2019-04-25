@@ -21,6 +21,8 @@ public class ServerMock {
     private Socket liveDataScoket;
     private PrintWriter liveWriter;
     private Scanner liveScanner;
+    private boolean recievedPetting;
+    private boolean recievedIPAddress;
 
     public static ServerMock getInstance() throws IOException {
         if (instance == null){
@@ -31,6 +33,8 @@ public class ServerMock {
 
     private ServerMock() throws IOException {
         this.serverSocket = new ServerSocket(8090);
+        this.recievedPetting=false;
+        this.recievedIPAddress=false;
     }
 
     public ServerMock(int port) throws IOException {
@@ -45,6 +49,17 @@ public class ServerMock {
                     PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
                     String openingMessage = input.nextLine();
+                    JSONObject message = new JSONObject(openingMessage);
+
+                    switch (message.getString("procedure")){
+                        case "petWatchdog":
+                            recievedPetting = true;
+                            break;
+                        case "IPAddress":
+                            recievedIPAddress = true;
+                            break;
+                        default:
+                    }
 
                     if(this.lastProcedure.equals("getLiveData")){
                         liveDataScoket = socket;
@@ -148,5 +163,13 @@ public class ServerMock {
         }
 
 
+    }
+
+    public boolean recievedPetting() {
+        return this.recievedPetting;
+    }
+
+    public boolean recievedIPAdress() {
+        return this.recievedIPAddress;
     }
 }

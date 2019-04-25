@@ -2,6 +2,7 @@ package raspberry.logic;
 
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
+import raspberry.Acquaintance.GreenhouseInfoEnum;
 import raspberry.Acquaintance.IInterpreter;
 
 import java.io.IOException;
@@ -33,6 +34,8 @@ public class RaspberryAPI {
                 port++;
             }
         }
+
+        OutFacadeLogic.getInstance().setCurrentServerPort(port);
     }
 
     public void injectInterpreter(IInterpreter interpreter){
