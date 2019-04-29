@@ -114,27 +114,27 @@ public class GreenhouseMock implements IGreenhouse {
 	}
 
 	@Override
-	public double ReadTemp1() {
+	public Double ReadTemp1() {
 		return this.internalTemperature;
 	}
 
 	@Override
-	public double ReadTemp2() {
+	public Double ReadTemp2() {
 		return this.externalTemperature;
 	}
 
 	@Override
-	public double ReadMoist() {
+	public Double ReadMoist() {
 		return this.humidity;
 	}
 
 	@Override
-	public double ReadWaterLevel() {
+	public Double ReadWaterLevel() {
 		return this.waterLevel;
 	}
 
 	@Override
-	public double ReadPlantHeight() {
+	public Double ReadPlantHeight() {
 		throw new NotImplementedException();
 	}
 

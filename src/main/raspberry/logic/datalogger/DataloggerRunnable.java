@@ -36,7 +36,7 @@ public class DataloggerRunnable implements Runnable {
             waterlevel = dataloggerFacade.getWaterlevel();
 
             OutFacadeLogic.getInstance().uploadDatalog(new Date(), internalTemperature, externalTemperature, humidity, waterlevel);
-            sleep(1000);
+            sleep(15000);
         }
         } catch (InterruptedException e) {
             e.printStackTrace();

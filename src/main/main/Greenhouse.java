@@ -160,22 +160,23 @@ public class Greenhouse implements IGreenhouse, ICommands
      * CMD:8 
      * @return Temperature in kelvin
      */
-    public double ReadTemp1()
+    public Double ReadTemp1()
     {
         System.out.println("Read greenhouse temperatur ");
         mess = new Message(READ_GREENHOUSE_TEMP);
-        double temp = 0.0;
+        Double temp = 0.0;
         mess.setData(); //None data
         conn.addMessage(mess);
-        if (conn.send())
-        {
-            if (mess.getResultData() != null)
+        if (conn.send()) {
+            if (mess.getResultData() != null){
                 temp = (double) (mess.getResultData())[0];
+            temp += 273.0;
+        }
             else
-                temp =  19.99; // return a dummy value
+                temp =  null; // return a dummy value
         }
         System.out.println("Temperature is: " + temp);
-        return temp + 273.0;
+        return temp;
     }
     
     /**
@@ -183,19 +184,20 @@ public class Greenhouse implements IGreenhouse, ICommands
      * CMD: 9
      * @return Temperature in kelvin
      */
-    public double ReadTemp2()
+    public Double ReadTemp2()
     {
         System.out.println("Read outdoor temperatur ");
         mess = new Message(READ_OUTDOOR_TEMP);
-        double temp2 = 0.0;
+        Double temp2 = 0.0;
         mess.setData(); //None data
         conn.addMessage(mess);
-        if (conn.send())
-        {
-            if (mess.getResultData() != null)
+        if (conn.send()) {
+            if (mess.getResultData() != null){
                 temp2 = (double) (mess.getResultData())[0];
+                temp2 += 273.0;
+            }
             else
-                temp2 =  19.99; // return a dummy value
+                temp2 =  null; // return a dummy value
         }
         System.out.println("Temperature is: " + temp2);
         return temp2 + 273.0;
@@ -207,11 +209,11 @@ public class Greenhouse implements IGreenhouse, ICommands
      * CMD: 10
      * @return Moisture in %
      */
-    public double ReadMoist()
+    public Double ReadMoist()
     {
          System.out.println("Read outdoor temperatur ");
         mess = new Message(READ_MOISTURE);
-        double moist = 0.0;
+        Double moist = 0.0;
         mess.setData(); //None data
         conn.addMessage(mess);
         if (conn.send())
@@ -219,7 +221,7 @@ public class Greenhouse implements IGreenhouse, ICommands
             if (mess.getResultData() != null)
                 moist = (double) (mess.getResultData())[0];
             else
-                moist =  1.0; // return a dummy value
+                moist =  null; // return a dummy value
                                // In real world moist will never be so low
         }
         System.out.println("Moisture is: " + moist + " %");
@@ -231,11 +233,11 @@ public class Greenhouse implements IGreenhouse, ICommands
      * CMD: 11
      * @return Level in millimeter [0 < level < 250]
      */
-    public double ReadWaterLevel()
+    public Double ReadWaterLevel()
     {
          System.out.println("Read water level ");
         mess = new Message(READ_WATER_LEVEL);
-        double level = 0.0; // level
+        Double level = 0.0; // level
         mess.setData(); //None data
         conn.addMessage(mess);
         if (conn.send())
@@ -243,7 +245,7 @@ public class Greenhouse implements IGreenhouse, ICommands
             if (mess.getResultData() != null)
                 level = (mess.getResultData())[0] * 10.0;
             else
-                level =  1000.0; // return a dummy value
+                level =  null; // return a dummy value
         }
         System.out.println("Water level is: " + level);
         return level;
@@ -255,19 +257,19 @@ public class Greenhouse implements IGreenhouse, ICommands
      * CMD: 12
      * @return Higths (cm?)
      */
-    public double ReadPlantHeight()
+    public Double ReadPlantHeight()
     {
          System.out.println("Read height of plants");
         mess = new Message(READ_PLANT_HEIGHT);
-        double level = 0.0; // level
+        Double level = 0.0; // level
         mess.setData(); //None data
         conn.addMessage(mess);
         if (conn.send())
         {
             if (mess.getResultData() != null)
-                level = (mess.getResultData())[0];
+                level = (double)(mess.getResultData())[0];
             else
-                level =  1000.0; // return a dummy value
+                level =  null; // return a dummy value
         }
         System.out.println("Plant height is: " + level);
         return level;
