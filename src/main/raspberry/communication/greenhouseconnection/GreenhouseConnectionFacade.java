@@ -22,6 +22,15 @@ public class GreenhouseConnectionFacade implements IGreenhouseConnectionFacade {
 	}
 
 	@Override
+	public Double readTemp2() {
+		try {
+			return greenhouseAPI.ReadTemp2();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
 	public Double readMoist() {
 		try {
 			return greenhouseAPI.ReadMoist();
@@ -67,15 +76,6 @@ public class GreenhouseConnectionFacade implements IGreenhouseConnectionFacade {
 	@Override
 	public boolean setFanSpeed(int speed) {
 		return this.greenhouseAPI.SetFanSpeed(speed);
-	}
-
-	@Override
-	public Double readTemp2() {
-		try {
-			return greenhouseAPI.ReadTemp2();
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 }

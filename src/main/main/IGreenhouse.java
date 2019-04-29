@@ -87,7 +87,7 @@ public interface IGreenhouse
      * CMD:8 
      * @return Temperature in kelvin
      */
-    double ReadTemp1();
+    Double ReadTemp1();
     
     /**
      * NOT IMPLEMENTED
@@ -95,21 +95,21 @@ public interface IGreenhouse
      * CMD: 9
      * @return Temperature in kelvin
      */
-    double ReadTemp2();
+    Double ReadTemp2();
     
     /**
      * Read relative moisture inside the Greenhouse
      * CMD: 10
      * @return Moisture in %
      */
-    double ReadMoist();
+    Double ReadMoist();
     
     /**
      * Read level of water in the Greenhouse
      * CMD: 11
      * @return Level in millimeter
      */
-    double ReadWaterLevel();
+    Double ReadWaterLevel();
     
     /**
      * NOT IMPLEMENTED
@@ -117,7 +117,7 @@ public interface IGreenhouse
      * CMD: 12
      * @return Higths (cm?)
      */
-    double ReadPlantHeight();
+    Double ReadPlantHeight();
     
     /**
      * Read all alarms one bits pr. alarm.
