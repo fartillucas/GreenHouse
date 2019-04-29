@@ -175,7 +175,6 @@ public class Greenhouse implements IGreenhouse, ICommands
             else
                 temp =  null; // return a dummy value
         }
-        System.out.println("Temperature is: " + temp);
         return temp;
     }
     
@@ -199,7 +198,6 @@ public class Greenhouse implements IGreenhouse, ICommands
             else
                 temp2 =  null; // return a dummy value
         }
-        System.out.println("Temperature is: " + temp2);
         return temp2;
 
     }
@@ -224,7 +222,6 @@ public class Greenhouse implements IGreenhouse, ICommands
                 moist =  null; // return a dummy value
                                // In real world moist will never be so low
         }
-        System.out.println("Moisture is: " + moist + " %");
         return moist;
     }  
     
@@ -247,7 +244,6 @@ public class Greenhouse implements IGreenhouse, ICommands
             else
                 level =  null; // return a dummy value
         }
-        System.out.println("Water level is: " + level);
         return level;
     }   
     
@@ -271,7 +267,6 @@ public class Greenhouse implements IGreenhouse, ICommands
             else
                 level =  null; // return a dummy value
         }
-        System.out.println("Plant height is: " + level);
         return level;
     }    
     
