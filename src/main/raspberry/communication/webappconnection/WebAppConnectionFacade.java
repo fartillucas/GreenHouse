@@ -21,7 +21,16 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         message.put("greenhouseID",greenhouseID);
         message.put("port", port);
 
-
         return new IPAddressSender().send(ip, port, message);
+    }
+
+    @Override
+    public String startupMessage(int currentPort, String greenhouseID, String ip, int port) {
+        JSONObject message = new JSONObject();
+        message.put("procedure", "Startup");
+        message.put("port", 1);
+        message.put("id", "GreenhouseID");
+
+        return new StartupMessageSender().send(ip, port, message);
     }
 }

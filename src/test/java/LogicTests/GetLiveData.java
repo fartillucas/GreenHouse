@@ -68,7 +68,7 @@ public class GetLiveData {
 
     @Then("^the subscriber is subscribed$")
     public void theSubscriberIsSubscribed() throws Throwable {
-        sleep(2000);
+        sleep(3000);
         boolean connected = serverMock.isDataListenAlive();
 
         assertTrue(connected);

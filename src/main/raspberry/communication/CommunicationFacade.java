@@ -54,4 +54,9 @@ public class CommunicationFacade implements ICommunicationsFacade {
 		return webAppConnectionFacade.sendIPAddress(currentPort, greenhouseID, ServerInfoEnum.SERVERINFO.getIP(), ServerInfoEnum.SERVERINFO.getPort());
 	}
 
+	@Override
+	public String startupMessage(String greenhouseID, int currentPort) {
+		return webAppConnectionFacade.startupMessage(currentPort, greenhouseID, ServerInfoEnum.SERVERINFO.getIP(), ServerInfoEnum.SERVERINFO.getPort());
+	}
+
 }

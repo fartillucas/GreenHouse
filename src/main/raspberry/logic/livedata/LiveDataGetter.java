@@ -38,7 +38,12 @@ public class LiveDataGetter extends Thread {
             writer = new PrintWriter(socket.getOutputStream());
             scan = new Scanner(socket.getInputStream());
 
-            writer.print("LiveDate ready\n");
+            JSONObject measurements = new JSONObject("{}");
+            measurements.put("procedure","live data");
+            measurements.put("id", GreenhouseInfoEnum.GREENHOUSEINFO.getName());
+
+            writer.println(measurements.toString());
+            writer.flush();
         } catch (IOException e) {
             return ErrorCode.INVALIDIPADDRESS;
         }

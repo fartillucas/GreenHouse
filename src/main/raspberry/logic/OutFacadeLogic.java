@@ -51,4 +51,8 @@ public class OutFacadeLogic {
     public void setCurrentServerPort(int port) {
         this.currentPort = port;
     }
+
+    public String startupMessage() {
+        return this.communicationFacade.startupMessage(greenhouseID, this.currentPort);
+    }
 }

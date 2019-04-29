@@ -17,5 +17,7 @@ public interface ICommunicationsFacade {
 	void setServerInfo(String serverIP, int serverPort);
 
     boolean sendIPAddress(int currentPort, String greenhouseID);
+
+    String startupMessage(String greenhouseID, int currentPort);
 }
 

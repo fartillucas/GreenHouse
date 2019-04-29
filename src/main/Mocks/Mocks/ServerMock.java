@@ -49,7 +49,14 @@ public class ServerMock {
                     PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
                     String openingMessage = input.nextLine();
-                    JSONObject message = new JSONObject(openingMessage);
+                    JSONObject message = null;
+                    try {
+
+                        message = new JSONObject(openingMessage);
+                    } catch (Exception e){
+                        e.printStackTrace();
+
+                    }
 
                     switch (message.getString("procedure")){
                         case "petWatchdog":
@@ -58,13 +65,20 @@ public class ServerMock {
                         case "IPAddress":
                             recievedIPAddress = true;
                             break;
+                        case "Startup":
+                            writer.println(new JSONObject());
+                            writer.flush();
+                            break;
+                        case "live data":
+                            liveDataScoket = socket;
+                            liveScanner = input;
+                            liveWriter = writer;
+                            break;
                         default:
                     }
 
                     if(this.lastProcedure.equals("getLiveData")){
-                        liveDataScoket = socket;
-                        liveScanner = input;
-                        liveWriter = writer;
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -107,23 +121,6 @@ public class ServerMock {
 
     public boolean getSuccess() {
         return success;
-    }
-
-    public void listenForConnections(){
-        while (!Thread.interrupted()) {
-            try{
-                Socket socket = serverSocket.accept();
-                Scanner input = new Scanner(socket.getInputStream());
-                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-                String openingMessage = input.nextLine();
-
-                if(this.lastProcedure.equals("getLiveData")){
-                    liveDataScoket = socket;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public JSONObject readLiveData() throws IOException {

@@ -1,5 +1,6 @@
 package raspberry.logic;
 
+import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
 import raspberry.Acquaintance.GreenhouseInfoEnum;
@@ -20,9 +21,6 @@ public class RaspberryAPI {
     private int serverPort;
 
     public RaspberryAPI(){
-        //TODO get info from interwebs
-        //TODO convert to measurements
-        //TODO send to schedule
         int port = 8091;
         serverIP = "localhost";
         serverPort = 8090;
@@ -63,7 +61,6 @@ public class RaspberryAPI {
                 answer.put("procedure", "errorcode");
                 answer.put("errorcode", errorCode.getName());
 
-
                 writer.print(answer.toString()+"\n");
                 writer.flush();
             } catch (Exception e) {
@@ -74,17 +71,10 @@ public class RaspberryAPI {
     }
 
     private void sendStartupMessage(){
-        try(Socket socket = new Socket(serverIP,serverPort);
-        //TODO change to database and use dataoutputstream and bufferedreader
-
-            Scanner input = new Scanner(socket.getInputStream());
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-        ){
-            String RaspMessage = "{\"procedure\":\"connect\"}\n";
-            writer.print(RaspMessage);
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+        try{
+            String schedule = OutFacadeLogic.getInstance().startupMessage();
+            interpreter.interpret(schedule);
+        } catch (Exception e){
         }
     }
 
