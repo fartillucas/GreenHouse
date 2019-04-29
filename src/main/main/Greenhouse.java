@@ -200,7 +200,7 @@ public class Greenhouse implements IGreenhouse, ICommands
                 temp2 =  null; // return a dummy value
         }
         System.out.println("Temperature is: " + temp2);
-        return temp2 + 273.0;
+        return temp2;
 
     }
     
