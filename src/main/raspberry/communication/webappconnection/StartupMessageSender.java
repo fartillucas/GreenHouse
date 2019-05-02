@@ -19,7 +19,8 @@ public class StartupMessageSender {
             writer.flush();
             String schedule = input.nextLine();
             return schedule;
-        } catch (IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
              return "";
         }
     }

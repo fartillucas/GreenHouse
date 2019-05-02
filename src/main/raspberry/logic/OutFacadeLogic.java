@@ -1,5 +1,6 @@
 package raspberry.logic;
 
+import raspberry.Acquaintance.GreenhouseInfoEnum;
 import raspberry.Acquaintance.ICommunicationsFacade;
 import raspberry.communication.communicationAquaintance.IGreenhouseConnectionFacade;
 
@@ -13,7 +14,7 @@ public class OutFacadeLogic {
     private int serverPort;
 
     private ICommunicationsFacade communicationFacade;
-    private int currentPort;
+    private int currentPort = GreenhouseInfoEnum.GREENHOUSEINFO.getPort();
 
     public static OutFacadeLogic getInstance() {
         if (OutFacadeLogic.instance == null) {
@@ -49,10 +50,11 @@ public class OutFacadeLogic {
     }
 
     public void setCurrentServerPort(int port) {
-        this.currentPort = port;
+        this.serverPort = port;
     }
 
     public String startupMessage() {
-        return this.communicationFacade.startupMessage(greenhouseID, this.currentPort);
+
+        return this.communicationFacade.startupMessage(greenhouseID, this.serverPort);
     }
 }

@@ -21,13 +21,14 @@ public class RaspberryAPI {
     private int serverPort;
 
     public RaspberryAPI(){
-        int port = 8091;
+        int port = 8081;
         serverIP = "localhost";
         serverPort = 8090;
 
         while (this.serverSocket == null) {
             try {
                 this.serverSocket = new ServerSocket(port);
+
             } catch (IOException e) {
                 port++;
             }
@@ -47,7 +48,7 @@ public class RaspberryAPI {
     }
 
     private void acceptIncomingTraffic(){
-        while (!Thread.interrupted() && continueListening){
+        while (continueListening){
             try (Socket socket = serverSocket.accept();
                  Scanner input = new Scanner(socket.getInputStream());
                  PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);

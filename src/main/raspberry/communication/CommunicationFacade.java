@@ -36,7 +36,7 @@ public class CommunicationFacade implements ICommunicationsFacade {
 
 	@Override
 	public void insertLog(String greenhouseId, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel) {
-		databaseConnection.insertLog(greenhouseId, timeOfReading, internalTemperature, extenalTemperature, humidity, waterlevel);
+		webAppConnectionFacade.sendDatalog(greenhouseId, timeOfReading, internalTemperature, extenalTemperature, humidity, waterlevel);
 	}
 
 	@Override
