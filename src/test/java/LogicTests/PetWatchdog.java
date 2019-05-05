@@ -1,5 +1,6 @@
 package LogicTests;
 
+import Mocks.Mocks.GreenhouseMock;
 import Mocks.Mocks.ServerMock;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -101,6 +102,8 @@ public class PetWatchdog {
         serverMock.stopThreads();
 
         Starter.stopThreads();
+
+        GreenhouseMock.getInstance().clear();
     }
 
 }

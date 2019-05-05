@@ -15,23 +15,8 @@ public class Schedule implements ISchedule {
 
 //    private static Schedule instance;
 
-    private static List<HashMap<Integer, SetPoints>> schedule;
-    private static LocalDate appliedDate;
-
-    public static void setSchedule(List<HashMap<Integer, SetPoints>> scheduleNew){
-        schedule = scheduleNew;
-        appliedDate = LocalDate.now();
-    }
-
-//    public static ISchedule getInstance() {
-//        //TODO fix singleton vs interface
-//
-//        if (Schedule.instance == null) {
-//            Schedule.instance = new Schedule();
-//        }
-//
-//        return Schedule.instance;
-//    }
+    private List<HashMap<Integer, SetPoints>> schedule;
+    private LocalDate appliedDate;
 
     public Schedule() {
     }
@@ -62,7 +47,7 @@ public class Schedule implements ISchedule {
             LocalTime currentTimeOfDay = getTimeOfDay();
 
             int minutes = currentTimeOfDay.getHour()*60+currentTimeOfDay.getMinute();
-            int block = minutes/120;
+            int block = minutes/120+1;
 
             long index = DAYS.between(appliedDate, dateNow)%schedule.size();
 

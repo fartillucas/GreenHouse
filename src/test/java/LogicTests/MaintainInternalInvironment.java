@@ -167,6 +167,8 @@ public class MaintainInternalInvironment {
 		serverMock.stopThreads();
 
 		Starter.stopThreads();
+
+		GreenhouseMock.getInstance().clear();
 	}
 
 

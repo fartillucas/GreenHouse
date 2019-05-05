@@ -104,6 +104,7 @@ public class Starter {
         Starter.regulatorFacade.stopThreads();
         Starter.subscribersFacade.stopThreads();
         Starter.dataloggerFacade.stopThreads();
+        Starter.watchdogPetterFacade.stopThreads();
     }
 
 }

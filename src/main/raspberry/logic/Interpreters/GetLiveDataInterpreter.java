@@ -21,7 +21,6 @@ public class GetLiveDataInterpreter {
         int[] ipIntArray = new int[4];
 
         for (int i = 0; i < iparray.length; i++) {
-
             int ipnumber = Integer.parseInt(iparray[i]);
 
             if (!(ipnumber <= 255 && ipnumber >= 0)) {
@@ -29,7 +28,6 @@ public class GetLiveDataInterpreter {
             }
 
             ipIntArray[i] = ipnumber;
-
         }
 
         if (!(port <= 65535 && port >= 0)) {

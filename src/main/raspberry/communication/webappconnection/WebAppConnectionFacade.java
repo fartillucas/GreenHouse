@@ -14,12 +14,11 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         message.put("procedure", "petWatchdog");
         message.put("greenhouseID",greenhouseID);
 
-        //return new WatchdogPetter().pet(ipAddressPort, port, message);
-        return true;
+        return new WatchdogPetter().pet(ipAddressPort, port, message);
     }
 
     @Override
-    public boolean sendDatalog(String greenhouseID, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel){
+    public boolean sendDatalog(String greenhouseID, Date timeOfReading, Double internalTemperature, Double extenalTemperature, Double humidity, Double waterlevel){
         JSONObject message = new JSONObject();
         message.put("procedure", "Datalog");
         message.put("greenhouseID",greenhouseID);
@@ -29,8 +28,7 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         message.put("humidity", humidity);
         message.put("waterlevel", waterlevel);
 
-        //return new IPAddressSender().send(ServerInfoEnum.SERVERINFO.getIP(), ServerInfoEnum.SERVERINFO.getPort(), message);
-        return true;
+        return new DatalogSender().send(ServerInfoEnum.SERVERINFO.getIP(), ServerInfoEnum.SERVERINFO.getPort(), message);
     }
 
     @Override
@@ -40,8 +38,7 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         message.put("greenhouseID",greenhouseID);
         message.put("port", currentPort);
 
-//        return new IPAddressSender().send(ip, port, message);
-        return true;
+        return new IPAddressSender().send(ip, port, message);
     }
 
     @Override

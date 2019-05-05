@@ -16,7 +16,7 @@ public class DataloggerFacade {
 
     public void initialize(){
         executor = Executors.newFixedThreadPool(1);
-        DataloggerRunnable dataLogger = new DataloggerRunnable(this);
+        DataloggerRunnable dataLogger = new DataloggerRunnable(currentMeasurementsFacade);
         executor.submit(dataLogger);
     }
 
@@ -24,7 +24,7 @@ public class DataloggerFacade {
         executor.shutdownNow();
     }
 
-
+    /*
     double getInternalTemperature(){
         return currentMeasurementsFacade.getInternalTemperature();
     }
@@ -40,5 +40,6 @@ public class DataloggerFacade {
     double getWaterlevel(){
         return currentMeasurementsFacade.getWaterlevel();
     }
+    */
 
 }

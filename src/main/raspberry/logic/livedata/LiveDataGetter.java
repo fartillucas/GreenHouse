@@ -40,7 +40,7 @@ public class LiveDataGetter extends Thread {
 
             JSONObject measurements = new JSONObject("{}");
             measurements.put("procedure","live data");
-            measurements.put("id", GreenhouseInfoEnum.GREENHOUSEINFO.getName());
+            measurements.put("greenhouseID", GreenhouseInfoEnum.GREENHOUSEINFO.getName());
 
             writer.println(measurements.toString());
             writer.flush();
@@ -63,7 +63,7 @@ public class LiveDataGetter extends Thread {
 
                 JSONObject measurements = new JSONObject("{}");
                 measurements.put("procedure","live data");
-                measurements.put("id", GreenhouseInfoEnum.GREENHOUSEINFO.getName());
+                measurements.put("greenhouseID", GreenhouseInfoEnum.GREENHOUSEINFO.getName());
 
                 measurements.put("internal temperature", internalTemp);
                 measurements.put("external temperature", externalTemp);

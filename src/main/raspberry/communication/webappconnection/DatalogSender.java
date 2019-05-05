@@ -13,6 +13,7 @@ public class DatalogSender {
 
          try(Socket socket = new Socket(ip, port); PrintWriter writer = new PrintWriter(socket.getOutputStream())) {
              writer.println(message.toString());
+             writer.flush();
          } catch (IOException e) {
              return false;
          }

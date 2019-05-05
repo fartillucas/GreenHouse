@@ -167,4 +167,7 @@ public class GreenhouseMock implements IGreenhouse {
 	}
 
 
+	public void clear() {
+		instance = null;
+	}
 }

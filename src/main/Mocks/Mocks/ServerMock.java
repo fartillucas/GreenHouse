@@ -1,5 +1,6 @@
 package Mocks.Mocks;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
 
@@ -23,6 +24,8 @@ public class ServerMock {
     private Scanner liveScanner;
     private boolean recievedPetting;
     private boolean recievedIPAddress;
+    private boolean receivedDatalog;
+    private JSONObject datalogMessage;
 
     public static ServerMock getInstance() throws IOException {
         if (instance == null){
@@ -35,10 +38,10 @@ public class ServerMock {
         this.serverSocket = new ServerSocket(8090);
         this.recievedPetting=false;
         this.recievedIPAddress=false;
+        this.receivedDatalog = false;
     }
 
     public ServerMock(int port) throws IOException {
-//        port = port; // static
         this.serverSocket = new ServerSocket(port);
 
         acceptingSocketsThread = new Thread(() -> {
@@ -50,12 +53,11 @@ public class ServerMock {
 
                     String openingMessage = input.nextLine();
                     JSONObject message = null;
-                    try {
 
+                    try {
                         message = new JSONObject(openingMessage);
                     } catch (Exception e){
                         e.printStackTrace();
-
                     }
 
                     switch (message.getString("procedure")){
@@ -73,6 +75,9 @@ public class ServerMock {
                             liveDataScoket = socket;
                             liveScanner = input;
                             liveWriter = writer;
+                            break;
+                        case "Datalog":
+                            receivedDatalog = this.interpretDatalog(message);
                             break;
                         default:
                     }
@@ -93,7 +98,7 @@ public class ServerMock {
 
     public void sendMessage(String message, int socketNumber){
 
-        try (Socket socket = new Socket("localhost",8091);
+        try (Socket socket = new Socket("localhost",8081);
              Scanner input = new Scanner(socket.getInputStream());
              PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ){
@@ -158,8 +163,6 @@ public class ServerMock {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public boolean recievedPetting() {
@@ -168,5 +171,43 @@ public class ServerMock {
 
     public boolean recievedIPAdress() {
         return this.recievedIPAddress;
+    }
+
+    public boolean isReceivedDatalog() {
+        return receivedDatalog;
+    }
+
+
+    private boolean interpretDatalog(JSONObject message){
+        try {
+            if (!message.isNull("internal temperature")) {
+                message.getDouble("internal temperature");
+            }
+
+            if (!message.isNull("extenal temperature")) {
+                message.getDouble("extenal temperature");
+            }
+
+            if (!message.isNull("waterlevel")) {
+                message.getDouble("waterlevel");
+            }
+
+            if (!message.isNull("humidity")) {
+                message.getDouble("humidity");
+            }
+
+            message.getString("greenhouseID");
+            message.getLong("time of Reading");
+
+            datalogMessage = message;
+        } catch(JSONException e){
+            return false;
+        }
+
+        return true;
+    }
+
+    public JSONObject getDatalogMessage() {
+        return datalogMessage;
     }
 }

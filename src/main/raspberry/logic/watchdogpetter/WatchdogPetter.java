@@ -9,7 +9,9 @@ public class WatchdogPetter implements Runnable {
     @Override
     public void run() {
         boolean good = true;
-        while(true){
+        boolean stopped = false;
+
+        while(!stopped){
             if(good) {
                 good = OutFacadeLogic.getInstance().petWatchdog();
             } else {
@@ -20,6 +22,7 @@ public class WatchdogPetter implements Runnable {
                 sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                stopped = true;
             }
         }
     }

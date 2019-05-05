@@ -1,5 +1,6 @@
 package raspberry.logic.datalogger;
 
+import raspberry.Acquaintance.ICurrentMeasurementsFacade;
 import raspberry.logic.OutFacadeLogic;
 
 import java.util.Date;
@@ -7,39 +8,36 @@ import java.util.Date;
 import static java.lang.Thread.sleep;
 
 public class DataloggerRunnable implements Runnable {
+
     private boolean stopped;
-    private DataloggerFacade dataloggerFacade;
+    private ICurrentMeasurementsFacade currentMeasurementsFacade;
 
-    public DataloggerRunnable(DataloggerFacade dataloggerFacade){
-        this.dataloggerFacade = dataloggerFacade;
+    public DataloggerRunnable(ICurrentMeasurementsFacade currentMeasurementsFacade){
+        this.currentMeasurementsFacade = currentMeasurementsFacade;
+        stopped = false;
     }
-
-
-
 
     @Override
     public void run() {
-
-        stopped = false;
-
-        try {
-            double internalTemperature = 0;
-            double externalTemperature = 0;
-            double humidity = 0;
-            double waterlevel = 0;
-
         while(!stopped){
-            //TODO DO SOMETHING
-            internalTemperature = dataloggerFacade.getInternalTemperature();
-            externalTemperature = dataloggerFacade.getExternalTemperature();
-            humidity = dataloggerFacade.getHumidity();
-            waterlevel = dataloggerFacade.getWaterlevel();
+            try {
+                Double internalTemperature = null;
+                Double externalTemperature = null;
+                Double humidity = null;
+                Double waterlevel = null;
 
-            OutFacadeLogic.getInstance().uploadDatalog(new Date(), internalTemperature, externalTemperature, humidity, waterlevel);
-            sleep(15000);
-        }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+                internalTemperature = currentMeasurementsFacade.getInternalTemperature();
+                externalTemperature = currentMeasurementsFacade.getExternalTemperature();
+                humidity = currentMeasurementsFacade.getHumdity();
+                waterlevel = currentMeasurementsFacade.getWaterlevel();
+
+                OutFacadeLogic.getInstance().uploadDatalog(new Date(), internalTemperature, externalTemperature, humidity, waterlevel);
+                sleep(15000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                stopped = true;
+            }
         }
     }
+
 }

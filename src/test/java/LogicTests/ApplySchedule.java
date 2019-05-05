@@ -1,5 +1,6 @@
 package LogicTests;
 
+import Mocks.Mocks.GreenhouseMock;
 import Mocks.Mocks.ServerMock;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -134,5 +135,7 @@ public class ApplySchedule {
         serverMock.stopThreads();
 
         Starter.stopThreads();
+
+        GreenhouseMock.getInstance().clear();
     }
 }

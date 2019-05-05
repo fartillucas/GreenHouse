@@ -5,6 +5,6 @@ import java.util.Date;
 
 public interface IDatabaseConnectionFacade {
 
-    void insertLog(String greenhouseId, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel);
+    void insertLog(String greenhouseId, Date timeOfReading, Double internalTemperature, Double extenalTemperature, Double humidity, Double waterlevel);
 
 }

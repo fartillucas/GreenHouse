@@ -1,9 +1,7 @@
 package raspberry.logic;
 
-import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
-import raspberry.Acquaintance.GreenhouseInfoEnum;
 import raspberry.Acquaintance.IInterpreter;
 
 import java.io.IOException;
@@ -28,7 +26,6 @@ public class RaspberryAPI {
         while (this.serverSocket == null) {
             try {
                 this.serverSocket = new ServerSocket(port);
-
             } catch (IOException e) {
                 port++;
             }
@@ -42,9 +39,9 @@ public class RaspberryAPI {
     }
 
     public void initialise(){
+        OutFacadeLogic.getInstance().setServerInfo(serverIP,serverPort);
         this.sendStartupMessage();
         this.acceptIncomingTraffic();
-        OutFacadeLogic.getInstance().setServerInfo(serverIP,serverPort);
     }
 
     private void acceptIncomingTraffic(){

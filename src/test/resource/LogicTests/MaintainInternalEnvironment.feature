@@ -27,12 +27,12 @@ Feature: Maintaining the internal environment
     When the water level is to low
     Then start water pump
 
-  Scenario: Humidity is too high,  and external temperature is above threshold
+  Scenario: Humidity is too high, and external temperature is above threshold
     When humidity is too high
     And external temperature is above threshold
     Then do nothing
 
-  Scenario: Humidity is too high,  and external temperature is below threshold
+  Scenario: Humidity is too high, and external temperature is below threshold
     When humidity is to high
     And external temperature is below threshold
     Then start fan

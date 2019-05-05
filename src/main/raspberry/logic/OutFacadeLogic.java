@@ -9,7 +9,7 @@ import java.util.Date;
 public class OutFacadeLogic {
 
     private static OutFacadeLogic instance;
-    private String greenhouseID = "standardGreenhouse";
+    private String greenhouseID = GreenhouseInfoEnum.GREENHOUSEINFO.getName();
     private String serverIP;
     private int serverPort;
 
@@ -23,8 +23,6 @@ public class OutFacadeLogic {
         return OutFacadeLogic.instance;
     }
 
-
-
     public void injectCommunicationFacade(ICommunicationsFacade communicationFacade) {
         this.communicationFacade = communicationFacade;
     }
@@ -33,7 +31,7 @@ public class OutFacadeLogic {
         return this.communicationFacade.getGreenhouseConnection();
     }
 
-    public void uploadDatalog(Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel) {
+    public void uploadDatalog(Date timeOfReading, Double internalTemperature, Double extenalTemperature, Double humidity, Double waterlevel) {
         communicationFacade.insertLog(greenhouseID, timeOfReading, internalTemperature, extenalTemperature, humidity, waterlevel);
     }
 
@@ -50,11 +48,14 @@ public class OutFacadeLogic {
     }
 
     public void setCurrentServerPort(int port) {
-        this.serverPort = port;
+        this.currentPort = port;
     }
 
     public String startupMessage() {
+        return this.communicationFacade.startupMessage(greenhouseID, this.currentPort);
+    }
 
-        return this.communicationFacade.startupMessage(greenhouseID, this.serverPort);
+    public int getRaspberryPort(){
+        return this.currentPort;
     }
 }

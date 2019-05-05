@@ -9,7 +9,7 @@ public interface ICommunicationsFacade {
 
 	IGreenhouseConnectionFacade getGreenhouseConnection();
 
-	void insertLog(String greenhouseId, Date timeOfReading, double internalTemperature, double extenalTemperature, double humidity, double waterlevel);
+	void insertLog(String greenhouseId, Date timeOfReading, Double internalTemperature, Double extenalTemperature, Double humidity, Double waterlevel);
 
 
     boolean petWatchdog(String greenhouseID);
