@@ -184,8 +184,8 @@ public class ServerMock {
                 message.getDouble("internal temperature");
             }
 
-            if (!message.isNull("extenal temperature")) {
-                message.getDouble("extenal temperature");
+            if (!message.isNull("external temperature")) {
+                message.getDouble("external temperature");
             }
 
             if (!message.isNull("waterlevel")) {
@@ -197,7 +197,8 @@ public class ServerMock {
             }
 
             message.getString("greenhouseID");
-            message.getLong("time of Reading");
+            message.getString("time of Reading");
+            message.getLong("java Date.getTime()");
 
             datalogMessage = message;
         } catch(JSONException e){

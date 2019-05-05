@@ -90,9 +90,9 @@ public class UploadData {
             JSONObject datalog = this.serverMock.getDatalogMessage();
 
             assertEquals(greenhouseID, datalog.getString("greenhouseID"));
-            assertTrue( datalog.getLong("time of Reading")-20000 < timestamp.getTime() || timestamp.getTime() < datalog.getLong("time of Reading"));
+            assertTrue( datalog.getLong("java Date.getTime()")-20000 < timestamp.getTime() || timestamp.getTime() < datalog.getLong("time of Reading"));
             assertEquals(internalTemperature,  datalog.getDouble("internal temperature"), 0.1);
-            assertEquals(externalTemperature,  datalog.getDouble("extenal temperature"), 0.1);
+            assertEquals(externalTemperature,  datalog.getDouble("external temperature"), 0.1);
             assertEquals(humditiy,  datalog.getDouble("humidity"), 0.1);
             assertEquals(waterlevel,  datalog.getDouble("waterlevel"), 0.1);
         } finally {
