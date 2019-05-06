@@ -28,6 +28,7 @@ public class RaspberryAPI {
                 this.serverSocket = new ServerSocket(port);
             } catch (IOException e) {
                 port++;
+                System.out.println("new port is: "+port);
             }
         }
 
@@ -62,8 +63,7 @@ public class RaspberryAPI {
                 writer.print(answer.toString()+"\n");
                 writer.flush();
             } catch (Exception e) {
-//                e.printStackTrace();
-                System.out.println();
+                e.printStackTrace();
             }
         }
     }

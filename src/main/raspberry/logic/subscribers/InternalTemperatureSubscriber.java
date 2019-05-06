@@ -25,6 +25,8 @@ public class InternalTemperatureSubscriber implements Runnable{
                 sleep(1000);
             } catch (InterruptedException e) {
                 continueRunning = false;
+            } catch (Exception e ) {
+                e.printStackTrace();
             }
         }
     }

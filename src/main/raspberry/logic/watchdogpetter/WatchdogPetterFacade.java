@@ -34,6 +34,9 @@ public class WatchdogPetterFacade implements IWatchdogPetterFacade {
     @Override
     public boolean restartWatchdogPetter() {
         stopThreads();
+        if (executor.isShutdown()) {
+            executor = Executors.newFixedThreadPool(1);
+        }
         executor.submit(new WatchdogPetter());
         return true;
     }

@@ -19,10 +19,12 @@ public class WatchdogPetter implements Runnable {
             }
 
             try {
-                sleep(1000);
+                sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 stopped = true;
+            } catch (Exception e ) {
+                e.printStackTrace();
             }
         }
     }

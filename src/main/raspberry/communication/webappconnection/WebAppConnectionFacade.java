@@ -18,6 +18,7 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         message.put("greenhouseID",greenhouseID);
 
         return new WatchdogPetter().pet(ipAddressPort, port, message);
+        //return false;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         String[] gmtSplitString = gmtString.split("[ :]");
         String[] splitTime = timeOfReading.toString().split("[ :]");
 
-        if (gmtSplitString[3].equals("PM")) {
+        if (gmtSplitString[3].equals("AM")) {
             gmtSplitString[1] = (Integer.parseInt(gmtSplitString[1])+12)+"";
         }
 
@@ -51,6 +52,7 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         message.put("java Date.getTime()",timeOfReading.getTime());
 
         return new DatalogSender().send(ServerInfoEnum.SERVERINFO.getIP(), ServerInfoEnum.SERVERINFO.getPort(), message);
+//        return true;
     }
 
     @Override
@@ -61,6 +63,7 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         message.put("port", currentPort);
 
         return new IPAddressSender().send(ip, port, message);
+//        return true;
     }
 
     @Override
@@ -71,5 +74,6 @@ public class WebAppConnectionFacade implements IWebAppConnectionFacade {
         message.put("greenhouseID", greenhouseID);
 
         return new StartupMessageSender().send(ip, port, message);
+//        return new JSONObject().toString();
     }
 }

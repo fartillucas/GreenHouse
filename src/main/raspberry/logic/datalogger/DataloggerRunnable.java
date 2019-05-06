@@ -36,6 +36,8 @@ public class DataloggerRunnable implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 stopped = true;
+            } catch (Exception e ) {
+                e.printStackTrace();
             }
         }
     }

@@ -53,6 +53,7 @@ public class ProcedureInterpreter {
                     return ErrorCode.WRONGFORMAT;
                 }
             case "retryConnection":
+                System.out.println("Retry connection");
                 if(watchdogPetterFacade.restartWatchdogPetter()) {
                     return ErrorCode.OK;
                 }

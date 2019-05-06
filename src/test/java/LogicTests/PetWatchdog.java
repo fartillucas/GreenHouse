@@ -45,7 +45,7 @@ public class PetWatchdog {
 
     @When("^it's time to pet$")
     public void itSTimeToPet() throws Throwable {
-        sleep(2000);
+        sleep(10000);
     }
 
     @Then("^the greenhouse sends some kind of message to the server$")
