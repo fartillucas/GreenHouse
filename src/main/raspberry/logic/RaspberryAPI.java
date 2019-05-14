@@ -69,10 +69,18 @@ public class RaspberryAPI {
     }
 
     private void sendStartupMessage(){
-        try{
-            String schedule = OutFacadeLogic.getInstance().startupMessage();
-            interpreter.interpret(schedule);
-        } catch (Exception e){
+        boolean stopped = false;
+        while(!stopped){
+            try{
+                String schedule = OutFacadeLogic.getInstance().startupMessage();
+                interpreter.interpret(schedule);
+                stopped = true;
+            } catch (Exception e){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                }
+            }
         }
     }
 

@@ -72,7 +72,13 @@ public class GreenhouseMock implements IGreenhouse {
 
 	@Override
 	public boolean SetTemperature(int kelvin) {
-		this.internalTemperature = this.internalTemperature-(internalTemperature-kelvin)/2;
+//		this.internalTemperature = this.internalTemperature-(internalTemperature-kelvin)/2;
+		if (Math.abs(this.internalTemperature-kelvin) <1 ){
+		} else if(this.internalTemperature<kelvin){
+			this.internalTemperature += 1;
+		} else {
+			this.internalTemperature -=1;
+		}
 		return true;
 	}
 
