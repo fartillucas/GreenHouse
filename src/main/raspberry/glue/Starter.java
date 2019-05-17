@@ -82,7 +82,6 @@ public class Starter {
         communicationFacade.injectDatabaseConnection(databaseConnectionFacade);
         communicationFacade.injectGreenhouse(greenhouseConnectionFacade);
         communicationFacade.injectWebAppConnectionFacade(webAppConnectionFacade);
-
     }
 
     private static void initializeLogic(InterpreterFacade interpreter, LiveDataGetterFacade liveDataGetterFacade, SubscribersFacade subscribersFacade, RegulatorFacade regulatorFacade, DataloggerFacade dataloggerFacade, WatchdogPetterFacade watchdogPetterFacade){

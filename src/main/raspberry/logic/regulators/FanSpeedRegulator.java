@@ -9,6 +9,7 @@ import static java.lang.Thread.sleep;
 
 public class FanSpeedRegulator implements Runnable{
 
+	private double lastHumidity;
 	private boolean continueRunning;
 	private ICurrentMeasurementsFacade currentMeasurements;
 	private ISchedule schedule;
@@ -20,6 +21,7 @@ public class FanSpeedRegulator implements Runnable{
 		this.schedule = schedule;
 		this.lastSpeed = -1;
 		continueRunning = true;
+		this.lastHumidity = 20;
 	}
 
 	@Override
@@ -71,8 +73,10 @@ public class FanSpeedRegulator implements Runnable{
 		double humidityFactor = 0.8;
 		double temperatureFactor = 1.0;
 		double temperatureDifference = 20;
+		double humidityDifference = currentHumidity - this.lastHumidity;
+		this.lastHumidity = currentHumidity;
 
-		double humidityScore = humidityFactor*(currentHumidity-scheduleHumidity)*(currentInternalTemperature+temperatureDifference-currentExternalTemperature);
+		double humidityScore = humidityFactor*humidityDifference*(currentHumidity-scheduleHumidity)*(currentInternalTemperature+temperatureDifference-currentExternalTemperature);
 		double temperatureScore = temperatureFactor*((currentInternalTemperature-scheduleTemperature)*(currentInternalTemperature-currentExternalTemperature));
 
 		double regulatorScore = humidityScore+temperatureScore;
@@ -95,13 +99,16 @@ public class FanSpeedRegulator implements Runnable{
 	}
 
 	private int calculateNoTemperatureRegulation(Double scheduleHumidity, Double currentHumidity){
-		Double humidityDifference = currentHumidity-scheduleHumidity;
+		double humidityDifference = currentHumidity - this.lastHumidity;
+		this.lastHumidity = currentHumidity;
+
+		Double humidityScore = humidityDifference*(currentHumidity-scheduleHumidity);
 
 		int speed;
 
-		if (humidityDifference <= 0){
+		if (humidityScore <= 0){
 			speed = 0;
-		} else if (humidityDifference>30) {
+		} else if (humidityScore>30) {
 			speed = 2;
 		} else {
 			speed = 1;
