@@ -1,5 +1,6 @@
 package raspberry.logic.Interpreters;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import raspberry.Acquaintance.ErrorCode;
 import raspberry.Acquaintance.ILiveDataGetter;
@@ -32,8 +33,13 @@ public class ProcedureInterpreter {
         //TODO should the interpreter also dispatch the message?
 
         JSONObject jsonMessage = new JSONObject(message);
+        String procedure ="";
 
-        String procedure = jsonMessage.getString("procedure");
+        try {
+            procedure = jsonMessage.getString("procedure");
+        } catch (JSONException e){
+            return ErrorCode.UNDEFINEDPROCEDURE;
+        }
 
         switch(procedure){
             case "applySchedule":

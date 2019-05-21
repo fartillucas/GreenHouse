@@ -90,12 +90,6 @@ public class LiveDataGetter extends Thread {
 
                 writer.print(message+"\n");
                 writer.flush();
-//                if (scan.hasNextLine()) {
-//                    String quit = scan.nextLine();
-//                    if (quit.equalsIgnoreCase("stop")) {
-//                        itsAGoTime = false;
-//                    }
-//                }
             }
 
             try {
@@ -103,7 +97,7 @@ public class LiveDataGetter extends Thread {
             } catch (InterruptedException e) {
                 continueRunning = false;
             } catch(Exception e){
-                e.printStackTrace();
+                continueRunning = false;
             }
         }
     }

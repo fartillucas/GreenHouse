@@ -86,7 +86,7 @@ public class Starter {
 
     private static void initializeLogic(InterpreterFacade interpreter, LiveDataGetterFacade liveDataGetterFacade, SubscribersFacade subscribersFacade, RegulatorFacade regulatorFacade, DataloggerFacade dataloggerFacade, WatchdogPetterFacade watchdogPetterFacade){
         interpreter.initialize();
-        liveDataGetterFacade.initialize();
+        //liveDataGetterFacade.initialize();
         subscribersFacade.initialize();
         regulatorFacade.initialize();
         dataloggerFacade.initialize();

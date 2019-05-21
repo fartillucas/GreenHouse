@@ -15,7 +15,12 @@ public class LiveDataGetterFacade implements ILiveDataGetter {
 
     @Override
     public ErrorCode setConnection(IPAddressPort ipAddressPort){
-        return liveDataGetter.setConnection(ipAddressPort);
+        this.liveDataGetter = new LiveDataGetter(currentMeasurementsFacade);
+        this.liveDataGetter.setName("LiveDataGetter");
+        this.liveDataGetter.setDaemon(true);
+        ErrorCode error =  liveDataGetter.setConnection(ipAddressPort);
+        this.liveDataGetter.start();
+        return error;
     }
 
     public void injectCurrentMeasurementsFacade(ICurrentMeasurementsFacade currentMeasurementsFacade) {
@@ -30,6 +35,8 @@ public class LiveDataGetterFacade implements ILiveDataGetter {
     }
 
     public void stopThreads() {
-        this.liveDataGetter.interrupt();
+        if (this.liveDataGetter != null) {
+            this.liveDataGetter.interrupt();
+        }
     }
 }
